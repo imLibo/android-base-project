@@ -1,2 +1,2 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.cnksi.core"/>
+<manifest package="com.cnksi.android"
+          xmlns:android="http://schemas.android.com/apk/res/android"/>

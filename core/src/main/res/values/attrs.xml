@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AutoBackgroundButton">
+        <attr name="pressColor" format="color"/>
+        <attr name="normalColor" format="color"/>
+        <attr name="disableColor" format="color"/>
+        <attr name="radius" format="dimension"/>
+        <attr name="shape">
+            <enum name="rectangle" value="0"/>
+            <enum name="oval" value="1"/>
+            <enum name="line" value="2"/>
+            <enum name="ring" value="3"/>
+        </attr>
+        <attr name="textPressColor" format="color"/>
+    </declare-styleable>
+    <declare-styleable name="UnderLineLinearLayout">
+        <attr name="drawUnderLine" format="boolean"/>
+        <attr name="marginLeft" format="dimension"/>
+        <attr name="marginRight" format="dimension"/>
+        <attr name="lineColor" format="color"/>
+        <attr name="lineHeight" format="dimension"/>
+    </declare-styleable>
+
+</resources>

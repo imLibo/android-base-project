@@ -1,15 +1,28 @@
 package com.cnksi.sample
 
+import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
-
+import com.cnksi.android.base.BaseCoreActivity
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseCoreActivity() {
+    override fun onGranted(permissions: MutableList<String>?) {
+        Toasty.success(mActivity, TextUtils.join(",", permissions)).show()
+    }
+
+    override fun onDenied(permissions: MutableList<String>) {
+        Toasty.warning(mActivity, TextUtils.join(",", permissions)).show()
+    }
+
+    override fun getPermission(): Array<String> {
+        return arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
