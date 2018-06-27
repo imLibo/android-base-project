@@ -3,4 +3,27 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <color name="bg_red_ff7575">#ff7575</color>
+    <color name="bg_orange_ff9147">#ff9147</color>
+    <color name="bg_yellow_ffc000">#ffc000</color>
+    <color name="bg_blue_04a5e7">#04a5e7</color>
+    <color name="bg_green_01ce7f">#01ce7f</color>
+    <color name="bg_green_5dbf19">#5dbf19</color>
+    <color name="bg_yellow_f3ead9">#f3ead9</color>
+    <color name="bg_blue_d8edf1">#d8edf1</color>
+    <color name="bg_purple_9749da">#9749da</color>
+    <color name="bg_purple_a3a9ff">#a3a9ff</color>
+    <color name="bg_green_8ece62">#8ece62</color>
+    <color name="bg_blue_59e9f2">#59e9f2</color>
+    <color name="bg_green_4bd1b6">#4bd1b6</color>
+    <color name="bg_gray_626262">#626262</color>
+    <color name="bg_gray_8888585">#888585</color>
+    <color name="bg_gray_d6d6d6">#d6d6d6</color>
+    <color name="bg_gray_576362">#576362</color>
+    <color name="bg_gray_e1e4e4">#e1e4e4</color>
+    <color name="bg_gray_f0f2f2">#f0f2f2</color>
+    <color name="bg_gray_f0f2f1">#FF888888</color>
+
 </resources>

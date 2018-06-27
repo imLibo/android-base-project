@@ -6,6 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
@@ -22,12 +25,16 @@ import com.cnksi.android.R;
  * @since 1.0
  */
 public class UnderLineLinearLayout extends LinearLayout {
+
     private boolean drawUnderLine;
     private int marginLeft;
     private int marginRight;
     private int lineColor = Color.parseColor("#e1e4e4");
     private int lineHeight;
+    private int normalColor;
+    private int pressColor;
     private Paint linePaint;
+    private Rect lineRect = new Rect();
 
     public UnderLineLinearLayout(Context context) {
         super(context);
@@ -46,70 +53,91 @@ public class UnderLineLinearLayout extends LinearLayout {
 
     private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.UnderLineLinearLayout, defStyleAttr, defStyleRes);
-        lineColor = a.getColor(R.styleable.UnderLineLinearLayout_lineColor, lineColor);
-        marginLeft = a.getDimensionPixelSize(R.styleable.UnderLineLinearLayout_marginLeft, 0);
-        marginRight = a.getDimensionPixelSize(R.styleable.UnderLineLinearLayout_marginRight, 0);
-        lineHeight = a.getDimensionPixelSize(R.styleable.UnderLineLinearLayout_lineHeight, 2);
-        drawUnderLine = a.getBoolean(R.styleable.UnderLineLinearLayout_drawUnderLine, false);
-        linePaint = new Paint();
-        linePaint.setAntiAlias(true);
-        linePaint.setStrokeWidth(lineHeight);
+        lineColor = a.getColor(R.styleable.UnderLineLinearLayout_ull_lineColor, lineColor);
+        marginLeft = a.getDimensionPixelSize(R.styleable.UnderLineLinearLayout_ull_marginLeft, 0);
+        marginRight = a.getDimensionPixelSize(R.styleable.UnderLineLinearLayout_ull_marginRight, 0);
+        lineHeight = a.getDimensionPixelSize(R.styleable.UnderLineLinearLayout_ull_lineHeight, 2);
+        normalColor = a.getColor(R.styleable.UnderLineLinearLayout_ull_normalColor, 0);
+        pressColor = a.getColor(R.styleable.UnderLineLinearLayout_ull_pressColor, getPressColor(normalColor));
+        linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        linePaint.setStyle(Paint.Style.FILL);
         linePaint.setColor(lineColor);
         a.recycle();
+        updateBackground();
     }
 
-
-    @Override
-    protected void dispatchDraw(Canvas canvas) {
-        super.dispatchDraw(canvas);
-        if (drawUnderLine && lineHeight > 0) {
-            canvas.drawLine(marginLeft, getHeight() - lineHeight, getWidth() - marginRight, getHeight() - lineHeight, linePaint);
+    private void updateBackground() {
+        if (normalColor != 0) {
+            StateListDrawable stateListDrawable = new StateListDrawable();
+            GradientDrawable pressDrawable = new GradientDrawable();
+            pressDrawable.setColor(pressColor);
+            stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, pressDrawable);
+            stateListDrawable.addState(new int[]{android.R.attr.state_selected}, pressDrawable);
+            GradientDrawable normalDrawable = new GradientDrawable();
+            normalDrawable.setColor(normalColor);
+            stateListDrawable.addState(new int[]{}, normalDrawable);
+            this.setBackground(stateListDrawable);
         }
     }
 
-    private Rect invalidateRect = new Rect();
-
-    private void calcInvalidateRect() {
-        invalidateRect.left = 0;
-        invalidateRect.right = getWidth();
-        invalidateRect.bottom = getHeight();
-        invalidateRect.top = getHeight() - lineHeight;
-
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        lineRect.set(marginLeft, getHeight() - lineHeight, getWidth() - marginRight, getHeight());
     }
 
-    public void setDrawUnderLine(boolean drawUnderLine) {
-        this.drawUnderLine = drawUnderLine;
-        calcInvalidateRect();
-        invalidate(invalidateRect);
+    @ColorInt
+    private int getPressColor(@ColorInt int unPressColor) {
+        int r = Color.red(unPressColor);
+        int g = Color.green(unPressColor);
+        int b = Color.blue(unPressColor);
+        float a = Color.alpha(unPressColor) * 1.0f / 255;
+        //Mask is #33000000
+        int maskR = 0, maskG = 0, maskB = 0;
+        float maskA = 0.2f;
+
+        int rsR = (int) (r * a * (1 - maskA) + maskA * maskR);
+        int rsB = (int) (b * a * (1 - maskA) + maskA * maskB);
+        int rsG = (int) (g * a * (1 - maskA) + maskA * maskG);
+        float rsA = 1 - (1 - a) * (1 - maskA);
+        return Color.argb((int) (rsA * 255), rsR, rsG, rsB);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        if (!lineRect.isEmpty()) {
+            canvas.drawRect(lineRect, linePaint);
+        }
+        super.dispatchDraw(canvas);
     }
 
     public void setMarginLeft(int marginLeft) {
         this.marginLeft = marginLeft;
-        calcInvalidateRect();
-        invalidate(invalidateRect);
+        invalidateRect();
     }
 
     public void setMarginRight(int marginRight) {
         this.marginRight = marginRight;
-        calcInvalidateRect();
-        invalidate(invalidateRect);
+        invalidate();
     }
 
     public void setLineColor(int lineColor) {
         this.lineColor = lineColor;
-        calcInvalidateRect();
-        invalidate(invalidateRect);
+        linePaint.setColor(lineColor);
+        invalidateRect();
     }
 
     public void setLineHeight(int lineHeight) {
         this.lineHeight = lineHeight;
-        calcInvalidateRect();
-        invalidate(invalidateRect);
+        invalidateRect();
     }
 
-    public void setLinePaint(Paint linePaint) {
-        this.linePaint = linePaint;
-        calcInvalidateRect();
-        invalidate(invalidateRect);
+    private void invalidateRect() {
+        if (lineHeight <= 0) {
+            lineRect.setEmpty();
+        } else {
+            lineRect.set(marginLeft, getHeight() - lineHeight, getWidth() - marginRight, getHeight());
+        }
+        invalidate();
     }
 }

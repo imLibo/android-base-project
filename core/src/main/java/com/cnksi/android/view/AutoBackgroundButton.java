@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.ColorInt;
@@ -53,20 +54,21 @@ public class AutoBackgroundButton extends AppCompatTextView {
 
     private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.AutoBackgroundButton, defStyleAttr, defStyleRes);
-        normalColor = a.getColor(R.styleable.AutoBackgroundButton_normalColor, Color.RED);
-        pressColor = a.getColor(R.styleable.AutoBackgroundButton_pressColor, getPressColor(normalColor));
-        if (a.hasValue(R.styleable.AutoBackgroundButton_textPressColor)) {
-            textPressColor = a.getColor(R.styleable.AutoBackgroundButton_textPressColor, 0);
+        normalColor = a.getColor(R.styleable.AutoBackgroundButton_abb_normalColor, Color.RED);
+        pressColor = a.getColor(R.styleable.AutoBackgroundButton_abb_pressColor, getPressColor(normalColor));
+        if (a.hasValue(R.styleable.AutoBackgroundButton_abb_textPressColor)) {
+            textPressColor = a.getColor(R.styleable.AutoBackgroundButton_abb_textPressColor, 0);
         }
-        pressColor = a.getColor(R.styleable.AutoBackgroundButton_pressColor, getPressColor(normalColor));
-        disableColor = a.getColor(R.styleable.AutoBackgroundButton_disableColor, Color.parseColor("#d6d7d9"));
-        radius = a.getDimensionPixelSize(R.styleable.AutoBackgroundButton_radius, 9);
-        shape = convertShape(a.getInt(R.styleable.AutoBackgroundButton_shape, 0));
+        pressColor = a.getColor(R.styleable.AutoBackgroundButton_abb_pressColor, getPressColor(normalColor));
+        disableColor = a.getColor(R.styleable.AutoBackgroundButton_abb_disableColor, Color.parseColor("#d6d7d9"));
+        radius = a.getDimensionPixelSize(R.styleable.AutoBackgroundButton_abb_radius, 9);
+        shape = convertShape(a.getInt(R.styleable.AutoBackgroundButton_abb_shape, 0));
         a.recycle();
         updateBackground();
     }
 
     private void updateBackground() {
+        if(getBackground() instanceof ColorDrawable){}
         StateListDrawable stateListDrawable = new StateListDrawable();
         GradientDrawable pressDrawable = new GradientDrawable();
         pressDrawable.setCornerRadius(radius);

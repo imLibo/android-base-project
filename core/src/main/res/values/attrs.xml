@@ -2,24 +2,41 @@
 <resources>
 
     <declare-styleable name="AutoBackgroundButton">
-        <attr name="pressColor" format="color"/>
-        <attr name="normalColor" format="color"/>
-        <attr name="disableColor" format="color"/>
-        <attr name="radius" format="dimension"/>
-        <attr name="shape">
+        <attr name="abb_pressColor" format="color"/>
+        <attr name="abb_normalColor" format="color"/>
+        <attr name="abb_disableColor" format="color"/>
+        <attr name="abb_radius" format="dimension"/>
+        <attr name="abb_shape">
             <enum name="rectangle" value="0"/>
             <enum name="oval" value="1"/>
             <enum name="line" value="2"/>
             <enum name="ring" value="3"/>
         </attr>
-        <attr name="textPressColor" format="color"/>
+        <attr name="abb_textPressColor" format="color"/>
     </declare-styleable>
     <declare-styleable name="UnderLineLinearLayout">
-        <attr name="drawUnderLine" format="boolean"/>
-        <attr name="marginLeft" format="dimension"/>
-        <attr name="marginRight" format="dimension"/>
-        <attr name="lineColor" format="color"/>
-        <attr name="lineHeight" format="dimension"/>
+        <attr name="ull_marginLeft" format="dimension"/>
+        <attr name="ull_marginRight" format="dimension"/>
+        <attr name="ull_lineColor" format="color"/>
+        <attr name="ull_lineHeight" format="dimension"/>
+        <attr name="ull_pressColor" format="color"/>
+        <attr name="ull_normalColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="LabelValueLayout">
+        <attr name="lvl_spacing" format="dimension"/>
+        <attr name="lvl_labelTextSize" format="dimension"/>
+        <attr name="lvl_valueTextSize" format="dimension"/>
+        <attr name="lvl_labelTextColor" format="color"/>
+        <attr name="lvl_valueTextColor" format="color"/>
+        <attr name="lvl_lineHeight" format="dimension"/>
+        <attr name="lvl_lineWidth" format="dimension"/>
+        <attr name="lvl_lineMarginLeft" format="dimension"/>
+        <attr name="lvl_lineMarginRight" format="dimension"/>
+        <attr name="lvl_lineMarginTop" format="dimension"/>
+        <attr name="lvl_lineMarginBottom" format="dimension"/>
+        <attr name="lvl_lineColor" format="color"/>
+    </declare-styleable>
+
 
 </resources>
