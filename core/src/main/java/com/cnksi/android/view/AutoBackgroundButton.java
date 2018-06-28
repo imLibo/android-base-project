@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.ColorInt;
@@ -28,6 +27,8 @@ public class AutoBackgroundButton extends AppCompatTextView {
     private final static int ATTR_PRESS = android.R.attr.state_pressed;
     private final static int ATTR_ENABLE = android.R.attr.state_enabled;
 
+    protected Context mContext;
+
     private int pressColor;
     private int textPressColor = 0;
     private int normalColor;
@@ -38,23 +39,26 @@ public class AutoBackgroundButton extends AppCompatTextView {
 
     public AutoBackgroundButton(Context context) {
         super(context);
+        mContext = context;
         init(null, 0, 0);
     }
 
     public AutoBackgroundButton(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
         init(attrs, 0, 0);
     }
 
     public AutoBackgroundButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mContext = context;
         init(attrs, defStyleAttr, 0);
     }
 
 
     private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.AutoBackgroundButton, defStyleAttr, defStyleRes);
-        normalColor = a.getColor(R.styleable.AutoBackgroundButton_abb_normalColor, Color.RED);
+        normalColor = a.getColor(R.styleable.AutoBackgroundButton_abb_normalColor, 0);
         pressColor = a.getColor(R.styleable.AutoBackgroundButton_abb_pressColor, getPressColor(normalColor));
         if (a.hasValue(R.styleable.AutoBackgroundButton_abb_textPressColor)) {
             textPressColor = a.getColor(R.styleable.AutoBackgroundButton_abb_textPressColor, 0);
@@ -68,7 +72,6 @@ public class AutoBackgroundButton extends AppCompatTextView {
     }
 
     private void updateBackground() {
-        if(getBackground() instanceof ColorDrawable){}
         StateListDrawable stateListDrawable = new StateListDrawable();
         GradientDrawable pressDrawable = new GradientDrawable();
         pressDrawable.setCornerRadius(radius);
@@ -114,6 +117,9 @@ public class AutoBackgroundButton extends AppCompatTextView {
 
     @ColorInt
     private int getPressColor(@ColorInt int unPressColor) {
+        if (unPressColor == 0) {
+            return unPressColor;
+        }
         int r = Color.red(unPressColor);
         int g = Color.green(unPressColor);
         int b = Color.blue(unPressColor);
@@ -127,5 +133,11 @@ public class AutoBackgroundButton extends AppCompatTextView {
         int rsG = (int) (g * a * (1 - maskA) + maskA * maskG);
         float rsA = 1 - (1 - a) * (1 - maskA);
         return Color.argb((int) (rsA * 255), rsR, rsG, rsB);
+    }
+
+    public void setNormalColor(int normalColor) {
+        this.normalColor = normalColor;
+        this.pressColor = getPressColor(normalColor);
+        updateBackground();
     }
 }

@@ -6,10 +6,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +32,10 @@ import com.cnksi.android.R;
 public class LabelValueLayout extends LinearLayout {
 
     private Context mContext;
-    private TextView mTvLabel, mTvValue;
+    private LinearLayout mContainer;
+    private TextView mTvLabel;
+    private EditText mTvValue;
+    private CenterDrawableTextView mDrawableView;
     /**
      * label和value之间的间隔
      */
@@ -43,6 +51,12 @@ public class LabelValueLayout extends LinearLayout {
     private int lineMarginTop;
     private int lineMarginBottom;
     private int lineColor = Color.parseColor("#e1e4e4");
+    private Drawable mDrawable;
+    private boolean isEdit;
+    private int drawableBackgroundColor;
+    private String drawableText;
+    private int drawableWidth;
+    private int drawableHeight;
 
     private Paint mPaint;
     private Rect mUnderRect = new Rect();
@@ -78,6 +92,12 @@ public class LabelValueLayout extends LinearLayout {
         lineMarginTop = a.getDimensionPixelSize(R.styleable.LabelValueLayout_lvl_lineMarginTop, 0);
         lineMarginBottom = a.getDimensionPixelSize(R.styleable.LabelValueLayout_lvl_lineMarginBottom, 0);
         lineColor = a.getColor(R.styleable.LabelValueLayout_lvl_lineColor, lineColor);
+        isEdit = a.getBoolean(R.styleable.LabelValueLayout_lvl_valueTextEnabledEdit, false);
+        mDrawable = a.getDrawable(R.styleable.LabelValueLayout_lvl_rightDrawable);
+        drawableBackgroundColor = a.getColor(R.styleable.LabelValueLayout_lvl_rightBackgroundColor, 0);
+        drawableText = a.getString(R.styleable.LabelValueLayout_lvl_rightText);
+        drawableWidth = a.getDimensionPixelOffset(R.styleable.LabelValueLayout_lvl_rightDrawableWidth, -1);
+        drawableHeight = a.getDimensionPixelOffset(R.styleable.LabelValueLayout_lvl_rightDrawableHeight, -1);
         a.recycle();
         initPaint();
         initView();
@@ -97,13 +117,38 @@ public class LabelValueLayout extends LinearLayout {
         mTvLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX, labelTextSize);
         mTvLabel.setTextColor(labelTextColor);
 
-        mTvValue = new TextView(mContext);
+        mTvValue = new EditText(mContext);
+        mTvValue.setBackground(null);
+        mTvValue.setFocusable(isEdit);
+        mTvValue.setCursorVisible(isEdit);
+        mTvValue.setPadding(0, 0, 0, 0);
         mTvValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, valueTextSize);
         mTvValue.setTextColor(valueTextColor);
 
+
+        mContainer = new LinearLayout(mContext);
+        mContainer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mContainer.setOrientation(LinearLayout.HORIZONTAL);
+        mContainer.setGravity(Gravity.CENTER_VERTICAL);
+
+        mContainer.addView(mTvValue, new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+        if (mDrawable != null || !TextUtils.isEmpty(drawableText)) {
+            mDrawableView = new CenterDrawableTextView(mContext);
+            mDrawableView.setNormalColor(drawableBackgroundColor);
+            mDrawableView.setDrawable(mDrawable);
+            mDrawableView.setText(drawableText);
+            if (drawableHeight > 0 && drawableWidth > 0) {
+                mDrawableView.setHeight(drawableHeight);
+                mDrawableView.setWidth(drawableWidth);
+            }
+            mContainer.addView(mDrawableView);
+        }
+
         setSpacing(spacing);
+
         this.addView(mTvLabel);
-        this.addView(mTvValue);
+        this.addView(mContainer);
     }
 
     @Override
@@ -132,7 +177,7 @@ public class LabelValueLayout extends LinearLayout {
         return mTvLabel;
     }
 
-    public TextView getValueView() {
+    public EditText getValueView() {
         return mTvValue;
     }
 
@@ -148,7 +193,7 @@ public class LabelValueLayout extends LinearLayout {
         } else {
             params.topMargin = spacing;
         }
-        mTvValue.setLayoutParams(params);
+        mContainer.setLayoutParams(params);
     }
 
     public int getLabelTextSize() {
@@ -292,5 +337,56 @@ public class LabelValueLayout extends LinearLayout {
         this.lineColor = lineColor;
         this.mPaint.setColor(lineColor);
         invalidate();
+    }
+
+    /**
+     * 设置EditText是否可编辑
+     *
+     * @param enabled
+     */
+    public void setValueViewEdit(boolean enabled) {
+        this.isEdit = enabled;
+        mTvValue.setFocusable(enabled);
+        mTvValue.setCursorVisible(enabled);
+    }
+
+    public boolean getValueViewEdit() {
+        return isEdit;
+    }
+
+    public void setDrawableOnClickListener(OnClickListener onClickListener) {
+        if (mDrawableView != null && onClickListener != null) {
+            mDrawableView.setOnClickListener(onClickListener);
+        }
+    }
+
+    public void setDrawableResource(@DrawableRes int resId) {
+        if (mDrawableView != null) {
+            mDrawableView.setCompoundDrawablesWithIntrinsicBounds(mContext.getDrawable(resId), null, null, null);
+        }
+    }
+
+    public void setDrawable(Drawable drawable) {
+        if (mDrawableView != null) {
+            mDrawableView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+        }
+    }
+
+    public String getDrawableText() {
+        return drawableText;
+    }
+
+    public void setDrawableText(String drawableText) {
+        if (mDrawableView != null) {
+            mDrawableView.setText(drawableText);
+        }
+    }
+
+    public CenterDrawableTextView getDrawableView() {
+        return mDrawableView;
+    }
+
+    public void setValueTextOnClickListener(OnClickListener onClickListener) {
+        mTvValue.setOnClickListener(onClickListener);
     }
 }

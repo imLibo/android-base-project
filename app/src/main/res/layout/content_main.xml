@@ -51,16 +51,31 @@
             app:lvl_lineMarginRight="@dimen/dp_10"
             app:lvl_lineMarginTop="@dimen/dp_10"
             app:lvl_lineWidth="3px"
-            app:lvl_spacing="80px"
+            app:lvl_rightBackgroundColor="@color/bg_blue_59e9f2"
+            app:lvl_rightDrawable="@mipmap/ic_arrow_down"
+            app:lvl_spacing="30px"
             app:lvl_valueTextColor="@color/bg_green_01ce7f"
+            app:lvl_valueTextEnabledEdit="true"
             app:lvl_valueTextSize="50px"/>
 
         <LinearLayout
             android:id="@+id/container"
-            app:layout_constraintTop_toBottomOf="@id/labelValueContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/labelValueContainer"/>
+
+        <com.cnksi.android.view.CenterDrawableTextView
+            android:id="@+id/cdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawableLeft="@mipmap/ic_arrow_down"
+            android:padding="@dimen/dp_4"
+            app:abb_normalColor="@android:color/transparent"
+            app:abb_radius="5dp"
+            app:abb_textPressColor="@color/bg_green_01ce7f"
+            app:layout_constraintTop_toBottomOf="@id/container"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

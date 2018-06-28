@@ -36,7 +36,12 @@
         <attr name="lvl_lineMarginTop" format="dimension"/>
         <attr name="lvl_lineMarginBottom" format="dimension"/>
         <attr name="lvl_lineColor" format="color"/>
+        <attr name="lvl_valueTextEnabledEdit" format="boolean"/>
+        <attr name="lvl_rightDrawable" format="reference"/>
+        <attr name="lvl_rightText" format="string"/>
+        <attr name="lvl_rightBackgroundColor" format="color"/>
+        <attr name="lvl_rightDrawableWidth" format="dimension"/>
+        <attr name="lvl_rightDrawableHeight" format="dimension"/>
     </declare-styleable>
-
 
 </resources>

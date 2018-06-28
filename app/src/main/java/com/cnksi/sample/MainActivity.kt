@@ -50,8 +50,14 @@ class MainActivity : BaseCoreActivity() {
             mBinding.contentMain?.labelValueContainer?.labelTextColor = resources.getColor(R.color.bg_green_01ce7f)
             mBinding.contentMain?.labelValueContainer?.labelTextSize = 80
             mBinding.contentMain?.labelValueContainer?.valueTextSize = 30
+            mBinding.contentMain?.labelValueContainer?.setDrawableResource(R.mipmap.ic_login_user)
+            mBinding.contentMain?.labelValueContainer?.drawableText = "密码"
+            mBinding.contentMain?.labelValueContainer?.drawableView?.width = 150
+            mBinding.contentMain?.labelValueContainer?.drawableView?.height = 90
             mBinding.contentMain?.lineLayout?.setMarginLeft(100)
 
+//            mBinding.contentMain?.cdt?.text = "用户名"
+            mBinding.contentMain?.cdt?.setDrawableResource((R.mipmap.ic_login_user))
         }
 
         // Example of a call to a native method
@@ -59,7 +65,13 @@ class MainActivity : BaseCoreActivity() {
 
 
         mBinding.contentMain?.labelValueContainer?.labelView?.text = "设备类型"
-        mBinding.contentMain?.labelValueContainer?.valueView?.text = "开关柜"
+        mBinding.contentMain?.labelValueContainer?.valueView?.setText("开关柜")
+        mBinding.contentMain?.labelValueContainer?.setValueTextOnClickListener { _ ->
+            Toasty.info(this, mBinding.contentMain?.labelValueContainer?.valueText.toString()).show()
+        }
+        mBinding.contentMain?.labelValueContainer?.setDrawableOnClickListener { _ ->
+            Toasty.info(this, mBinding.contentMain?.labelValueContainer?.valueText.toString()).show()
+        }
 
         mBinding.contentMain?.sampleText?.setOnClickListener { _ ->
             mBinding.contentMain?.labelValueContainer?.lineHeight = 25
