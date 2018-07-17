@@ -11,7 +11,7 @@ import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
-import com.cnksi.android.log.Logger;
+import com.cnksi.android.log.KLog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public final class AppUtils {
             int labelRes = packageInfo.applicationInfo.labelRes;
             return context.getResources().getString(labelRes);
         } catch (NameNotFoundException e) {
-            Logger.e(e);
+            KLog.e(e);
         }
         return "";
     }
@@ -84,7 +84,7 @@ public final class AppUtils {
             PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             return packageInfo.versionName;
         } catch (NameNotFoundException e) {
-            Logger.e(e);
+            KLog.e(e);
         }
         return "";
     }
@@ -102,7 +102,7 @@ public final class AppUtils {
             PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             return packageInfo.versionCode;
         } catch (NameNotFoundException e) {
-            Logger.e(e);
+            KLog.e(e);
         }
         return 0;
     }
@@ -121,7 +121,7 @@ public final class AppUtils {
                 packageInfo = context.getPackageManager().getPackageArchiveInfo(file.getAbsolutePath(), 0);
             }
         } catch (Exception e) {
-            Logger.e(e);
+            KLog.e(e);
         }
         return packageInfo;
     }
@@ -137,7 +137,7 @@ public final class AppUtils {
         try {
             packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
         } catch (Exception e) {
-            Logger.e(e);
+            KLog.e(e);
         }
         return packageInfo;
     }
@@ -155,7 +155,7 @@ public final class AppUtils {
         try {
             packageInfo = pm.getPackageInfo(packageName, 0);
         } catch (NameNotFoundException e) {
-            Logger.e(e);
+            KLog.e(e);
         }
         return packageInfo;
     }
@@ -174,7 +174,7 @@ public final class AppUtils {
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
             installed = true;
         } catch (NameNotFoundException e) {
-            Logger.e(e);
+            KLog.e(e);
             installed = false;
         }
         return installed;
@@ -233,7 +233,7 @@ public final class AppUtils {
             String md5Str = com.cnksi.android.utils.MD5.getMessageDigest(sign.toByteArray());
             isVer = md5.equals(md5Str) && (hashode == hashCodeApk);
         } catch (Exception e) {
-            Logger.e(e);
+            KLog.e(e);
         }
         return isVer;
     }
@@ -247,7 +247,7 @@ public final class AppUtils {
      */
     public static String getSignature(Context context, String packageName) {
         if (TextUtils.isEmpty(packageName)) {
-            Logger.e("获取签名失败，包名为 null");
+            KLog.e("获取签名失败，包名为 null");
             return "";
         }
         PackageManager localPackageManager = context.getPackageManager();
@@ -255,19 +255,18 @@ public final class AppUtils {
         try {
             localPackageInfo = localPackageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
             if (localPackageInfo == null) {
-                Logger.e("信息为 null, 包名=" + packageName);
+                KLog.e("信息为 null, 包名=" + packageName);
                 return "";
             }
         } catch (PackageManager.NameNotFoundException localNameNotFoundException) {
-            Logger.e("包名没有找到...");
+            KLog.e("包名没有找到...");
             return "";
         }
         Signature[] arrayOfSignature = localPackageInfo.signatures;
         if ((arrayOfSignature == null) || (arrayOfSignature.length == 0)) {
-            Logger.e("signature is null");
+            KLog.e("signature is null");
             return "";
         }
         return com.cnksi.android.utils.MD5.getMessageDigest(arrayOfSignature[0].toByteArray());
     }
-
 }

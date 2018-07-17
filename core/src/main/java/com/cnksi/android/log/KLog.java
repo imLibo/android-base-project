@@ -16,9 +16,9 @@ import java.util.Locale;
  * @date 2018/4/10
  * @since 1.0
  */
-public final class Logger {
+public final class KLog {
 
-    private Logger() {
+    private KLog() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
@@ -27,7 +27,7 @@ public final class Logger {
     private static final String DEFAULT_MESSAGE = "execute";
     private static final String PARAM = "Param";
     private static final String NULL = "null";
-    private static final String TAG_DEFAULT = "Logger";
+    private static final String TAG_DEFAULT = "KLog";
     private static final String SUFFIX = ".java";
 
     public static final int JSON_INDENT = 4;
@@ -292,11 +292,11 @@ public final class Logger {
     /**
      * 记录开始时间
      *
-     * @param Tag
+     * @param tag
      */
-    public static void startRecordTime(String Tag) {
+    public static void startRecordTime(String tag) {
         long startTime = System.currentTimeMillis();
-        timeMap.put(Tag, startTime);
+        timeMap.put(tag, startTime);
     }
 
     /**

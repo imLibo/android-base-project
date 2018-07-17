@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.cnksi.sample.MainActivity"
+        tools:context="com.cnksi.sample.activity.MainActivity"
         tools:showIn="@layout/activity_main">
 
         <com.cnksi.android.view.UnderLineLinearLayout
@@ -27,21 +27,36 @@
                 android:id="@+id/sample_text"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:background="@color/colorPrimaryDark"
                 android:clickable="true"
                 android:text="Hello World!"
                 app:abb_normalColor="@color/colorAccent"
                 app:abb_radius="5dp"/>
+
         </com.cnksi.android.view.UnderLineLinearLayout>
+
+        <com.cnksi.android.view.AutoBackgroundButton
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:drawableLeft="@mipmap/ic_login_user"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:text="title"
+            app:abb_normalColor="@color/bg_blue_59e9f2"
+            app:abb_radius="0dp"
+            app:layout_constraintTop_toBottomOf="@id/line_layout"/>
 
         <com.cnksi.android.view.LabelValueLayout
             android:id="@+id/labelValueContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
             android:background="@color/bg_gray_e1e4e4"
             android:orientation="vertical"
             android:padding="10dp"
-            app:layout_constraintTop_toBottomOf="@id/line_layout"
+            app:layout_constraintTop_toBottomOf="@id/title"
             app:lvl_labelTextColor="@color/bg_red_ff7575"
             app:lvl_labelTextSize="40px"
             app:lvl_lineColor="@color/bg_red_ff7575"
@@ -51,11 +66,9 @@
             app:lvl_lineMarginRight="@dimen/dp_10"
             app:lvl_lineMarginTop="@dimen/dp_10"
             app:lvl_lineWidth="3px"
-            app:lvl_rightBackgroundColor="@color/bg_blue_59e9f2"
             app:lvl_rightDrawable="@mipmap/ic_arrow_down"
             app:lvl_spacing="30px"
             app:lvl_valueTextColor="@color/bg_green_01ce7f"
-            app:lvl_valueTextEnabledEdit="true"
             app:lvl_valueTextSize="50px"/>
 
         <LinearLayout
@@ -77,5 +90,20 @@
             app:abb_textPressColor="@color/bg_green_01ce7f"
             app:layout_constraintTop_toBottomOf="@id/container"/>
 
+
+        <com.cnksi.android.view.LabelValueLayout
+            android:id="@+id/labelValuehrContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/bg_gray_e1e4e4"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintTop_toBottomOf="@id/cdt"
+            app:lvl_labelTextColor="@color/bg_gray_f0f2f1"
+            app:lvl_labelTextSize="40px"
+            app:lvl_spacing="30px"
+            app:lvl_valueTextColor="@color/text_333333"
+            app:lvl_valueTextSize="60px"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -39,22 +39,22 @@ class BaseLog {
 
     private static void printSub(int type, String tag, String sub) {
         switch (type) {
-            case com.cnksi.android.log.Logger.V:
+            case KLog.V:
                 Log.v(tag, sub);
                 break;
-            case com.cnksi.android.log.Logger.D:
+            case KLog.D:
                 Log.d(tag, sub);
                 break;
-            case com.cnksi.android.log.Logger.I:
+            case KLog.I:
                 Log.i(tag, sub);
                 break;
-            case com.cnksi.android.log.Logger.W:
+            case KLog.W:
                 Log.w(tag, sub);
                 break;
-            case com.cnksi.android.log.Logger.E:
+            case KLog.E:
                 Log.e(tag, sub);
                 break;
-            case com.cnksi.android.log.Logger.A:
+            case KLog.A:
                 Log.wtf(tag, sub);
                 break;
             default:

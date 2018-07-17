@@ -1,11 +1,12 @@
 package com.cnksi.android.utils;
 
-import com.cnksi.android.log.Logger;
+import com.cnksi.android.log.KLog;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * md5相关类
@@ -46,26 +47,9 @@ public final class MD5 {
                 j++;
             }
         } catch (Exception e) {
-            Logger.e(e);
+            KLog.e(e);
         }
         return "";
-    }
-
-    /**
-     * 计算md5后所产生的哈希值的字节数组
-     *
-     * @param paramArrayOfByte 字节数组
-     * @return 产生的哈希值的字节数组
-     */
-    public static byte[] getRawDigest(byte[] paramArrayOfByte) {
-        try {
-            MessageDigest localMessageDigest = MessageDigest.getInstance("MD5");
-            localMessageDigest.update(paramArrayOfByte);
-            return localMessageDigest.digest();
-        } catch (Exception e) {
-            Logger.e(e);
-        }
-        return null;
     }
 
     /**
@@ -74,7 +58,11 @@ public final class MD5 {
      * @param file 文件
      * @return md5值
      */
-    public static String getFileMd5(File file) throws Exception {
+    public static String getFileMd5(File file) {
+        if (file == null || !file.exists()) {
+            KLog.e("文件不存在");
+            return null;
+        }
         // 缓冲区大小
         int bufferSize = 256 * 1024;
         FileInputStream fileInputStream = null;
@@ -95,9 +83,36 @@ public final class MD5 {
             byte[] resultByteArray = messageDigest.digest();
             // 同样，把字节数组转换成字符串
             return byteArrayToHex(resultByteArray);
+        } catch (Exception e) {
+            KLog.e(e);
+            return null;
         } finally {
             IOUtils.closeQuietly(digestInputStream);
             IOUtils.closeQuietly(fileInputStream);
+        }
+    }
+
+    /**
+     * 获取字符串的MD5值
+     *
+     * @param content 字符串
+     * @return
+     */
+    public static String getStringMd5(String content) {
+        try {
+            // 拿到一个MD5转换器（如果想要SHA1参数换成”SHA1”）
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            // 输入的字符串转换成字节数组
+            byte[] inputByteArray = content.getBytes();
+            // inputByteArray是输入字符串转换得到的字节数组
+            messageDigest.update(inputByteArray);
+            // 转换并返回结果，也是字节数组，包含16个元素
+            byte[] resultByteArray = messageDigest.digest();
+            // 字符数组转换成字符串返回
+            return byteArrayToHex(resultByteArray);
+        } catch (NoSuchAlgorithmException e) {
+            KLog.e(e);
+            return null;
         }
     }
 

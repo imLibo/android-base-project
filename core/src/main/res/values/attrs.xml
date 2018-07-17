@@ -44,4 +44,24 @@
         <attr name="lvl_rightDrawableHeight" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="LeftDrawbleTextLayout">
+        <attr name="ldl_spacing" format="dimension"/>
+        <attr name="ldl_labelTextSize" format="dimension"/>
+        <attr name="ldl_valueTextSize" format="dimension"/>
+        <attr name="ldl_labelTextColor" format="color"/>
+        <attr name="ldl_valueTextColor" format="color"/>
+        <attr name="ldl_lineHeight" format="dimension"/>
+        <attr name="ldl_lineWidth" format="dimension"/>
+        <attr name="ldl_lineMarginLeft" format="dimension"/>
+        <attr name="ldl_lineMarginRight" format="dimension"/>
+        <attr name="ldl_lineMarginTop" format="dimension"/>
+        <attr name="ldl_lineMarginBottom" format="dimension"/>
+        <attr name="ldl_lineColor" format="color"/>
+        <attr name="ldl_valueTextEnabledEdit" format="boolean"/>
+        <attr name="ldl_rightDrawable" format="reference"/>
+        <attr name="ldl_rightText" format="string"/>
+        <attr name="ldl_rightBackgroundColor" format="color"/>
+        <attr name="ldl_rightDrawableWidth" format="dimension"/>
+        <attr name="ldl_rightDrawableHeight" format="dimension"/>
+    </declare-styleable>
 </resources>

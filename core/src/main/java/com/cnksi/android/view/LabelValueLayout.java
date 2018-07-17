@@ -190,6 +190,7 @@ public class LabelValueLayout extends LinearLayout {
         LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         if (getOrientation() == LinearLayout.HORIZONTAL) {
             params.leftMargin = spacing;
+            setGravity(Gravity.CENTER_VERTICAL);
         } else {
             params.topMargin = spacing;
         }

@@ -24,6 +24,7 @@ dependencies {
     api 'com.cnksi:dbcore:1.0.2'
     api 'com.yanzhenjie:permission:2.0.0-rc11'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    api 'org.bouncycastle:bcprov-jdk16:1.46'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

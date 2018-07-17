@@ -1,6 +1,5 @@
-package com.cnksi.sample
+package com.cnksi.sample.activity
 
-import android.Manifest
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -8,15 +7,17 @@ import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
-import com.cnksi.android.base.BaseCoreActivity
 import com.cnksi.android.view.LabelValueLayout
+import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityMainBinding
 import com.cnksi.sample.model.Student
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : BaseCoreActivity() {
+/**
+ *
+ */
+class MainActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
 
@@ -26,10 +27,6 @@ class MainActivity : BaseCoreActivity() {
 
     override fun onDenied(permissions: MutableList<String>) {
         Toasty.warning(mActivity, TextUtils.join(",", permissions)).show()
-    }
-
-    override fun getPermission(): Array<String> {
-        return arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,8 +58,10 @@ class MainActivity : BaseCoreActivity() {
         }
 
         // Example of a call to a native method
-        sample_text.text = stringFromJNI()
+//        sample_text.text = stringFromJNI()
 
+        mBinding.contentMain?.labelValuehrContainer?.labelView?.text="发现方式："
+        mBinding.contentMain?.labelValuehrContainer?.valueView?.setText("带电检测")
 
         mBinding.contentMain?.labelValueContainer?.labelView?.text = "设备类型"
         mBinding.contentMain?.labelValueContainer?.valueView?.setText("开关柜")

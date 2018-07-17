@@ -27,10 +27,10 @@ class JsonLog extends BaseLog {
         try {
             if (msg.startsWith("{")) {
                 JSONObject jsonObject = new JSONObject(msg);
-                message = jsonObject.toString(com.cnksi.android.log.Logger.JSON_INDENT);
+                message = jsonObject.toString(KLog.JSON_INDENT);
             } else if (msg.startsWith("[")) {
                 JSONArray jsonArray = new JSONArray(msg);
-                message = jsonArray.toString(com.cnksi.android.log.Logger.JSON_INDENT);
+                message = jsonArray.toString(KLog.JSON_INDENT);
             } else {
                 message = msg;
             }
@@ -38,8 +38,8 @@ class JsonLog extends BaseLog {
             message = msg;
         }
         printLine(tag, true);
-        message = headString + com.cnksi.android.log.Logger.LINE_SEPARATOR + message;
-        String[] lines = message.split(com.cnksi.android.log.Logger.LINE_SEPARATOR);
+        message = headString + KLog.LINE_SEPARATOR + message;
+        String[] lines = message.split(KLog.LINE_SEPARATOR);
         for (String line : lines) {
             Log.d(tag, "║ " + line);
         }

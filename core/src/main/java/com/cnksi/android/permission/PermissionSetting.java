@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 权限请求
  * @author lyongfly
  * @version 1.0
  * @copyRights 四川金信石信息技术有限公司

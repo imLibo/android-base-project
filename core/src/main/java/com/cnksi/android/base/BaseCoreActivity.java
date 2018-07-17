@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.cnksi.android.permission.PermissionSetting;
 import com.yanzhenjie.permission.AndPermission;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -94,6 +95,8 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
     protected void requestPermissions() {
         if (!AndPermission.hasPermissions(mActivity, getPermission())) {
             new PermissionSetting(mActivity).requestPermission(getPermission());
+        } else {
+            onGranted(Arrays.asList(getPermission()));
         }
     }
 }

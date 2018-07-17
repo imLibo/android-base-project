@@ -55,7 +55,6 @@ public class AutoBackgroundButton extends AppCompatTextView {
         init(attrs, defStyleAttr, 0);
     }
 
-
     private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.AutoBackgroundButton, defStyleAttr, defStyleRes);
         normalColor = a.getColor(R.styleable.AutoBackgroundButton_abb_normalColor, 0);
@@ -91,7 +90,9 @@ public class AutoBackgroundButton extends AppCompatTextView {
         stateListDrawable.addState(new int[]{}, normalDrawable);
 
 //        setPadding(0, 0, 0, 0);
-        setGravity(Gravity.CENTER);
+        if (getGravity() == (Gravity.TOP | Gravity.START)) {
+            setGravity(Gravity.CENTER);
+        }
         this.setBackground(stateListDrawable);
         if (textPressColor != 0) {
             ColorStateList textColor = getTextColors();
