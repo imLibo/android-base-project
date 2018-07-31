@@ -29,7 +29,7 @@ import java.io.OutputStream;
  * @copyRight 四川金信石信息技术有限公司
  * @since 1.0
  */
-public class BitmapUtils {
+public class BitmapUtil {
 
     /**
      * ALPHA_8就是Alpha由8位组成 ARGB_4444就是由4个4位组成即16位， ARGB_8888就是由4个8位组成即32位， RGB_565就是R为5位，G为6位，B为5位共16位
@@ -173,7 +173,7 @@ public class BitmapUtils {
      * @param videoPath 视频的路径
      * @param width     指定输出视频缩略图的宽度
      * @param height    指定输出视频缩略图的高度度
-     * @param kind      参照MediaStore.Images.Thumbnails类中的常量MINI_KIND和MICRO_KIND。 其中，MINI_KIND: 512 x 384，MICRO_KIND: 96 x 96
+     * @param kind      参照MediaStore.Images.Thumbnails类中的常量MINI_KIND和MICRO_KIND。 其中，MINI_KIND: 512 X 384，MICRO_KIND: 96 X 96
      * @return 指定大小的视频缩略图
      */
     public static Bitmap getVideoThumbnail(String videoPath, int width, int height, int kind) {
@@ -465,7 +465,7 @@ public class BitmapUtils {
             bitmap.compress(Bitmap.CompressFormat.JPEG, DEFAULT_QUALITY, bos);
             byte[] buffer = bos.toByteArray();
             if (buffer != null) {
-                fileName = System.currentTimeMillis() + Constants.IMAGE_JPG_POSTFIX;
+                fileName = System.currentTimeMillis() + Constants.JPG_POSTFIX;
                 File file = new File(folder, fileName);
                 OutputStream outputStream = new FileOutputStream(file);
                 outputStream.write(buffer);
@@ -513,7 +513,7 @@ public class BitmapUtils {
             } catch (Exception e) {
                 KLog.e(e);
             } finally {
-                IOUtils.closeQuietly(out);
+                IOUtil.closeQuietly(out);
             }
         }
     }
@@ -609,7 +609,7 @@ public class BitmapUtils {
      * @param reqHeight 压缩后的高度
      */
     public static void compressImage(String srcPath, int reqWidth, int reqHeight) {
-        if (!TextUtils.isEmpty(srcPath) && FileUtils.isFileExists(srcPath)) {
+        if (!TextUtils.isEmpty(srcPath) && FileUtil.isFileExists(srcPath)) {
             int scale;
             // 首先不加载图片,仅获取图片尺寸
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -658,7 +658,7 @@ public class BitmapUtils {
      * @return 旋转后的图片
      */
     public static Bitmap rotateBitmap(String imagePath, int degree) {
-        if (FileUtils.isFileExists(imagePath)) {
+        if (FileUtil.isFileExists(imagePath)) {
             return rotateBitmap(BitmapFactory.decodeFile(imagePath), degree);
         }
         return null;

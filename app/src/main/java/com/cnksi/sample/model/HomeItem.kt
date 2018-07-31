@@ -15,7 +15,7 @@ data class HomeItem(val title: String, val activity: Class<*>) {
     companion object {
         fun getList(): List<HomeItem> {
             return arrayListOf(
-                    HomeItem("BitmapUtils", BitmapActivity::class.java),
+                    HomeItem("BitmapUtil", BitmapActivity::class.java),
                     HomeItem("自定义View", MainActivity::class.java)
             )
         }

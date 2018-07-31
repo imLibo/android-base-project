@@ -6,15 +6,20 @@ import android.text.TextUtils;
 
 import com.cnksi.android.log.KLog;
 
+import org.xutils.common.util.IOUtils;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * 文件操作工具类
@@ -52,9 +57,9 @@ import java.util.List;
  * <p>
  * deleteFileByModifyTime(String filePath, long time)  递归删除 某个文件夹下 最后修改时间小于time的文件
  */
-public class FileUtils {
+public class FileUtil {
 
-    private FileUtils() {
+    private FileUtil() {
     }
 
     /**
@@ -192,12 +197,12 @@ public class FileUtils {
             if (bakFile.isDirectory()) {
                 for (File file : bakFile.listFiles()) {
                     if (file.lastModified() < time) {
-                        FileUtils.deleteFile(file.getAbsolutePath());
+                        FileUtil.deleteFile(file.getAbsolutePath());
                     }
                 }
             } else {
                 if (bakFile.lastModified() < time) {
-                    FileUtils.deleteFile(bakFile.getAbsolutePath());
+                    FileUtil.deleteFile(bakFile.getAbsolutePath());
                 }
             }
         }
@@ -333,8 +338,8 @@ public class FileUtils {
                         fos.write(buffer, 0, len);
                     }
                     fos.flush();
-                    IOUtils.closeQuietly(is);
-                    IOUtils.closeQuietly(fos);
+                    IOUtil.closeQuietly(is);
+                    IOUtil.closeQuietly(fos);
                 } catch (IOException e) {
                     isSuccess = false;
                     break;
@@ -467,10 +472,10 @@ public class FileUtils {
             FileChannel out = outStream.getChannel();
             in.transferTo(0, in.size(), out);
             fd.sync();
-            IOUtils.closeQuietly(inStream);
-            IOUtils.closeQuietly(in);
-            IOUtils.closeQuietly(outStream);
-            IOUtils.closeQuietly(out);
+            IOUtil.closeQuietly(inStream);
+            IOUtil.closeQuietly(in);
+            IOUtil.closeQuietly(outStream);
+            IOUtil.closeQuietly(out);
         } catch (IOException e) {
             KLog.e(e);
             return false;
@@ -486,7 +491,7 @@ public class FileUtils {
      * @return true 是小于  false 不小于
      */
     public static boolean isModifyLessThanTime(@NonNull File file, long time) {
-        if (file != null && file.exists()) {
+        if (file.exists()) {
             if (file.lastModified() < time) {
                 return true;
             }
@@ -515,6 +520,59 @@ public class FileUtils {
                     root.delete();
                 }
             }
+        }
+    }
+
+    /**
+     * 解压文件
+     *
+     * @param inputStream new ZipInputStream(getAssets().open("icon.zip"))
+     * @param outFileDir  new File(Config.ICON_FOLDER)
+     * @return
+     */
+    public static boolean unZipToFile(ZipInputStream inputStream, File outFileDir) {
+        boolean isSuccess = false;
+        if (inputStream != null) {
+            try {
+                ZipEntry entry = inputStream.getNextEntry();
+                while (entry != null) {
+                    zipToFile(inputStream, outFileDir, entry);
+                    entry = inputStream.getNextEntry();
+                }
+                isSuccess = true;
+            } catch (IOException e) {
+                KLog.e(e);
+            } finally {
+                IOUtils.closeQuietly(inputStream);
+            }
+        }
+        return isSuccess;
+    }
+
+    private static void zipToFile(ZipInputStream inputStream, File dir, ZipEntry entry) {
+        OutputStream outputStream = null;
+        try {
+            if (entry.isDirectory()) {
+                File file = new File(dir, entry.getName());
+                file.mkdirs();
+            } else {
+                File file = new File(dir, entry.getName());
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                outputStream = new FileOutputStream(file);
+
+                byte[] data = new byte[4096];
+                int len;
+                while ((len = inputStream.read(data)) != -1) {
+                    outputStream.write(data, 0, len);
+                }
+                outputStream.flush();
+            }
+        } catch (IOException e) {
+            KLog.e(e);
+        } finally {
+            IOUtils.closeQuietly(outputStream);
         }
     }
 }

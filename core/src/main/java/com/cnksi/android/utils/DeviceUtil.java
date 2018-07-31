@@ -30,10 +30,10 @@ import java.util.Locale;
  * @date 2018/7/17
  * @since 1.0
  */
-public class DeviceUtils {
+public class DeviceUtil {
 
     /**
-     * &#x83b7;&#x5f97;&#x552f;&#x4e00;&#x7684;id &#x4e3a;DeviceId + AndroidID + SerialNumber + InstalltionId
+     * 返回设备的唯一Id DeviceId + AndroidID + SerialNumber + InstalltionId
      *
      * @param context
      * @return DeviceId + AndroidID + SerialNumber + InstalltionId
@@ -237,7 +237,7 @@ public class DeviceUtils {
          * 最后访问时间
          */
         public static final String LASTVIST = "client.lastvist";
-        public String lastvist = DateUtils.getCurrentLongTime();
+        public String lastvist = DateUtil.getCurrentLongTime();
 
         /**
          * android系统版本

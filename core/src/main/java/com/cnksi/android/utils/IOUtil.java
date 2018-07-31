@@ -23,24 +23,27 @@ import java.io.Reader;
  * @date 2018/4/10
  * @since 1.0
  */
-public class IOUtils {
+public class IOUtil {
 
     private static final int BUFFER_SIZE = 4096;
 
-    private IOUtils() {
+    private IOUtil() {
+        throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**
      * 关闭流
      *
-     * @param closeable 流
+     * @param closeables 流
      */
-    public static void closeQuietly(Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (Throwable ignored) {
-                KLog.e(ignored);
+    public static void closeQuietly(Closeable... closeables) {
+        if (closeables != null) {
+            for (Closeable closeable : closeables) {
+                try {
+                    closeable.close();
+                } catch (Throwable ignored) {
+                    KLog.e(ignored);
+                }
             }
         }
     }
@@ -139,7 +142,7 @@ public class IOUtils {
      */
     public static String readStrFormFile(String filePath) {
         String result = "";
-        if (FileUtils.isFileExists(filePath)) {
+        if (FileUtil.isFileExists(filePath)) {
             FileInputStream fin = null;
             try {
                 fin = new FileInputStream(filePath);

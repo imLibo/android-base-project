@@ -3,7 +3,7 @@ package com.cnksi.sample.activity
 import android.Manifest
 import android.os.Environment
 import com.cnksi.android.base.BaseCoreActivity
-import com.cnksi.android.utils.FileUtils
+import com.cnksi.android.utils.FileUtil
 import java.io.File
 
 /**
@@ -28,7 +28,7 @@ open class BaseActivity : BaseCoreActivity() {
 
     override fun onGranted(permissions: MutableList<String>?) {
         folders.forEach { folder ->
-            FileUtils.makeDirectory(folder)
+            FileUtil.makeDirectory(folder)
         }
     }
 

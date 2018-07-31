@@ -11,6 +11,7 @@ import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
+import com.cnksi.android.encrypt.MD5Util;
 import com.cnksi.android.log.KLog;
 
 import java.io.File;
@@ -26,9 +27,9 @@ import java.util.List;
  * @date 2018/6/26
  * @since 1.0
  */
-public final class AppUtils {
+public final class AppUtil {
 
-    private AppUtils() {
+    private AppUtil() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
@@ -224,13 +225,13 @@ public final class AppUtils {
             Signature[] signs = packageInfo.signatures;
             Signature sign = signs[0];
             int hashode = sign.hashCode();
-            String md5 = com.cnksi.android.utils.MD5.getMessageDigest(sign.toByteArray());
+            String md5 = MD5Util.md5(sign.toByteArray());
 
             packageInfo = context.getPackageManager().getPackageArchiveInfo(filePath, PackageManager.GET_SIGNATURES);
             signs = packageInfo.signatures;
             sign = signs[0];
             int hashCodeApk = sign.hashCode();
-            String md5Str = com.cnksi.android.utils.MD5.getMessageDigest(sign.toByteArray());
+            String md5Str = MD5Util.md5(sign.toByteArray());
             isVer = md5.equals(md5Str) && (hashode == hashCodeApk);
         } catch (Exception e) {
             KLog.e(e);
@@ -267,6 +268,6 @@ public final class AppUtils {
             KLog.e("signature is null");
             return "";
         }
-        return com.cnksi.android.utils.MD5.getMessageDigest(arrayOfSignature[0].toByteArray());
+        return MD5Util.md5(arrayOfSignature[0].toByteArray());
     }
 }

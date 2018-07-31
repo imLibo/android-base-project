@@ -2,13 +2,13 @@ package com.cnksi.sample.activity
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import com.cnksi.android.utils.BitmapUtils
-import com.cnksi.android.utils.FileUtils
+import com.cnksi.android.utils.BitmapUtil
+import com.cnksi.android.utils.FileUtil
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityBitmapBinding
 
 /**
- * BitmapUtils 测试
+ * BitmapUtil 测试
  * @author lyongfly
  * @copyRights 四川金信石信息技术有限公司
  * @date 2018/7/17
@@ -24,31 +24,31 @@ class BitmapActivity : BaseActivity() {
         mBinding = DataBindingUtil.setContentView(this@BitmapActivity, R.layout.activity_bitmap)
         val picture_path = pictureFolder + "123.png"
 
-        val bitmap = BitmapUtils.getImageThumbnail(picture_path, 500, 200)
+        val bitmap = BitmapUtil.getImageThumbnail(picture_path, 500, 200)
         mBinding.ivImage.setImageBitmap(bitmap)
 
         mBinding.btnCompressImage.setOnClickListener { _ ->
             //压缩图片到指定宽度
-//            BitmapUtils.compressImage(picture_path, 80, 80)
+//            BitmapUtil.compressImage(picture_path, 80, 80)
         }
 
         mBinding.btnSaveImage.setOnClickListener { _ ->
-            BitmapUtils.saveViewToPicture(mBinding.container, pictureFolder)
+            BitmapUtil.saveViewToPicture(mBinding.container, pictureFolder)
         }
 
         mBinding.btnFile.setOnClickListener { _ ->
             //            //递归获取文件夹下所有文件
 //            val list = mutableListOf<String>()
-//            FileUtils.getAllFiles(baseFolder, list, true)
+//            FileUtil.getAllFiles(baseFolder, list, true)
 //            list.filter { file ->
-//                return@filter FileUtils.isFolderExists(file)
+//                return@filter FileUtil.isFolderExists(file)
 //            }.forEach { file ->
 //                println(file)
 //            }
             //删除所有文件
-//            FileUtils.deleteAllFiles(baseFolder)
+//            FileUtil.deleteAllFiles(baseFolder)
 
-            FileUtils.renameFile(sdcard + "download/sample-debug.apk", sdcard + "download/sample-release.apk")
+            FileUtil.renameFile(sdcard + "download/sample-debug.apk", sdcard + "download/sample-release.apk")
         }
     }
 }

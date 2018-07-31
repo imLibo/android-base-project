@@ -2,6 +2,7 @@ package com.cnksi.android.permission;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import java.util.List;
 
 /**
  * 权限请求
+ *
  * @author lyongfly
  * @version 1.0
  * @copyRights 四川金信石信息技术有限公司
@@ -123,5 +125,29 @@ public final class PermissionSetting {
                     }
                 })
                 .start();
+    }
+
+
+    /**
+     * 显示退出Dialog
+     *
+     * @param permissions
+     */
+    public void showExitDialog(final List<String> permissions) {
+        List<String> permissionNames = Permission.transformText(mActivity, permissions);
+        String message = "您未授权 " + TextUtils.join(",", permissionNames) + " 权限, 将无法使用系统。";
+        new AlertDialog.Builder(mActivity)
+                .setCancelable(false)
+                .setTitle("提示")
+                .setMessage(message)
+                .setPositiveButton("重新授权", (dialog, which) -> {
+                    requestPermission(permissions.toArray(new String[]{}));
+                    dialog.dismiss();
+                })
+                .setNegativeButton("退出", (dialog, which) -> {
+                    System.exit(0);
+                    android.os.Process.killProcess(Process.myPid());
+                })
+                .show();
     }
 }

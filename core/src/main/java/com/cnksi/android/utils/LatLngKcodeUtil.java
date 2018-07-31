@@ -16,9 +16,9 @@ import java.text.DecimalFormat;
  * @copyRights 四川金信石信息技术有限公司
  * @since 1.0
  */
-public class LatLngKcodeUtils {
+public class LatLngKcodeUtil {
 
-    private static final String TAG = LatLngKcodeUtils.class.getSimpleName();
+    private static final String TAG = LatLngKcodeUtil.class.getSimpleName();
 
     private static char str[] = new char[34];
     private final static double eps = 1e-8;
@@ -296,7 +296,7 @@ public class LatLngKcodeUtils {
         try {
             double lat = Double.parseDouble(lat_lngStr[0]);
             double lng = Double.parseDouble(lat_lngStr[1]);
-            String isLatlng = LatLngKcodeUtils.judgementLatLng(lat, lng);
+            String isLatlng = LatLngKcodeUtil.judgementLatLng(lat, lng);
             if (TextUtils.isEmpty(isLatlng)) {
                 lat_lng = new double[2];
                 lat_lng[0] = lat;

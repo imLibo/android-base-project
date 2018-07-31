@@ -63,7 +63,7 @@ public class SMKit {
      * @return
      */
     public static byte[] byteConvert32Bytes(BigInteger n) {
-        byte tmpd[] = (byte[]) null;
+        byte tmpd[];
         if (n == null) {
             return null;
         }

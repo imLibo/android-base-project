@@ -1,5 +1,7 @@
 package com.cnksi.android.utils;
 
+import com.cnksi.android.log.KLog;
+
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -10,7 +12,7 @@ import java.util.Locale;
 /**
  * 时间格式化工具类
  */
-public class DateUtils {
+public class DateUtil {
     /**
      * yyyy-MM-dd
      */
@@ -44,7 +46,7 @@ public class DateUtils {
      */
     public static final String ssSSS = "ssSSS";
 
-    private DateUtils() {
+    private DateUtil() {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
@@ -55,7 +57,7 @@ public class DateUtils {
      * @return String yyyy/MM/dd HH:mm:ss
      */
     public static String longTimeToDate(long time) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat(yyyy_MM_dd_HH_mm_ss2, Locale.CHINA);
         return formatter.format(new Date(time));
     }
 
@@ -76,7 +78,7 @@ public class DateUtils {
      * @return yyyy-MM-dd HH:mm:ss
      */
     public static String getCurrentLongTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat(yyyy_MM_dd_HH_mm_ss, Locale.CHINA);
         return formatter.format(new Date());
     }
 
@@ -86,7 +88,7 @@ public class DateUtils {
      * @return yyyy-MM-dd
      */
     public static String getCurrentShortTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat(yyyy_MM_dd, Locale.CHINA);
         return formatter.format(new Date());
     }
 
@@ -108,7 +110,7 @@ public class DateUtils {
      * @return "yyyy-MM-dd"
      */
     public static String getFormatterTime(String timeStr) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat(yyyy_MM_dd, Locale.CHINA);
         try {
             timeStr = formatter.format(formatter.parse(timeStr));
         } catch (Exception e) {
@@ -126,7 +128,7 @@ public class DateUtils {
      */
     public static String getFormatterTime(String dateStr, String format) {
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+            SimpleDateFormat formatter = new SimpleDateFormat(yyyy_MM_dd_HH_mm_ss, Locale.CHINA);
             ParsePosition pos = new ParsePosition(0);
             SimpleDateFormat formatter2 = new SimpleDateFormat(format, Locale.CHINA);
             dateStr = formatter2.format(formatter.parse(dateStr, pos));
@@ -175,7 +177,7 @@ public class DateUtils {
      * @return 时间差  long
      */
     public static long getTimeDifferenceDays(String startTimeStr, String endTimeStr) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat(yyyy_MM_dd_HH_mm_ss, Locale.CHINA);
         long differenceTime = 0L;
         try {
             differenceTime = getTimeDifferenceDays(formatter.parse(startTimeStr), formatter.parse(endTimeStr));
@@ -204,8 +206,7 @@ public class DateUtils {
      * @return 时间差  long
      */
     public static long getTimeDifferenceDays(Date startTime, Date endTime) {
-        long time = endTime.getTime() - startTime.getTime();
-        return time;
+        return endTime.getTime() - startTime.getTime();
     }
 
     /**
@@ -216,7 +217,7 @@ public class DateUtils {
      * @return
      */
     public static String getTimeDifference(String startTimeStr, String endTimeStr) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat(yyyy_MM_dd_HH_mm_ss, Locale.CHINA);
         String differenceTime = "";
         try {
             differenceTime = getTimeDifference(formatter.parse(startTimeStr), formatter.parse(endTimeStr));
@@ -264,8 +265,8 @@ public class DateUtils {
             Date dt1 = df.parse(dataFirst);
             Date dt2 = df.parse(dateSecond);
             return compareDate(dt1, dt2);
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception e) {
+            KLog.e(e);
             return false;
         }
     }
@@ -293,7 +294,7 @@ public class DateUtils {
      * @return yyyy-MM-dd HH:mm:ss
      */
     public static String getPreTime(int days) {
-        return getPreTime(days, "yyyy-MM-dd HH:mm:ss");
+        return getPreTime(days, yyyy_MM_dd_HH_mm_ss);
     }
 
     /**
@@ -316,7 +317,7 @@ public class DateUtils {
      * @return yyyy-MM-dd HH:mm:ss
      */
     public static String getAfterTime(int days) {
-        return getAfterTime(days, "yyyy-MM-dd HH:mm:ss");
+        return getAfterTime(days, yyyy_MM_dd_HH_mm_ss);
     }
 
     /**
@@ -349,7 +350,7 @@ public class DateUtils {
             calendar.add(Calendar.DATE, days);
             return getFormatterTime(calendar.getTime(), formatter);
         } catch (Exception e) {
-            e.printStackTrace();
+            KLog.e(e);
         }
         return "";
     }
@@ -360,7 +361,7 @@ public class DateUtils {
      * @return yyyy-MM-dd HH:mm:ss
      */
     public static String getFirstOfLastWeek() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        SimpleDateFormat df = new SimpleDateFormat(yyyy_MM_dd_HH_mm_ss, Locale.CHINA);
         Calendar cal = Calendar.getInstance();
         //设置每周第一天为星期一 (默认是星期日)
         cal.setFirstDayOfWeek(Calendar.MONDAY);

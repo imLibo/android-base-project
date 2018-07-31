@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.cnksi.android.log.KLog
+import com.cnksi.android.utils.PreferencesUtil
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityHomeBinding
 import com.cnksi.sample.model.HomeItem
@@ -36,6 +38,29 @@ class HomeActivity : BaseActivity() {
             val intent = Intent(this@HomeActivity, mList[position].activity)
             startActivity(intent)
         }
+
+        PreferencesUtil.put("String", "zhangsan")
+        PreferencesUtil.put("Float", 2.3f)
+        PreferencesUtil.put("Integer", 10)
+        PreferencesUtil.put("Boolean", true)
+        PreferencesUtil.put("Long", Long.MAX_VALUE)
+        val set = HashSet<String>()
+        set.add("zhangsan")
+        set.add("lisi")
+        set.add("wangwu")
+        PreferencesUtil.put("Set", set)
+
+        val string = PreferencesUtil.get("String1", "lisi")
+        val long = PreferencesUtil.get("Long2", 20L)
+        val float = PreferencesUtil.get("Float2", 1.1f)
+        val boolean = PreferencesUtil.get("Boolean2", false)
+        val int = PreferencesUtil.get("Integer2", 666)
+        val sets = PreferencesUtil.get("Set2", HashSet())
+        KLog.d(("String->" + string + " Long->" + long + " Float->" + float + " Boolean->" + boolean + " Integer->" + int) as Any)
+
+        KLog.d(("Set->" + sets.toString()) as Any)
+
+
     }
 
     /**
