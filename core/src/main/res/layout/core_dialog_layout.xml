@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/core_dialog_bg"
+                  android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/core_tv_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/core_dialog_title_height"
+            android:background="@drawable/core_dialog_title_bg"
+            android:gravity="center"
+            android:text="提示"
+            android:textColor="@color/core_FFFFFF_color"
+            android:textSize="@dimen/core_dialog_title_size"/>
+
+        <FrameLayout
+            android:id="@+id/core_fl_dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/core_dialog_padding"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/core_dialog_padding">
+
+            <com.cnksi.android.view.AutoBackgroundButton
+                android:id="@+id/core_btn_dialog_left"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/core_button_height"
+                android:layout_weight="1"
+                android:textColor="@color/core_FFFFFF_color"
+                android:textSize="@dimen/core_dialog_button_size"
+                app:abb_normalColor="@color/core_FD6067_color"
+                app:abb_radius="@dimen/core_dialog_button_radius"/>
+
+            <com.cnksi.android.view.AutoBackgroundButton
+                android:id="@+id/core_btn_dialog_right"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/core_button_height"
+                android:layout_marginLeft="@dimen/core_dialog_padding"
+                android:layout_weight="1"
+                android:textColor="@color/core_FFFFFF_color"
+                android:textSize="@dimen/core_dialog_button_size"
+                app:abb_normalColor="@color/core_1BBC9B_color"
+                app:abb_radius="@dimen/core_dialog_button_radius"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

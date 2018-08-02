@@ -1,6 +1,5 @@
 package com.cnksi.sample.activity
 
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -10,6 +9,7 @@ import com.cnksi.android.log.KLog
 import com.cnksi.android.utils.PreferencesUtil
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityHomeBinding
+import com.cnksi.sample.dialog.CustomDialog
 import com.cnksi.sample.model.HomeItem
 
 /**
@@ -35,8 +35,10 @@ class HomeActivity : BaseActivity() {
         mBinding.rcvContainer.adapter = mAdapter
 
         mAdapter.setOnItemChildClickListener { _, _, position ->
-            val intent = Intent(this@HomeActivity, mList[position].activity)
-            startActivity(intent)
+//            val intent = Intent(this@HomeActivity, mList[position].activity)
+//            startActivity(intent)
+            val dialog = CustomDialog()
+            dialog.show(supportFragmentManager,"")
         }
 
         PreferencesUtil.put("String", "zhangsan")
@@ -44,23 +46,39 @@ class HomeActivity : BaseActivity() {
         PreferencesUtil.put("Integer", 10)
         PreferencesUtil.put("Boolean", true)
         PreferencesUtil.put("Long", Long.MAX_VALUE)
+        PreferencesUtil.put("preference", "String", "zhangsan")
+        PreferencesUtil.put("preference", "Float", 2.3f)
+        PreferencesUtil.put("preference", "Integer", 10)
+        PreferencesUtil.put("preference", "Boolean", true)
+        PreferencesUtil.put("preference", "Long", Long.MAX_VALUE)
+
         val set = HashSet<String>()
         set.add("zhangsan")
         set.add("lisi")
         set.add("wangwu")
         PreferencesUtil.put("Set", set)
+        PreferencesUtil.put("preference", "Set", set)
 
-        val string = PreferencesUtil.get("String1", "lisi")
-        val long = PreferencesUtil.get("Long2", 20L)
-        val float = PreferencesUtil.get("Float2", 1.1f)
-        val boolean = PreferencesUtil.get("Boolean2", false)
-        val int = PreferencesUtil.get("Integer2", 666)
-        val sets = PreferencesUtil.get("Set2", HashSet())
+        val string = PreferencesUtil.get("String", "lisi")
+        val long = PreferencesUtil.get("Long", 20L)
+        val float = PreferencesUtil.get("Float", 1.1f)
+        val boolean = PreferencesUtil.get("Boolean", false)
+        val int = PreferencesUtil.get("Integer", 666)
+        val sets = PreferencesUtil.get("Set", HashSet())
         KLog.d(("String->" + string + " Long->" + long + " Float->" + float + " Boolean->" + boolean + " Integer->" + int) as Any)
 
         KLog.d(("Set->" + sets.toString()) as Any)
 
+        val string1 = PreferencesUtil.get("preference", "String", "lisi")
+        val long1 = PreferencesUtil.get("preference", "Long", 20L)
+        val float1 = PreferencesUtil.get("preference", "Float", 1.1f)
+        val boolean1 = PreferencesUtil.get("preference", "Boolean", false)
+        val int1 = PreferencesUtil.get("preference", "Integer", 666)
+        val sets1 = PreferencesUtil.get("preference", "Set", HashSet())
 
+        KLog.d(("String->" + string1 + " Long->" + long1 + " Float->" + float1 + " Boolean->" + boolean1 + " Integer->" + int1) as Any)
+
+        KLog.d(("Set->" + sets1.toString()) as Any)
     }
 
     /**

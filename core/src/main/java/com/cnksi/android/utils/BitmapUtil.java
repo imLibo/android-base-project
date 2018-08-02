@@ -173,7 +173,7 @@ public class BitmapUtil {
      * @param videoPath 视频的路径
      * @param width     指定输出视频缩略图的宽度
      * @param height    指定输出视频缩略图的高度度
-     * @param kind      参照MediaStore.Images.Thumbnails类中的常量MINI_KIND和MICRO_KIND。 其中，MINI_KIND: 512 X 384，MICRO_KIND: 96 X 96
+     * @param kind      参照MediaStore.Images.Thumbnails类中的常量MINI_KIND和MICRO_KIND。 其中，MINI_KIND: 512 Core 384，MICRO_KIND: 96 Core 96
      * @return 指定大小的视频缩略图
      */
     public static Bitmap getVideoThumbnail(String videoPath, int width, int height, int kind) {

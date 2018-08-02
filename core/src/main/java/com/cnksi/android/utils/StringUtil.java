@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.util.regex.Pattern.*;
+import static java.util.regex.Pattern.compile;
 
 /**
  * 字符串操作工具包
@@ -29,6 +29,20 @@ public final class StringUtil {
      */
     public static boolean isEmpty(CharSequence str) {
         return str == null || str.length() == 0;
+    }
+
+    /**
+     * 返回处理后的值
+     *
+     * @param str
+     * @return
+     */
+    public static CharSequence fromNull(CharSequence str) {
+        if (str == null || str.length() == 0) {
+            return "";
+        } else {
+            return str;
+        }
     }
 
     /**
