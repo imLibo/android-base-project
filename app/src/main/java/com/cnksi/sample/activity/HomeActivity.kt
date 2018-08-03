@@ -11,6 +11,7 @@ import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityHomeBinding
 import com.cnksi.sample.dialog.CustomDialog
 import com.cnksi.sample.model.HomeItem
+import es.dmoral.toasty.Toasty
 
 /**
  *
@@ -35,10 +36,13 @@ class HomeActivity : BaseActivity() {
         mBinding.rcvContainer.adapter = mAdapter
 
         mAdapter.setOnItemChildClickListener { _, _, position ->
-//            val intent = Intent(this@HomeActivity, mList[position].activity)
+            //            val intent = Intent(this@HomeActivity, mList[position].activity)
 //            startActivity(intent)
             val dialog = CustomDialog()
-            dialog.show(supportFragmentManager,"")
+            dialog.show(supportFragmentManager)
+            dialog.setOnDismissListener({ _ ->
+                Toasty.success(HomeActivity@ this, "dismiss").show()
+            })
         }
 
         PreferencesUtil.put("String", "zhangsan")

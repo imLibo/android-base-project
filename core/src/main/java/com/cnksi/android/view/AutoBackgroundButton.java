@@ -136,9 +136,9 @@ public class AutoBackgroundButton extends AppCompatTextView {
         return Color.argb((int) (rsA * 255), rsR, rsG, rsB);
     }
 
-    public void setNormalColor(int normalColor) {
+    public void setNormalColor(@ColorInt int normalColor) {
         this.normalColor = normalColor;
-        this.pressColor = getPressColor(normalColor);
+        this.pressColor = getPressColor(this.normalColor);
         updateBackground();
     }
 }

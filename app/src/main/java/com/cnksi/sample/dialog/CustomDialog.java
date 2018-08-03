@@ -24,7 +24,6 @@ public class CustomDialog extends BaseDialog {
 
     private ContentMainBinding mBinding;
 
-
     @Override
     protected CharSequence getTitle() {
         return "评价结果";
@@ -48,11 +47,23 @@ public class CustomDialog extends BaseDialog {
 
     @Override
     protected void onRightButtonClick(View view) {
-        Toasty.info(getContext(), "Confirm").show();
+        Toasty.info(getContext(), "Right").show();
+        dismiss();
     }
 
     @Override
     protected void onLeftButtonClick(View view) {
-        Toasty.info(getContext(), "Confirm").show();
+        Toasty.info(getContext(), "Left").show();
+        dismiss();
+    }
+
+    @Override
+    public boolean isBackCancelable() {
+        return false;
+    }
+
+    @Override
+    protected int getButtonVisible() {
+        return ButtonVisible.RIGHT;
     }
 }
