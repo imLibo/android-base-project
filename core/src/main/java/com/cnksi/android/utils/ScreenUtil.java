@@ -2,6 +2,7 @@ package com.cnksi.android.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -34,6 +35,17 @@ public class ScreenUtil {
     }
 
     /**
+     * 获取屏幕分辨率宽
+     *
+     * @param resources
+     * @return
+     */
+    public static int getScreenWidth(Resources resources) {
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        return dm.widthPixels;
+    }
+
+    /**
      * 获取屏幕分辨率高
      *
      * @param context
@@ -42,6 +54,17 @@ public class ScreenUtil {
     public static int getScreenHeight(Activity context) {
         DisplayMetrics dm = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        return dm.heightPixels;
+    }
+
+    /**
+     * 获取屏幕分辨率高
+     *
+     * @param resources
+     * @return
+     */
+    public static int getScreenHeight(Resources resources) {
+        DisplayMetrics dm = resources.getDisplayMetrics();
         return dm.heightPixels;
     }
 

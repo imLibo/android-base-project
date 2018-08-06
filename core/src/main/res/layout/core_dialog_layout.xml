@@ -18,16 +18,15 @@
                 android:background="@drawable/core_dialog_title_bg"
                 android:gravity="center"
                 android:text="提示"
-                android:textColor="@color/core_FFFFFF_color"
+                android:textColor="@color/core_white_color_FFFFFF"
                 android:textSize="@dimen/core_dialog_title_size"/>
 
             <ImageButton
                 android:id="@+id/core_ibtn_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/core_dialog_title_height"
+                android:layout_height="@dimen/core_dialog_title_height"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/core_dialog_padding"
                 android:background="@android:color/transparent"
                 android:src="@mipmap/core_icon_close"/>
         </RelativeLayout>
@@ -49,9 +48,9 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/core_button_height"
                 android:layout_weight="1"
-                android:textColor="@color/core_FFFFFF_color"
+                android:textColor="@color/core_white_color_FFFFFF"
                 android:textSize="@dimen/core_dialog_button_size"
-                app:abb_normalColor="@color/core_FD6067_color"
+                app:abb_normalColor="@color/core_red_color_FD6067"
                 app:abb_radius="@dimen/core_dialog_button_radius"/>
 
             <com.cnksi.android.view.AutoBackgroundButton
@@ -60,9 +59,9 @@
                 android:layout_height="@dimen/core_button_height"
                 android:layout_marginLeft="@dimen/core_dialog_padding"
                 android:layout_weight="1"
-                android:textColor="@color/core_FFFFFF_color"
+                android:textColor="@color/core_white_color_FFFFFF"
                 android:textSize="@dimen/core_dialog_button_size"
-                app:abb_normalColor="@color/core_1BBC9B_color"
+                app:abb_normalColor="@color/core_green_color_1BBC9B"
                 app:abb_radius="@dimen/core_dialog_button_radius"/>
 
         </LinearLayout>

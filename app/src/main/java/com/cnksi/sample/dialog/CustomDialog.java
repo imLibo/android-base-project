@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.cnksi.android.base.BaseDialog;
 import com.cnksi.sample.R;
@@ -65,5 +66,11 @@ public class CustomDialog extends BaseDialog {
     @Override
     protected int getButtonVisible() {
         return ButtonVisible.RIGHT;
+    }
+
+    @Override
+    protected WindowManager.LayoutParams getLayoutParams(WindowManager.LayoutParams params) {
+        params.windowAnimations = R.style.dialog_animation;
+        return params;
     }
 }

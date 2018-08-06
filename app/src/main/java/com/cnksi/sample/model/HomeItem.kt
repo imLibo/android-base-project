@@ -11,12 +11,14 @@ import com.cnksi.sample.activity.MainActivity
  * @version 1.0
  * @since 1.0
  */
-data class HomeItem(val title: String, val activity: Class<*>) {
+data class HomeItem(val title: String, val activity: Class<*>, val code: Int) {
     companion object {
         fun getList(): List<HomeItem> {
             return arrayListOf(
-                    HomeItem("BitmapUtil", BitmapActivity::class.java),
-                    HomeItem("自定义View", MainActivity::class.java)
+                    HomeItem("BitmapUtil", BitmapActivity::class.java, 0),
+                    HomeItem("自定义View", MainActivity::class.java, 0),
+                    HomeItem("自定义Dialog", String::class.java, 1),
+                    HomeItem("LoadingDialog", String::class.java, 2)
             )
         }
     }

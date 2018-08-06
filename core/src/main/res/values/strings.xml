@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CoreApplication</string>
+    <string name="core_loading_content">加载中...</string>
 </resources>
