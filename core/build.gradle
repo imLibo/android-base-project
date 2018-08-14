@@ -35,6 +35,7 @@ dependencies {
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
     api 'org.bouncycastle:bcprov-jdk16:1.46'
     api 'com.github.GrenderG:Toasty:1.3.0'
+    api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

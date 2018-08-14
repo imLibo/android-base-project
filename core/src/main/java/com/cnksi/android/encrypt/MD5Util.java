@@ -45,19 +45,18 @@ public class MD5Util {
         if (TextUtils.isEmpty(string)) {
             return "";
         }
-
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             byte[] bytes = md5.digest((string + slat).getBytes());
-            String result = "";
+            StringBuilder result = new StringBuilder();
             for (byte b : bytes) {
                 String temp = Integer.toHexString(b & 0xff);
                 if (temp.length() == 1) {
                     temp = "0" + temp;
                 }
-                result += temp;
+                result.append(temp);
             }
-            return result;
+            return result.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -76,7 +75,6 @@ public class MD5Util {
         if (TextUtils.isEmpty(string)) {
             return "";
         }
-
         String md5 = string;
         for (int i = 0; i < times; i++) {
             md5 = md5(md5);
@@ -98,7 +96,7 @@ public class MD5Util {
         }
         MessageDigest digest;
         FileInputStream in = null;
-        byte buffer[] = new byte[1024];
+        byte[] buffer = new byte[1024];
         int len;
         try {
             digest = MessageDigest.getInstance("MD5");

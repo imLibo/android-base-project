@@ -62,8 +62,9 @@ public class Base64Util {
         try {
             inputFile = new FileInputStream(file);
             byte[] buffer = new byte[(int) file.length()];
-            inputFile.read(buffer);
-            return Base64.encodeToString(buffer, Base64.DEFAULT);
+            if (inputFile.read(buffer) > 0) {
+                return Base64.encodeToString(buffer, Base64.DEFAULT);
+            }
         } catch (IOException e) {
             KLog.e(e);
         } finally {

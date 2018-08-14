@@ -9,8 +9,6 @@
         <attr name="abb_shape">
             <enum name="rectangle" value="0"/>
             <enum name="oval" value="1"/>
-            <enum name="line" value="2"/>
-            <enum name="ring" value="3"/>
         </attr>
         <attr name="abb_textPressColor" format="color"/>
     </declare-styleable>
@@ -63,5 +61,36 @@
         <attr name="ldl_rightBackgroundColor" format="color"/>
         <attr name="ldl_rightDrawableWidth" format="dimension"/>
         <attr name="ldl_rightDrawableHeight" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="BorderLineTagView">
+        <attr name="blt_checkedColor" format="color"/>
+        <attr name="blt_radius" format="dimension"/>
+        <attr name="blt_shape">
+            <enum name="rectangle" value="0"/>
+            <enum name="oval" value="1"/>
+        </attr>
+        <attr name="blt_strokeWidth" format="dimension"/>
+        <attr name="blt_isRadioButton" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="BorderLineButton">
+        <attr name="blb_radius" format="dimension"/>
+        <attr name="blb_shape">
+            <enum name="rectangle" value="0"/>
+            <enum name="oval" value="1"/>
+        </attr>
+        <attr name="blb_strokeWidth" format="dimension"/>
+        <attr name="blb_pressedColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="StepProgressView">
+        <attr name="spv_textSize" format="dimension"/>
+        <attr name="spv_minStepWidth" format="dimension"/>
+        <attr name="spv_completeColor" format="color"/>
+        <attr name="spv_currentColor" format="color"/>
+        <attr name="spv_unCompleteColor" format="color"/>
+        <attr name="spv_stepDotRadius" format="dimension"/>
+        <attr name="spv_lineWidth" format="dimension"/>
     </declare-styleable>
 </resources>

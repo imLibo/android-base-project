@@ -133,17 +133,21 @@ public class FileUtil {
         if (!file.exists()) {
             return false;
         }
+        boolean isSuccess = true;
         File[] files = file.listFiles();
         if (files != null) {
             for (File f : files) {
                 if (f.isDirectory()) {
                     deleteAllFiles(f);
                 } else {
-                    f.delete();
+                    if (!f.delete()) {
+                        isSuccess = false;
+                        break;
+                    }
                 }
             }
         }
-        return file.delete();
+        return file.delete() && isSuccess;
     }
 
     /**

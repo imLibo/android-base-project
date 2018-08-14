@@ -1,15 +1,12 @@
-<set xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <scale
-        android:duration="300"
-        android:fillAfter="false"
-        android:fromXScale="0.0"
-        android:fromYScale="0.0"
-        android:interpolator="@android:anim/accelerate_interpolator"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:toXScale="1.0"
-        android:toYScale="1.0" />
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+       android:duration="300"
+       android:fromXScale="0.0"
+       android:fromYScale="0.0"
+       android:interpolator="@android:anim/accelerate_interpolator"
+       android:pivotX="50.0%"
+       android:pivotY="50.0%"
+       android:toXScale="1.0"
+       android:toYScale="1.0"/>
 
     <!--
 		fromXDelta,fromYDelta       起始时X，Y座标,屏幕右下角的座标是X:320,Y:480   
@@ -30,4 +27,3 @@
         restart为重新执行，方向不变
     -->
 
-</set>

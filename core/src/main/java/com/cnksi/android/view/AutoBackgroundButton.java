@@ -17,7 +17,6 @@ import com.cnksi.android.R;
 /**
  * @author Wastrel
  * @version 1.0
- * @auth wastrel
  * @date 2017/1/13 14:24
  * @copyRight 四川金信石信息技术有限公司
  * @since 1.0
@@ -105,12 +104,6 @@ public class AutoBackgroundButton extends AppCompatTextView {
     private int convertShape(int shape) {
         if (shape == 1) {
             return GradientDrawable.OVAL;
-        }
-        if (shape == 2) {
-            return GradientDrawable.LINE;
-        }
-        if (shape == 3) {
-            return GradientDrawable.RING;
         }
         return GradientDrawable.RECTANGLE;
     }

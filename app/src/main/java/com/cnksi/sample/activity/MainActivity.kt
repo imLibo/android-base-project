@@ -7,12 +7,14 @@ import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
+import com.cnksi.android.log.KLog
 import com.cnksi.android.view.LabelValueLayout
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityMainBinding
 import com.cnksi.sample.model.Student
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 /**
  *
@@ -60,7 +62,7 @@ class MainActivity : BaseActivity() {
         // Example of a call to a native method
 //        sample_text.text = stringFromJNI()
 
-        mBinding.contentMain?.labelValuehrContainer?.labelView?.text="发现方式："
+        mBinding.contentMain?.labelValuehrContainer?.labelView?.text = "发现方式："
         mBinding.contentMain?.labelValuehrContainer?.valueView?.setText("带电检测")
 
         mBinding.contentMain?.labelValueContainer?.labelView?.text = "设备类型"
@@ -80,6 +82,26 @@ class MainActivity : BaseActivity() {
             mBinding.contentMain?.labelValueContainer?.lineMarginLeft = 65
             mBinding.contentMain?.labelValueContainer?.lineMarginRight = 65
         }
+
+        val buttons = Arrays.asList(mBinding.contentMain?.borderButton, mBinding.contentMain?.borderButton2)
+        for (button in buttons) {
+            button?.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    KLog.d("BorderButton", buttonView.text.toString() + "checked")
+                } else {
+                    KLog.d("BorderButton", buttonView.text.toString() + "unchecked")
+                }
+            }
+        }
+
+        mBinding.contentMain?.btnChange?.setOnClickListener { _ ->
+            mBinding.contentMain?.borderButton?.strokeWidth = 5
+            mBinding.contentMain?.borderButton?.shape = 1
+            mBinding.contentMain?.borderButton2?.shape = 0
+            mBinding.contentMain?.borderButton2?.radius = 20
+            mBinding.contentMain?.borderButton2?.checkedColor = resources.getColor(R.color.colorAccent)
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -113,7 +135,7 @@ class MainActivity : BaseActivity() {
 
 
     private fun initLayout() {
-        for (row in 1..3) {
+        for (row in 1..2) {
             val horContainer = LinearLayout(this)
             horContainer.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
             for (column in 1..2) {

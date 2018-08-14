@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.cnksi.android.view.StepProgressView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:spv_completeColor="@color/bg_green_01ce7f"
+            app:spv_currentColor="@color/bg_red_ff7575"
+            app:spv_lineWidth="5dp"
+            app:spv_minStepWidth="50dp"
+            app:spv_stepDotRadius="5dp"
+            app:spv_textSize="20sp"
+            app:spv_unCompleteColor="@color/bg_gray_f0f2f1"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

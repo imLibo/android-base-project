@@ -105,5 +105,100 @@
             app:lvl_spacing="30px"
             app:lvl_valueTextColor="@color/text_333333"
             app:lvl_valueTextSize="60px"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/labelValuehrContainer">
+
+            <com.cnksi.android.view.BorderLineTagView
+                android:id="@+id/borderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:checked="true"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                android:text="变电站"
+                android:textColor="@color/core_text_color_626262"
+                app:blt_checkedColor="@color/bg_red_ff7575"
+                app:blt_radius="30dp"
+                app:blt_shape="rectangle"
+                app:blt_strokeWidth="1dp"/>
+
+            <com.cnksi.android.view.BorderLineTagView
+                android:id="@+id/borderButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/core_dialog_padding"
+                android:background="@color/core_green_color_1BBC9B"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:text="变电站2"
+                android:textColor="@color/core_text_color_626262"
+                app:blt_checkedColor="@color/bg_red_ff7575"
+                app:blt_shape="oval"
+                app:blt_strokeWidth="100dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal">
+
+                <com.cnksi.android.view.BorderLineTagView
+                    android:id="@+id/borderButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:checked="true"
+                    android:orientation="horizontal"
+                    android:padding="6dp"
+                    android:text="变电站3"
+                    android:textColor="@color/core_text_color_626262"
+                    app:blt_checkedColor="@color/bg_red_ff7575"
+                    app:blt_isRadioButton="true"
+                    app:blt_radius="30dp"
+                    app:blt_shape="rectangle"
+                    app:blt_strokeWidth="1dp"/>
+
+                <com.cnksi.android.view.BorderLineTagView
+                    android:id="@+id/borderButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/core_dialog_padding"
+                    android:background="@color/core_green_color_1BBC9B"
+                    android:orientation="horizontal"
+                    android:padding="3dp"
+                    android:text="变电站4"
+                    android:textColor="@color/core_text_color_626262"
+                    app:blt_checkedColor="@color/bg_red_ff7575"
+                    app:blt_isRadioButton="true"
+                    app:blt_shape="oval"
+                    app:blt_strokeWidth="1dp"/>
+
+            </RadioGroup>
+
+            <com.cnksi.android.view.BorderLineButton
+                android:id="@+id/btn_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/core_dialog_padding"
+                android:background="@color/bg_blue_59e9f2"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="3dp"
+                android:text="更改"
+                android:textColor="@color/bg_green_01ce7f"
+                app:blb_pressedColor="@color/bg_red_ff7575"
+                app:blb_radius="5dp"
+                app:blb_shape="rectangle"
+                app:blb_strokeWidth="1dp"/>
+        </LinearLayout>
+
     </android.support.constraint.ConstraintLayout>
 </layout>

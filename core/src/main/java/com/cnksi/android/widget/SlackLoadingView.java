@@ -8,9 +8,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+
+import com.cnksi.android.log.KLog;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -235,7 +236,7 @@ public class SlackLoadingView extends View {
         animationSet.addListener(new AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.d("@=>", "动画1结束");
+                KLog.d("@=>", "动画1结束");
                 if (mStatus == STATUS_LOADING) {
                     mStep++;
                     startCRAnim();
@@ -264,7 +265,7 @@ public class SlackLoadingView extends View {
         canvasRotateAnim.addListener(new AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.d("@=>", "动画2结束");
+                KLog.d("@=>", "动画2结束");
                 if (mStatus == STATUS_LOADING) {
                     mStep++;
                     startCRCCAnim();
@@ -305,7 +306,7 @@ public class SlackLoadingView extends View {
         animationSet.addListener(new AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.d("@=>", "动画3结束");
+                KLog.d("@=>", "动画3结束");
                 if (mStatus == STATUS_LOADING) {
                     mStep++;
                     startLCAnim();
@@ -334,7 +335,7 @@ public class SlackLoadingView extends View {
         lineWidthAnim.addListener(new AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.d("@=>", "动画4结束");
+                KLog.d("@=>", "动画4结束");
                 if (mStatus == STATUS_LOADING) {
                     mStep++;
                     startCRLCAnim();
@@ -365,14 +366,18 @@ public class SlackLoadingView extends View {
     }
 
     public void reset() {
+        stop();
+        initData();
+        invalidate();
+    }
+
+    public void stop() {
         if (mStatus == STATUS_LOADING) {
             mStatus = STATUS_STILL;
             for (Animator anim : mAnimList) {
                 anim.cancel();
             }
         }
-        initData();
-        invalidate();
     }
 
     private int dp2px(Context context, float dp) {

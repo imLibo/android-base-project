@@ -29,6 +29,7 @@ import static com.cnksi.android.encrypt.base.BaseUtils.parseHexStr2Byte;
  * @since 1.0
  */
 public class DESUtil {
+
     @IntDef({Cipher.ENCRYPT_MODE, Cipher.DECRYPT_MODE})
     @interface DESType {
     }

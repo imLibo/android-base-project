@@ -51,10 +51,17 @@ class HomeActivity : BaseActivity() {
 //                dialog.setLoadingContent("加载中...")
 //                dialog.show(supportFragmentManager)
 //                LoadingDialog.show(HomeActivity@ this)
-                val dialog = LoadingDialog.showHorizontal("正在同步数据，请稍候...", HomeActivity@ this)
+                LoadingDialog.show(HomeActivity@ this)
+//                LoadingDialog.showHorizontal("正在同步数据，请稍候...", HomeActivity@ this)
+//                view.postDelayed({
+//                    LoadingDialog.show(HomeActivity@ this).dialog.setCancelable(true)
+//                }, 2000)
+//                view.postDelayed({
+//                    LoadingDialog.showHorizontal("正在同步数据2，请稍候...", HomeActivity@ this)
+//                }, 4000)
                 view.postDelayed({
-                    LoadingDialog.showHorizontal("正在同步数据2，请稍候...", HomeActivity@ this)
-                }, 2000)
+                    LoadingDialog.dismissDialog()
+                }, 8000)
             } else {
                 val intent = Intent(this@HomeActivity, clazz)
                 startActivity(intent)

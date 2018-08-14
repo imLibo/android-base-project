@@ -30,8 +30,7 @@ public class AESUtil {
     private final static String SHA1PRNG = "SHA1PRNG";
 
     @IntDef({Cipher.ENCRYPT_MODE, Cipher.DECRYPT_MODE})
-    @interface AESType {
-    }
+    @interface AESType {}
 
     /**
      * Aes加密/解密

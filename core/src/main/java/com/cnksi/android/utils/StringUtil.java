@@ -1,5 +1,7 @@
 package com.cnksi.android.utils;
 
+import android.text.TextUtils;
+
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -166,6 +168,20 @@ public final class StringUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * 从文件路径中得到文件名称
+     *
+     * @param filePath x/x.jpg
+     * @return x.jpg
+     */
+    public static String getFileNameFromPath(String filePath) {
+        if (!TextUtils.isEmpty(filePath)) {
+            String temp[] = filePath.trim().split("/");
+            return temp[temp.length - 1];
+        }
+        return "";
     }
 
 }

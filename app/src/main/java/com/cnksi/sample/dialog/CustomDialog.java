@@ -10,7 +10,6 @@ import android.view.WindowManager;
 
 import com.cnksi.android.base.BaseDialog;
 import com.cnksi.sample.R;
-import com.cnksi.sample.databinding.ContentMainBinding;
 
 import es.dmoral.toasty.Toasty;
 
@@ -23,7 +22,10 @@ import es.dmoral.toasty.Toasty;
  */
 public class CustomDialog extends BaseDialog {
 
-    private ContentMainBinding mBinding;
+    @Override
+    protected void initView() {
+        super.initView();
+    }
 
     @Override
     protected CharSequence getTitle() {
@@ -42,8 +44,7 @@ public class CustomDialog extends BaseDialog {
 
     @Override
     protected View getContentView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.content_main, container, false);
-        return mBinding.getRoot();
+       return DataBindingUtil.inflate(inflater, R.layout.step_progress_view_layout, container, false).getRoot();
     }
 
     @Override
@@ -65,12 +66,12 @@ public class CustomDialog extends BaseDialog {
 
     @Override
     protected int getButtonVisible() {
-        return ButtonVisible.RIGHT;
+        return ButtonVisible.BOTH;
     }
 
     @Override
     protected WindowManager.LayoutParams getLayoutParams(WindowManager.LayoutParams params) {
-        params.windowAnimations = R.style.dialog_animation;
+//        params.windowAnimations = R.style.dialog_animation;
         return params;
     }
 }
