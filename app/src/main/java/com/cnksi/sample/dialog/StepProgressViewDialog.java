@@ -3,6 +3,7 @@ package com.cnksi.sample.dialog;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,9 @@ import android.view.WindowManager;
 
 import com.cnksi.android.base.BaseDialog;
 import com.cnksi.sample.R;
+import com.cnksi.sample.databinding.StepProgressViewLayoutBinding;
+
+import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
 
@@ -20,11 +24,24 @@ import es.dmoral.toasty.Toasty;
  * @date 2018/8/2
  * @since 1.0
  */
-public class CustomDialog extends BaseDialog {
+public class StepProgressViewDialog extends BaseDialog {
+
+    private StepProgressViewLayoutBinding mBinding;
 
     @Override
     protected void initView() {
         super.initView();
+        ArrayList<CharSequence> list = new ArrayList<>();
+        list.add("施工单位");
+        list.add("监理单位");
+        list.add("业主单位");
+        list.add("建设部备案");
+//        list.add("建设部备案2");
+        mBinding.stepView.initData(list, 3);
+        mBinding.btnChange.setOnClickListener(v -> {
+            String number = mBinding.etStep.getText().toString();
+            mBinding.stepView.setCurrentStep(Integer.parseInt(TextUtils.isEmpty(number) ? "0" : number));
+        });
     }
 
     @Override
@@ -44,7 +61,8 @@ public class CustomDialog extends BaseDialog {
 
     @Override
     protected View getContentView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-       return DataBindingUtil.inflate(inflater, R.layout.content_main, container, false).getRoot();
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.step_progress_view_layout, container, false);
+        return mBinding.getRoot();
     }
 
     @Override

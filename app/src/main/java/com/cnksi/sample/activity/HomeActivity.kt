@@ -11,6 +11,7 @@ import com.cnksi.android.log.KLog
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityHomeBinding
 import com.cnksi.sample.dialog.CustomDialog
+import com.cnksi.sample.dialog.StepProgressViewDialog
 import com.cnksi.sample.model.HomeItem
 import es.dmoral.toasty.Toasty
 
@@ -62,6 +63,9 @@ class HomeActivity : BaseActivity() {
                 view.postDelayed({
                     LoadingDialog.dismissDialog()
                 }, 8000)
+            } else if (code == 3) {
+                val dialog = StepProgressViewDialog()
+                dialog.show(supportFragmentManager)
             } else {
                 val intent = Intent(this@HomeActivity, clazz)
                 startActivity(intent)

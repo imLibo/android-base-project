@@ -56,8 +56,8 @@ public abstract class BaseDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootBinding = DataBindingUtil.inflate(inflater, R.layout.core_dialog_layout, container, false);
-        initView();
         mRootBinding.coreFlDialogContent.addView(getContentView(inflater, container));
+        initView();
         return mRootBinding.getRoot();
     }
 
