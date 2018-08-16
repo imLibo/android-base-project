@@ -9,15 +9,9 @@
 
         <com.cnksi.android.view.StepProgressView
             android:id="@+id/step_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:spv_completeColor="@color/bg_green_01ce7f"
-            app:spv_currentColor="@color/bg_red_ff7575"
-            app:spv_lineWidth="1.5dp"
-            app:spv_minStepWidth="80dp"
-            app:spv_stepDotRadius="5dp"
-            app:spv_textSize="14sp"
-            app:spv_unCompleteColor="@color/bg_gray_f0f2f1"/>
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,12 +26,25 @@
                 android:inputType="number"
                 android:minWidth="80dp"/>
 
-            <Button
+            <com.cnksi.android.view.AutoGradientButton
                 android:id="@+id/btn_change"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="更新"/>
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:text="更新"
+                app:agb_endColor="#01BBB6"
+                app:agb_radius="5dp"
+                app:agb_startColor="#9ADA6A"
+                app:agb_textPressColor="@color/core_red_color_FD6067"/>
 
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="增加"/>
 
         </LinearLayout>
 

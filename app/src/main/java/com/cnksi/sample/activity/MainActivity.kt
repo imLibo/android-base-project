@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import com.cnksi.android.log.KLog
+import com.cnksi.android.view.AutoGradientButton
 import com.cnksi.android.view.LabelValueLayout
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityMainBinding
@@ -102,6 +103,16 @@ class MainActivity : BaseActivity() {
             mBinding.contentMain?.borderButton2?.checkedColor = resources.getColor(R.color.colorAccent)
         }
 
+        mBinding.contentMain?.sampleText?.setOnClickListener { _ ->
+            mBinding.contentMain?.gradientText?.setColor(resources.getColor(R.color.bg_green_4bd1b6), resources.getColor(R.color.bg_red_ff7575))
+            mBinding.contentMain?.gradientText?.orientation = AutoGradientButton.Orientation.VERTICAL
+            mBinding.contentMain?.gradientText?.textPressColor = resources.getColor(R.color.bg_green_4bd1b6)
+        }
+
+        mBinding.contentMain?.gradientText?.setOnClickListener { _ ->
+            mBinding.contentMain?.sampleText?.normalColor = resources.getColor(R.color.bg_green_4bd1b6)
+            mBinding.contentMain?.sampleText?.textPressColor = resources.getColor(R.color.bg_green_4bd1b6)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

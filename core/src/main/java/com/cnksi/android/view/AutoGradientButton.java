@@ -15,77 +15,94 @@ import com.cnksi.android.R;
 
 
 /**
- * @author Wastrel
+ * 背景渐变TextView
+ *
+ * @author lyongfly
  * @version 1.0
  * @date 2017/1/13 14:24
  * @copyRight 四川金信石信息技术有限公司
  * @since 1.0
  */
-public class AutoBackgroundButton extends AppCompatTextView {
+public class AutoGradientButton extends AppCompatTextView {
 
-    private int pressColor;
-    private int textPressColor;
-    private int normalColor;
+    public interface Orientation {
+        int HORIZONTATAL = 0;
+        int VERTICAL = 1;
+    }
+
+    private int startColor;
+    private int endColor;
+    private GradientDrawable.Orientation orientation;
     private int disableColor;
     private int radius;
     private int shape;
+    private int textPressColor = 0;
 
-    public AutoBackgroundButton(Context context) {
+    public AutoGradientButton(Context context) {
         super(context);
         init(null, 0, 0);
     }
 
-    public AutoBackgroundButton(Context context, AttributeSet attrs) {
+    public AutoGradientButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0, 0);
     }
 
-    public AutoBackgroundButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AutoGradientButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs, defStyleAttr, 0);
     }
 
     private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.AutoBackgroundButton, defStyleAttr, defStyleRes);
-        normalColor = a.getColor(R.styleable.AutoBackgroundButton_abb_normalColor, 0);
-        pressColor = a.getColor(R.styleable.AutoBackgroundButton_abb_pressColor, getPressColor(normalColor));
-        textPressColor = a.getColor(R.styleable.AutoBackgroundButton_abb_textPressColor, 0);
-        pressColor = a.getColor(R.styleable.AutoBackgroundButton_abb_pressColor, getPressColor(normalColor));
-        disableColor = a.getColor(R.styleable.AutoBackgroundButton_abb_disableColor, Color.GRAY);
-        radius = a.getDimensionPixelSize(R.styleable.AutoBackgroundButton_abb_radius, 9);
-        shape = convertShape(a.getInt(R.styleable.AutoBackgroundButton_abb_shape, 0));
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.AutoGradientButton, defStyleAttr, defStyleRes);
+        startColor = a.getColor(R.styleable.AutoGradientButton_agb_startColor, 0);
+        endColor = a.getColor(R.styleable.AutoGradientButton_agb_endColor, 0);
+        orientation = convertOrientation(a.getInt(R.styleable.AutoGradientButton_agb_orientation, 0));
+        disableColor = a.getColor(R.styleable.AutoGradientButton_agb_disableColor, Color.GRAY);
+        radius = a.getDimensionPixelSize(R.styleable.AutoGradientButton_agb_radius, 9);
+        shape = convertShape(a.getInt(R.styleable.AutoGradientButton_agb_shape, 0));
+        if (a.hasValue(R.styleable.AutoGradientButton_agb_textPressColor)) {
+            textPressColor = a.getColor(R.styleable.AutoGradientButton_agb_textPressColor, 0);
+        }
         a.recycle();
         updateBackground();
     }
 
     private void updateBackground() {
+        //一定是先添加 state_pressed color
         StateListDrawable stateListDrawable = new StateListDrawable();
+
         GradientDrawable pressDrawable = new GradientDrawable();
         pressDrawable.setCornerRadius(radius);
-        pressDrawable.setColor(pressColor);
+        pressDrawable.setColors(new int[]{getPressColor(startColor), getPressColor(endColor)});
+        pressDrawable.setOrientation(orientation);
         pressDrawable.setShape(shape);
         stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, pressDrawable);
-        stateListDrawable.addState(new int[]{android.R.attr.state_selected}, pressDrawable);
+
         GradientDrawable disableDrawable = new GradientDrawable();
         disableDrawable.setCornerRadius(radius);
         disableDrawable.setColor(disableColor);
         disableDrawable.setShape(shape);
         stateListDrawable.addState(new int[]{-android.R.attr.state_enabled}, disableDrawable);
+
         GradientDrawable normalDrawable = new GradientDrawable();
         normalDrawable.setCornerRadius(radius);
-        normalDrawable.setColor(normalColor);
+        normalDrawable.setColors(new int[]{startColor, endColor});
+        normalDrawable.setOrientation(orientation);
         normalDrawable.setShape(shape);
         stateListDrawable.addState(new int[]{}, normalDrawable);
+
+        this.setBackground(stateListDrawable);
+
         if (getGravity() == (Gravity.TOP | Gravity.START)) {
             setGravity(Gravity.CENTER);
         }
-        this.setBackground(stateListDrawable);
         if (textPressColor != 0) {
             ColorStateList textColor = getTextColors();
-            //默认颜色
             int txtColor = textColor.getDefaultColor();
             setTextColor(new ColorStateList(new int[][]{{android.R.attr.state_pressed}, {android.R.attr.state_selected}, {}}, new int[]{textPressColor, textPressColor, txtColor}));
         }
+
     }
 
     private int convertShape(int shape) {
@@ -93,6 +110,13 @@ public class AutoBackgroundButton extends AppCompatTextView {
             return GradientDrawable.OVAL;
         }
         return GradientDrawable.RECTANGLE;
+    }
+
+    private GradientDrawable.Orientation convertOrientation(int orientation) {
+        if (orientation == Orientation.HORIZONTATAL) {
+            return GradientDrawable.Orientation.LEFT_RIGHT;
+        }
+        return GradientDrawable.Orientation.TOP_BOTTOM;
     }
 
     @ColorInt
@@ -115,18 +139,18 @@ public class AutoBackgroundButton extends AppCompatTextView {
         return Color.argb((int) (rsA * 255), rsR, rsG, rsB);
     }
 
-    public void setNormalColor(@ColorInt int normalColor) {
-        this.normalColor = normalColor;
-        this.pressColor = getPressColor(this.normalColor);
+    public void setColor(@ColorInt int startColor, @ColorInt int endColor) {
+        this.startColor = startColor;
+        this.endColor = endColor;
         updateBackground();
     }
 
-    public void setPressColor(int pressColor) {
-        this.pressColor = pressColor;
+    public void setOrientation(int orientation) {
+        this.orientation = convertOrientation(orientation);
         updateBackground();
     }
 
-    public void setTextPressColor(int textPressColor) {
+    public void setTextPressColor(@ColorInt int textPressColor) {
         this.textPressColor = textPressColor;
         updateBackground();
     }
@@ -146,16 +170,19 @@ public class AutoBackgroundButton extends AppCompatTextView {
         updateBackground();
     }
 
-    public int getPressColor() {
-        return pressColor;
+    public int getStartColor() {
+        return startColor;
     }
 
-    public int getTextPressColor() {
-        return textPressColor;
+    public int getEndColor() {
+        return endColor;
     }
 
-    public int getNormalColor() {
-        return normalColor;
+    public int getOrientation() {
+        if (orientation == GradientDrawable.Orientation.TOP_BOTTOM) {
+            return Orientation.VERTICAL;
+        }
+        return Orientation.HORIZONTATAL;
     }
 
     public int getDisableColor() {
@@ -168,5 +195,9 @@ public class AutoBackgroundButton extends AppCompatTextView {
 
     public int getShape() {
         return shape;
+    }
+
+    public int getTextPressColor() {
+        return textPressColor;
     }
 }

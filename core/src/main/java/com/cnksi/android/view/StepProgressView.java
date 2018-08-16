@@ -28,14 +28,18 @@ import java.util.List;
  */
 public class StepProgressView extends HorizontalScrollView {
 
-    private static final int PADDING = 10;
+    private static final int DEFAULT_PADDING = 10;
 
     private static final int CURRENT_DOT_OUT_CIRCLE = 8;
 
     /**
      * 最小宽度
      */
-    private float minStepWidth = 20;
+    private float minStepWidth;
+    /**
+     * 内间距
+     */
+    private float padding;
     /**
      * 步骤描述
      */
@@ -47,19 +51,19 @@ public class StepProgressView extends HorizontalScrollView {
     /**
      * 完成步骤颜色
      */
-    private int completeColor = Colors.GREEN;
+    private int completeColor;
     /**
      * 当前步骤颜色
      */
-    private int currentColor = Colors.RED;
+    private int currentColor;
     /**
      * 未完成步骤颜色
      */
-    private int unCompleteColor = Colors.GRAY;
+    private int unCompleteColor;
     /**
      * 步骤点的大小
      */
-    private float stepDotRadius = 10;
+    private float stepDotRadius;
     /**
      * 当前步骤点大小
      */
@@ -97,6 +101,8 @@ public class StepProgressView extends HorizontalScrollView {
      */
     private float textStartY;
 
+    private ChildView mChildView;
+
     public StepProgressView(Context context) {
         this(context, null);
     }
@@ -112,16 +118,18 @@ public class StepProgressView extends HorizontalScrollView {
     public StepProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.StepProgressView, defStyleAttr, 0);
-        minStepWidth = a.getDimensionPixelSize(R.styleable.StepProgressView_spv_minStepWidth, 20);
-        textSize = a.getDimensionPixelSize(R.styleable.StepProgressView_spv_textSize, 20);
-        completeColor = a.getColor(R.styleable.StepProgressView_spv_completeColor, Colors.GREEN);
-        currentColor = a.getColor(R.styleable.StepProgressView_spv_currentColor, Colors.RED);
+        minStepWidth = a.getDimensionPixelSize(R.styleable.StepProgressView_spv_minStepWidth, 270);
+        textSize = a.getDimensionPixelSize(R.styleable.StepProgressView_spv_textSize, 42);
+        completeColor = a.getColor(R.styleable.StepProgressView_spv_completeColor, Colors.GREEN_STATE_GRID);
+        currentColor = a.getColor(R.styleable.StepProgressView_spv_currentColor, Colors.RED_STATE_GRID);
         unCompleteColor = a.getColor(R.styleable.StepProgressView_spv_unCompleteColor, Colors.GRAY);
-        stepDotRadius = a.getDimensionPixelOffset(R.styleable.StepProgressView_spv_stepDotRadius, 20);
+        stepDotRadius = a.getDimensionPixelOffset(R.styleable.StepProgressView_spv_stepDotRadius, 15);
         currentDotRadius = stepDotRadius + CURRENT_DOT_OUT_CIRCLE;
         lineWidth = a.getDimensionPixelSize(R.styleable.StepProgressView_spv_lineWidth, 5);
         a.recycle();
-        this.addView(new ChildView(context));
+        padding = Math.max(Math.max(Math.max(getPaddingBottom(), getPaddingTop()), Math.max(getPaddingLeft(), getPaddingRight())), DEFAULT_PADDING);
+        mChildView = new ChildView(context);
+        this.addView(mChildView);
     }
 
     private class ChildView extends View {
@@ -144,11 +152,12 @@ public class StepProgressView extends HorizontalScrollView {
         }
 
         private void init() {
+
             mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mTextPaint.setTextSize(textSize);
             textHeight = DisplayUtil.getFontHeight(mTextPaint);
             calculateTextWidth();
-            textStartY = textHeight + PADDING + currentDotRadius * 2;
+            textStartY = textHeight + padding + currentDotRadius * 2;
 
             mDotPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -161,9 +170,9 @@ public class StepProgressView extends HorizontalScrollView {
             int width = measureWidth(widthMeasureSpec);
             int height = measureHeight(heightMeasureSpec);
             int count = mStepList.size() - 1;
-            minStepWidth = Math.max((width - textFirstWidth / 2 - textLastWidth / 2 - PADDING * 2) / count, minStepWidth);
-            height = (int) Math.max(height, currentDotRadius * 2 + PADDING * 2 + textHeight + PADDING);
-            setMeasuredDimension((int) (minStepWidth * count + textLastWidth / 2 + textFirstWidth / 2 + PADDING * 2), height);
+            minStepWidth = Math.max((width - textFirstWidth / 2 - textLastWidth / 2 - padding * 2) / count, minStepWidth);
+            height = (int) Math.max(height, currentDotRadius * 2 + padding * 2 + textHeight + padding);
+            setMeasuredDimension((int) (minStepWidth * count + textLastWidth / 2 + textFirstWidth / 2 + padding * 2), height);
         }
 
         private int measureWidth(int widthMeasureSpec) {
@@ -198,8 +207,8 @@ public class StepProgressView extends HorizontalScrollView {
         @Override
         protected void onDraw(Canvas canvas) {
             //设置起点
-            float startX = PADDING + textFirstWidth / 2;
-            float startY = PADDING + currentDotRadius;
+            float startX = padding + textFirstWidth / 2;
+            float startY = padding + currentDotRadius;
             for (int i = 0, count = mStepList.size(); i < count; i++) {
                 CharSequence text = mStepList.get(i).toString();
                 float endX = startX + minStepWidth;
@@ -265,7 +274,7 @@ public class StepProgressView extends HorizontalScrollView {
     public void setStepList(List<CharSequence> stepList) {
         mStepList = stepList;
         calculateTextWidth();
-        requestLayout();
+        mChildView.requestLayout();
     }
 
     public int getCurrentStep() {
@@ -274,6 +283,6 @@ public class StepProgressView extends HorizontalScrollView {
 
     public void setCurrentStep(int currentStep) {
         this.currentStep = currentStep - 1;
-        requestLayout();
+        mChildView.requestLayout();
     }
 }

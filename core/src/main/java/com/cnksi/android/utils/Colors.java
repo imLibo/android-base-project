@@ -49,6 +49,11 @@ public final class Colors {
     public static final int RED = 0xffff0000;
 
     /**
+     * 红色- 国家电网
+     */
+    public static final int RED_STATE_GRID = 0xffff7575;
+
+    /**
      * 红色 - 半透明
      */
     public static final int RED_TRANSLUCENT = 0x80ff0000;
@@ -77,6 +82,10 @@ public final class Colors {
      * 绿色 - 深的
      */
     public static final int GREEN_DARK = 0xff003300;
+    /**
+     * 绿色 - 国家电网颜色
+     */
+    public static final int GREEN_STATE_GRID = 0xff01ce7f;
 
     /**
      * 绿色 - 深的 - 半透明

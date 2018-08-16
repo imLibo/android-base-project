@@ -19,9 +19,11 @@ import android.view.Gravity;
 public class CenterDrawableTextView extends AutoBackgroundButton {
 
     private static final int DEFAULT_SIZE = 80;
+    private Context mContext;
 
     public CenterDrawableTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.mContext = context;
     }
 
     public CenterDrawableTextView(Context context, AttributeSet attrs) {

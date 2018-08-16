@@ -12,6 +12,24 @@
         </attr>
         <attr name="abb_textPressColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="AutoGradientButton">
+        <attr name="agb_startColor" format="color"/>
+        <attr name="agb_endColor" format="color"/>
+        <attr name="agb_orientation">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+        <attr name="agb_gradientRadius" format="dimension"/>
+        <attr name="agb_disableColor" format="color"/>
+        <attr name="agb_radius" format="dimension"/>
+        <attr name="agb_textPressColor" format="color"/>
+        <attr name="agb_shape">
+            <enum name="rectangle" value="0"/>
+            <enum name="oval" value="1"/>
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="UnderLineLinearLayout">
         <attr name="ull_marginLeft" format="dimension"/>
         <attr name="ull_marginRight" format="dimension"/>
@@ -72,6 +90,8 @@
         </attr>
         <attr name="blt_strokeWidth" format="dimension"/>
         <attr name="blt_isRadioButton" format="boolean"/>
+        <attr name="blt_isFillBackground" format="boolean"/>
+        <attr name="blt_isUnCheckedShowBorder" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="BorderLineButton">

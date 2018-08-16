@@ -24,8 +24,6 @@ import com.cnksi.android.R;
  */
 public class BorderLineButton extends AppCompatTextView {
 
-    protected Context mContext;
-
     private int pressedColor;
     private int radius;
     private int shape;
@@ -33,19 +31,16 @@ public class BorderLineButton extends AppCompatTextView {
 
     public BorderLineButton(Context context) {
         super(context);
-        mContext = context;
         init(null, 0);
     }
 
     public BorderLineButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
         init(attrs, 0);
     }
 
     public BorderLineButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
         init(attrs, defStyleAttr);
     }
 
@@ -120,7 +115,6 @@ public class BorderLineButton extends AppCompatTextView {
     public void setRadius(int radius) {
         this.radius = radius;
         updateBackground();
-        invalidate();
     }
 
     public int getShape() {
@@ -139,6 +133,10 @@ public class BorderLineButton extends AppCompatTextView {
     public void setStrokeWidth(int strokeWidth) {
         this.strokeWidth = strokeWidth;
         updateBackground();
-        invalidate();
+    }
+
+    public void setPressedColor(int pressedColor) {
+        this.pressedColor = pressedColor;
+        updateBackground();
     }
 }

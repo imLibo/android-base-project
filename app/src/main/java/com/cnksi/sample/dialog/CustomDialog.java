@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import com.cnksi.android.base.BaseDialog;
 import com.cnksi.sample.R;
+import com.cnksi.sample.databinding.ContentMainBinding;
 
 import es.dmoral.toasty.Toasty;
 
@@ -22,10 +23,7 @@ import es.dmoral.toasty.Toasty;
  */
 public class CustomDialog extends BaseDialog {
 
-    @Override
-    protected void initView() {
-        super.initView();
-    }
+    private ContentMainBinding mBinding;
 
     @Override
     protected CharSequence getTitle() {
@@ -44,7 +42,8 @@ public class CustomDialog extends BaseDialog {
 
     @Override
     protected View getContentView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-       return DataBindingUtil.inflate(inflater, R.layout.content_main, container, false).getRoot();
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.content_main, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -73,5 +72,18 @@ public class CustomDialog extends BaseDialog {
     protected WindowManager.LayoutParams getLayoutParams(WindowManager.LayoutParams params) {
 //        params.windowAnimations = R.style.dialog_animation;
         return params;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        mBinding.btnChange.setOnClickListener(v -> {
+
+        });
+
+        mBinding.borderButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Toasty.info(getContext(), buttonView.getText().toString() + (isChecked ? "选中" : "取消选中")).show();
+        });
+
     }
 }

@@ -31,16 +31,21 @@ public class StepProgressViewDialog extends BaseDialog {
     @Override
     protected void initView() {
         super.initView();
-        ArrayList<CharSequence> list = new ArrayList<>();
+        final ArrayList<CharSequence> list = new ArrayList<>();
         list.add("施工单位");
         list.add("监理单位");
         list.add("业主单位");
         list.add("建设部备案");
-//        list.add("建设部备案2");
+
         mBinding.stepView.initData(list, 3);
         mBinding.btnChange.setOnClickListener(v -> {
             String number = mBinding.etStep.getText().toString();
             mBinding.stepView.setCurrentStep(Integer.parseInt(TextUtils.isEmpty(number) ? "0" : number));
+        });
+        mBinding.btnAdd.setOnClickListener(v -> {
+            list.add("建设部备案2");
+            list.add("建设部备案3");
+            mBinding.stepView.setStepList(list);
         });
     }
 
