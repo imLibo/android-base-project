@@ -48,6 +48,7 @@ public abstract class BaseDialog extends DialogFragment {
         int LEFT = 1;
         int RIGHT = 2;
         int BOTH = 3;
+        int GONE = 4;
     }
 
     protected CoreDialogLayoutBinding mRootBinding;
@@ -83,20 +84,24 @@ public abstract class BaseDialog extends DialogFragment {
 
     @CallSuper
     protected void initView() {
-        mRootBinding.coreBtnDialogRight.setOnClickListener(this::onRightButtonClick);
-        mRootBinding.coreBtnDialogLeft.setOnClickListener(this::onLeftButtonClick);
         mRootBinding.coreIbtnClose.setOnClickListener(v -> dismiss());
         mRootBinding.coreTvDialogTitle.setText(StringUtil.fromNull(getTitle()));
-        mRootBinding.coreBtnDialogLeft.setText(StringUtil.fromNull(getLeftButtonText()));
-        mRootBinding.coreBtnDialogRight.setText(StringUtil.fromNull(getRigthButtonText()));
-        mRootBinding.coreBtnDialogLeft.setVisibility(getButtonVisible() == ButtonVisible.BOTH ?
-                View.VISIBLE : getButtonVisible() == ButtonVisible.LEFT ? View.VISIBLE : View.GONE);
-        mRootBinding.coreBtnDialogRight.setVisibility(getButtonVisible() == ButtonVisible.BOTH ?
-                View.VISIBLE : getButtonVisible() == ButtonVisible.RIGHT ? View.VISIBLE : View.GONE);
-        if (getButtonVisible() == ButtonVisible.RIGHT) {
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mRootBinding.coreBtnDialogRight.getLayoutParams();
-            params.leftMargin = 0;
-            mRootBinding.coreBtnDialogRight.setLayoutParams(params);
+        if (getButtonVisible() == ButtonVisible.GONE) {
+            mRootBinding.coreBtnContainer.setVisibility(View.GONE);
+        } else {
+            mRootBinding.coreBtnDialogRight.setOnClickListener(this::onRightButtonClick);
+            mRootBinding.coreBtnDialogLeft.setOnClickListener(this::onLeftButtonClick);
+            mRootBinding.coreBtnDialogLeft.setText(StringUtil.fromNull(getLeftButtonText()));
+            mRootBinding.coreBtnDialogRight.setText(StringUtil.fromNull(getRigthButtonText()));
+            mRootBinding.coreBtnDialogLeft.setVisibility(getButtonVisible() == ButtonVisible.BOTH ?
+                    View.VISIBLE : getButtonVisible() == ButtonVisible.LEFT ? View.VISIBLE : View.GONE);
+            mRootBinding.coreBtnDialogRight.setVisibility(getButtonVisible() == ButtonVisible.BOTH ?
+                    View.VISIBLE : getButtonVisible() == ButtonVisible.RIGHT ? View.VISIBLE : View.GONE);
+            if (getButtonVisible() == ButtonVisible.RIGHT) {
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mRootBinding.coreBtnDialogRight.getLayoutParams();
+                params.leftMargin = 0;
+                mRootBinding.coreBtnDialogRight.setLayoutParams(params);
+            }
         }
     }
 

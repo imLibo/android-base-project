@@ -54,9 +54,12 @@ public class LabelValueLayout extends LinearLayout {
     private Drawable mDrawable;
     private boolean isEdit;
     private int drawableBackgroundColor;
-    private String drawableText;
     private int drawableWidth;
     private int drawableHeight;
+
+    private String labelText;
+    private String valueText;
+    private String drawableText;
 
     private Paint mPaint;
     private Rect mUnderRect = new Rect();
@@ -95,7 +98,9 @@ public class LabelValueLayout extends LinearLayout {
         isEdit = a.getBoolean(R.styleable.LabelValueLayout_lvl_valueTextEnabledEdit, false);
         mDrawable = a.getDrawable(R.styleable.LabelValueLayout_lvl_rightDrawable);
         drawableBackgroundColor = a.getColor(R.styleable.LabelValueLayout_lvl_rightBackgroundColor, 0);
-        drawableText = a.getString(R.styleable.LabelValueLayout_lvl_rightText);
+        drawableText = a.getString(R.styleable.LabelValueLayout_lvl_drawableText);
+        labelText = a.getString(R.styleable.LabelValueLayout_lvl_labelText);
+        valueText = a.getString(R.styleable.LabelValueLayout_lvl_valueText);
         drawableWidth = a.getDimensionPixelOffset(R.styleable.LabelValueLayout_lvl_rightDrawableWidth, -1);
         drawableHeight = a.getDimensionPixelOffset(R.styleable.LabelValueLayout_lvl_rightDrawableHeight, -1);
         a.recycle();
@@ -116,6 +121,9 @@ public class LabelValueLayout extends LinearLayout {
         mTvLabel = new TextView(mContext);
         mTvLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX, labelTextSize);
         mTvLabel.setTextColor(labelTextColor);
+        if (!TextUtils.isEmpty(labelText)) {
+            mTvLabel.setText(labelText);
+        }
 
         mTvValue = new EditText(mContext);
         mTvValue.setBackground(null);
@@ -124,7 +132,9 @@ public class LabelValueLayout extends LinearLayout {
         mTvValue.setPadding(0, 0, 0, 0);
         mTvValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, valueTextSize);
         mTvValue.setTextColor(valueTextColor);
-
+        if (!TextUtils.isEmpty(valueText)) {
+            mTvValue.setText(valueText);
+        }
 
         mContainer = new LinearLayout(mContext);
         mContainer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -137,12 +147,12 @@ public class LabelValueLayout extends LinearLayout {
             mDrawableView = new CenterDrawableTextView(mContext);
             mDrawableView.setNormalColor(drawableBackgroundColor);
             mDrawableView.setDrawable(mDrawable);
-            mDrawableView.setText(drawableText);
-            if (drawableHeight > 0 && drawableWidth > 0) {
-                mDrawableView.setHeight(drawableHeight);
-                mDrawableView.setWidth(drawableWidth);
-            }
+            LayoutParams params = new LayoutParams(drawableWidth > 0 ? drawableWidth : LayoutParams.WRAP_CONTENT, drawableHeight > 0 ? drawableHeight : LayoutParams.WRAP_CONTENT);
+            mDrawableView.setLayoutParams(params);
             mContainer.addView(mDrawableView);
+            if (!TextUtils.isEmpty(drawableText)) {
+                mDrawableView.setText(drawableText);
+            }
         }
 
         setSpacing(spacing);
@@ -208,7 +218,6 @@ public class LabelValueLayout extends LinearLayout {
 
     public int getValueTextSize() {
         return valueTextSize;
-
     }
 
     public void setValueTextSize(int valueTextSize) {

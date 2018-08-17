@@ -12,6 +12,7 @@ import android.widget.HorizontalScrollView;
 import com.cnksi.android.R;
 import com.cnksi.android.utils.Colors;
 import com.cnksi.android.utils.DisplayUtil;
+import com.cnksi.android.utils.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,42 +168,13 @@ public class StepProgressView extends HorizontalScrollView {
 
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            int width = measureWidth(widthMeasureSpec);
-            int height = measureHeight(heightMeasureSpec);
+            int width = ViewUtil.measureWidth(widthMeasureSpec);
+            int height = ViewUtil.measureHeight(heightMeasureSpec);
             int count = mStepList.size() - 1;
             minStepWidth = Math.max((width - textFirstWidth / 2 - textLastWidth / 2 - padding * 2) / count, minStepWidth);
             height = (int) Math.max(height, currentDotRadius * 2 + padding * 2 + textHeight + padding);
             setMeasuredDimension((int) (minStepWidth * count + textLastWidth / 2 + textFirstWidth / 2 + padding * 2), height);
         }
-
-        private int measureWidth(int widthMeasureSpec) {
-            int result = 0;
-            int specMode = MeasureSpec.getMode(widthMeasureSpec);
-            int specSize = MeasureSpec.getSize(widthMeasureSpec);
-            if (specMode == MeasureSpec.EXACTLY) {
-                result = specSize;
-            } else {
-                if (specMode == MeasureSpec.AT_MOST) {
-                    result = Math.min(result, specSize);
-                }
-            }
-            return result;
-        }
-
-        private int measureHeight(int heightMeasureSpec) {
-            int result = 0;
-            int specMode = MeasureSpec.getMode(heightMeasureSpec);
-            int specSize = MeasureSpec.getSize(heightMeasureSpec);
-            if (specMode == MeasureSpec.EXACTLY) {
-                result = specSize;
-            } else {
-                if (specMode == MeasureSpec.AT_MOST) {
-                    result = Math.min(result, specSize);
-                }
-            }
-            return result;
-        }
-
 
         @Override
         protected void onDraw(Canvas canvas) {

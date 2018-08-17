@@ -57,7 +57,7 @@ class MainActivity : BaseActivity() {
             mBinding.contentMain?.lineLayout?.setMarginLeft(100)
 
 //            mBinding.contentMain?.cdt?.text = "用户名"
-            mBinding.contentMain?.cdt?.setDrawableResource((R.mipmap.ic_login_user))
+//            mBinding.contentMain?.cdt?.setDrawableResource((R.mipmap.ic_login_user))
         }
 
         // Example of a call to a native method
@@ -68,6 +68,8 @@ class MainActivity : BaseActivity() {
 
         mBinding.contentMain?.labelValueContainer?.labelView?.text = "设备类型"
         mBinding.contentMain?.labelValueContainer?.valueView?.setText("开关柜")
+        mBinding.contentMain?.labelValueContainer?.drawableView?.height = 60
+        mBinding.contentMain?.labelValueContainer?.drawableView?.width = 60
         mBinding.contentMain?.labelValueContainer?.setValueTextOnClickListener { _ ->
             Toasty.info(this, mBinding.contentMain?.labelValueContainer?.valueText.toString()).show()
         }

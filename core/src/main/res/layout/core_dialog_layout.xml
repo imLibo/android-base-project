@@ -8,6 +8,7 @@
                   android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/core_rl_title_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -39,6 +40,7 @@
             android:padding="@dimen/core_dialog_padding"/>
 
         <LinearLayout
+            android:id="@+id/core_btn_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

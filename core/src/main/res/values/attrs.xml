@@ -40,6 +40,9 @@
     </declare-styleable>
 
     <declare-styleable name="LabelValueLayout">
+        <attr name="lvl_labelText" format="string"/>
+        <attr name="lvl_valueText" format="string"/>
+        <attr name="lvl_drawableText" format="string"/>
         <attr name="lvl_spacing" format="dimension"/>
         <attr name="lvl_labelTextSize" format="dimension"/>
         <attr name="lvl_valueTextSize" format="dimension"/>
@@ -54,7 +57,6 @@
         <attr name="lvl_lineColor" format="color"/>
         <attr name="lvl_valueTextEnabledEdit" format="boolean"/>
         <attr name="lvl_rightDrawable" format="reference"/>
-        <attr name="lvl_rightText" format="string"/>
         <attr name="lvl_rightBackgroundColor" format="color"/>
         <attr name="lvl_rightDrawableWidth" format="dimension"/>
         <attr name="lvl_rightDrawableHeight" format="dimension"/>

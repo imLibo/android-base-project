@@ -7,6 +7,10 @@ import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
+import com.cnksi.android.log.KLog;
+import com.cnksi.android.utils.DisplayUtil;
+import com.cnksi.android.utils.ViewUtil;
+
 /**
  * drawableLeft与文本一起居中显示
  *
@@ -18,55 +22,66 @@ import android.view.Gravity;
  */
 public class CenterDrawableTextView extends AutoBackgroundButton {
 
-    private static final int DEFAULT_SIZE = 80;
     private Context mContext;
 
-    public CenterDrawableTextView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        this.mContext = context;
+    private Drawable[] drawables;
+
+    private float textWidth = 0f;
+    private float textHeight = 0f;
+
+    public CenterDrawableTextView(Context context) {
+        this(context, null);
     }
 
     public CenterDrawableTextView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CenterDrawableTextView(Context context) {
-        this(context, null);
+    public CenterDrawableTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.mContext = context;
+        init();
+    }
+
+    private void init() {
+        drawables = getCompoundDrawables();
+        if (drawables[0] != null) {
+            setGravity(Gravity.CENTER_VERTICAL);
+        } else {
+            setGravity(Gravity.CENTER);
+        }
+        //文本的宽度
+        textWidth = DisplayUtil.getFontWidth(getPaint(), getText().toString());
+        textHeight = DisplayUtil.getFontHeight(getPaint());
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
-        Drawable[] drawables = getCompoundDrawables();
-        Drawable drawableLeft = drawables[0];
-        float textWidth = getPaint().measureText(getText().toString());
-        if (drawableLeft != null && textWidth <= 0) {
-            int size = Math.max(Math.max(width, height), DEFAULT_SIZE);
-            setMeasuredDimension(size, size);
+        if (drawables != null && drawables[0] != null) {
+            int width = ViewUtil.measureWidth(widthMeasureSpec);
+            int height = ViewUtil.measureHeight(heightMeasureSpec);
+            width = Math.max(drawables[0].getIntrinsicWidth() + (int) textWidth + getCompoundDrawablePadding() + getPaddingLeft() + getPaddingRight(), width);
+            height = Math.max(Math.max(drawables[0].getIntrinsicHeight(), (int) textHeight) + getPaddingTop() + getPaddingBottom(), height);
+            setMeasuredDimension(width, height);
+        } else {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Drawable[] drawables = getCompoundDrawables();
-        if (drawables[0] != null) {
-            setGravity(Gravity.CENTER_VERTICAL);
-            setPadding(0, 0, 0, 0);
-            //文本的宽度
-            float textWidth = getPaint().measureText(getText().toString());
+        if (drawables[0] != null && textWidth > 0) {
             //drawablePadding值
             int drawablePadding = getCompoundDrawablePadding();
             //icon的宽度
             int drawableWidth = drawables[0].getIntrinsicWidth();
             // icon和文字都居中
             float bodyWidth = textWidth + drawableWidth + drawablePadding;
+            float padding = getPaddingLeft() + getPaddingRight();
+            KLog.d("width->" + getWidth() + "  hight->" + getHeight() + " drawableWidth->" + drawableWidth);
             //平移
-            float translate = (getWidth() - bodyWidth) / 2;
+            float translate = (getWidth() - bodyWidth - padding) / 2;
             canvas.translate(translate, 0);
-        } else {
-            setGravity(Gravity.CENTER);
         }
         super.onDraw(canvas);
     }
