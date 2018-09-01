@@ -6,7 +6,9 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
+import com.cnksi.android.R;
 import com.cnksi.android.permission.PermissionSetting;
 import com.yanzhenjie.permission.AndPermission;
 
@@ -25,13 +27,14 @@ import java.util.List;
  */
 public abstract class BaseCoreActivity extends AppCompatActivity implements PermissionSetting.PermissionCallback {
 
+    private long currentBackPressedTime = 0;
     protected CoreHandler mHandler;
     protected BaseCoreActivity mActivity;
 
-    private static class CoreHandler extends Handler {
+    protected static class CoreHandler extends Handler {
         private WeakReference<BaseCoreActivity> mReference;
 
-        public CoreHandler(BaseCoreActivity activity) {
+        private CoreHandler(BaseCoreActivity activity) {
             this.mReference = new WeakReference<>(activity);
         }
 
@@ -50,7 +53,6 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
      * @param msg
      */
     public void handleMessage(Message msg) {
-        
     }
 
     /**
@@ -133,6 +135,31 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
     private void removeHandlerMessages() {
         if (mHandler != null) {
             mHandler.removeCallbacks(null);
+        }
+    }
+
+    /**
+     * 退出应用
+     */
+    protected void exitSystem() {
+        exitSystem(false);
+    }
+
+    /**
+     * 退出应用 true 完全退出 false 结束当前页面
+     *
+     * @param isExitSystem
+     */
+    protected void exitSystem(boolean isExitSystem) {
+        if (System.currentTimeMillis() - currentBackPressedTime > 2000) {
+            currentBackPressedTime = System.currentTimeMillis();
+            Toast.makeText(mActivity, R.string.one_more_click_exit_str, Toast.LENGTH_SHORT).show();
+        } else {
+            if (isExitSystem) {
+                compeletlyExitSystem();
+            } else {
+                this.finish();
+            }
         }
     }
 }

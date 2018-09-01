@@ -2,7 +2,11 @@ package com.cnksi.android.app;
 
 import android.app.Application;
 
+import com.cnksi.android.BuildConfig;
+import com.cnksi.android.log.KLog;
 import com.cnksi.android.utils.PreferencesUtil;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * @author lyongfly
@@ -21,5 +25,7 @@ public class App extends Application {
 
     protected void initUtil() {
         PreferencesUtil.init(this.getApplicationContext());
+        KLog.init(BuildConfig.DEBUG);
+        Toasty.Config.getInstance().apply();
     }
 }

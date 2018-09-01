@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.cnksi.android.base.LoadingDialog
+import com.cnksi.android.encrypt.Test
 import com.cnksi.android.log.KLog
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityHomeBinding
@@ -36,6 +37,8 @@ class HomeActivity : BaseActivity() {
         mBinding.rcvContainer.layoutManager = GridLayoutManager(this, 2)
         mAdapter = HomeAdapter(R.layout.home_item_layout, mList)
         mBinding.rcvContainer.adapter = mAdapter
+
+        Test.main()
 
         mAdapter.setOnItemChildClickListener { _, view, position ->
             val clazz = mList[position].activity

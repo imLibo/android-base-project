@@ -150,4 +150,8 @@ public abstract class BaseDialog extends DialogFragment {
     public void show(FragmentManager manager) {
         show(manager, this.getClass().getName());
     }
+
+    public void setOnDialogClickListener(OnDialogClickListener listener){
+        this.mOnDialogClickListener = listener;
+    }
 }

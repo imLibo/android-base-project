@@ -82,7 +82,11 @@ public final class KLog {
      * @param objects 需要打印的对象
      */
     public static void v(String tag, Object... objects) {
-        printLog(V, tag, objects);
+        if (objects.length == 0) {
+            v(tag);
+        } else {
+            printLog(V, tag, objects);
+        }
     }
 
     public static void d() {
@@ -100,7 +104,11 @@ public final class KLog {
      * @param objects 需要打印的对象
      */
     public static void d(String tag, Object... objects) {
-        printLog(D, tag, objects);
+        if (objects.length == 0) {
+            d(tag);
+        } else {
+            printLog(D, tag, objects);
+        }
     }
 
     public static void i() {
@@ -118,7 +126,11 @@ public final class KLog {
      * @param objects 需要打印的对象
      */
     public static void i(String tag, Object... objects) {
-        printLog(I, tag, objects);
+        if (objects.length == 0) {
+            i(tag);
+        } else {
+            printLog(I, tag, objects);
+        }
     }
 
     public static void w() {
@@ -136,7 +148,11 @@ public final class KLog {
      * @param objects 需要打印的对象
      */
     public static void w(String tag, Object... objects) {
-        printLog(W, tag, objects);
+        if (objects.length == 0) {
+            w(tag);
+        } else {
+            printLog(W, tag, objects);
+        }
     }
 
     public static void e() {
@@ -154,7 +170,12 @@ public final class KLog {
      * @param objects 需要打印的对象
      */
     public static void e(String tag, Object... objects) {
-        printLog(E, tag, objects);
+        if (objects.length == 0) {
+            e(tag);
+        } else {
+            printLog(E, tag, objects);
+        }
+
     }
 
     public static void a() {
@@ -172,7 +193,11 @@ public final class KLog {
      * @param objects 需要打印的对象
      */
     public static void a(String tag, Object... objects) {
-        printLog(A, tag, objects);
+        if (objects.length == 0) {
+            a(tag);
+        } else {
+            printLog(A, tag, objects);
+        }
     }
 
     public static void json(String jsonFormat) {

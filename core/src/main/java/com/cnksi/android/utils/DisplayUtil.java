@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -77,6 +79,23 @@ public class DisplayUtil {
     public static int sp2px(@NonNull Context context, float spValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
+    }
+
+    /**
+     * 获取设备的最小Dpi
+     *
+     * @param activity
+     * @return
+     */
+    public static float getSmallDpi(@Nullable Activity activity) {
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int heightPixels = dm.heightPixels;
+        int widthPixels = dm.widthPixels;
+        float density = dm.density;
+        float heightDP = heightPixels / density;
+        float widthDP = widthPixels / density;
+        return Math.min(widthDP, heightDP);
     }
 
     /**

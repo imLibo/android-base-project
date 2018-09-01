@@ -213,7 +213,9 @@ public class LoadingDialog extends AppCompatDialogFragment {
 
     public static void dismissDialog() {
         try {
-            mDialog.dismissAllowingStateLoss();
+            if (mDialog != null) {
+                mDialog.dismissAllowingStateLoss();
+            }
         } catch (Exception e) {
             KLog.e(e);
         }
