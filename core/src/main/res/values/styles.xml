@@ -5,9 +5,24 @@
         <item name="android:windowEnterAnimation">@anim/core_dialog_show</item>
         <item name="android:windowExitAnimation">@anim/core_dialog_dismiss</item>
     </style>
+
     <style name="CoreLoadingAnim" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/core_loading_show</item>
         <item name="android:windowExitAnimation">@anim/core_loading_dismiss</item>
     </style>
 
+    <!--文本框基础样式-->
+    <style name="CoreEditTextStyle">
+        <item name="android:minHeight">@dimen/dp_42</item>
+        <item name="android:paddingLeft">@dimen/dp_14</item>
+        <item name="android:paddingRight">@dimen/dp_14</item>
+        <item name="android:background">@drawable/core_edit_bg</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColorHint">@color/core_text_hint</item>
+    </style>
+
+    <!-- LoginActivity -->
+    <style name="CoreEditTextStyle.Login">
+        <item name="android:drawablePadding">@dimen/dp_10</item>
+    </style>
 </resources>

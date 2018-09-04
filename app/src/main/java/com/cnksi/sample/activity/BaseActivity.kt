@@ -2,7 +2,7 @@ package com.cnksi.sample.activity
 
 import android.Manifest
 import android.os.Environment
-import com.cnksi.android.base.BaseCoreActivity
+import com.cnksi.android.activity.BaseCoreActivity
 import com.cnksi.android.utils.FileUtil
 import java.io.File
 

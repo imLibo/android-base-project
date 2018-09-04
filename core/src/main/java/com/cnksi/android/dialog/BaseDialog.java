@@ -1,4 +1,4 @@
-package com.cnksi.android.base;
+package com.cnksi.android.dialog;
 
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;

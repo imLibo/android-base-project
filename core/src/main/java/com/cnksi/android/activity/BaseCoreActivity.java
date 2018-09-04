@@ -1,4 +1,4 @@
-package com.cnksi.android.base;
+package com.cnksi.android.activity;
 
 import android.os.Bundle;
 import android.os.Handler;

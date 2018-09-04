@@ -11,8 +11,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.cnksi.android.log.KLog;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -236,7 +234,6 @@ public class SlackLoadingView extends View {
         animationSet.addListener(new AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                KLog.d("@=>", "动画1结束");
                 if (mStatus == STATUS_LOADING) {
                     mStep++;
                     startCRAnim();
@@ -265,7 +262,6 @@ public class SlackLoadingView extends View {
         canvasRotateAnim.addListener(new AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                KLog.d("@=>", "动画2结束");
                 if (mStatus == STATUS_LOADING) {
                     mStep++;
                     startCRCCAnim();
@@ -306,7 +302,6 @@ public class SlackLoadingView extends View {
         animationSet.addListener(new AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                KLog.d("@=>", "动画3结束");
                 if (mStatus == STATUS_LOADING) {
                     mStep++;
                     startLCAnim();
@@ -335,7 +330,6 @@ public class SlackLoadingView extends View {
         lineWidthAnim.addListener(new AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                KLog.d("@=>", "动画4结束");
                 if (mStatus == STATUS_LOADING) {
                     mStep++;
                     startCRLCAnim();

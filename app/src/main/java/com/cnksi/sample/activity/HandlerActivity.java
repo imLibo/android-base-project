@@ -3,7 +3,7 @@ package com.cnksi.sample.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.cnksi.android.base.BaseCoreActivity;
+import com.cnksi.android.activity.BaseCoreActivity;
 
 /**
  * @author lyongfly

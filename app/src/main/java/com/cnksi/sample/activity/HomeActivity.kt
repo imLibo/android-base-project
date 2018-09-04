@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.cnksi.android.base.LoadingDialog
+import com.cnksi.android.dialog.LoadingDialog
 import com.cnksi.android.encrypt.Test
 import com.cnksi.android.log.KLog
 import com.cnksi.sample.R

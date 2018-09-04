@@ -102,7 +102,7 @@ public class BorderLineTagView extends AppCompatRadioButton {
 
     private int getBackgroundColor() {
         //获取背景颜色
-        int backgroundColor = getResources().getColor(R.color.core_white_color_FFFFFF);
+        int backgroundColor = getResources().getColor(R.color.core_white_FFFFFF);
         Drawable background = getBackground();
         if (background instanceof ColorDrawable) {
             ColorDrawable colorDrawable = (ColorDrawable) background;

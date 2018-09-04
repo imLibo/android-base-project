@@ -38,7 +38,7 @@
                 app:agb_endColor="#01BBB6"
                 app:agb_radius="5dp"
                 app:agb_startColor="#9ADA6A"
-                app:agb_textPressColor="@color/core_red_color_FD6067"/>
+                app:agb_textPressColor="@color/core_red_FD6067"/>
 
             <Button
                 android:id="@+id/btn_add"

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.cnksi.android.base.BaseDialog;
+import com.cnksi.android.dialog.BaseDialog;
 import com.cnksi.sample.R;
 import com.cnksi.sample.databinding.ContentMainBinding;
 

@@ -19,7 +19,7 @@
                 android:background="@drawable/core_dialog_title_bg"
                 android:gravity="center"
                 android:text="提示"
-                android:textColor="@color/core_white_color_FFFFFF"
+                android:textColor="@color/core_white_FFFFFF"
                 android:textSize="@dimen/core_dialog_title_size"/>
 
             <ImageButton
@@ -51,9 +51,9 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/core_button_height"
                 android:layout_weight="1"
-                android:textColor="@color/core_white_color_FFFFFF"
+                android:textColor="@color/core_white_FFFFFF"
                 android:textSize="@dimen/core_dialog_button_size"
-                app:abb_normalColor="@color/core_red_color_FD6067"
+                app:abb_normalColor="@color/core_red_FD6067"
                 app:abb_radius="@dimen/core_dialog_button_radius"/>
 
             <com.cnksi.android.view.AutoBackgroundButton
@@ -62,9 +62,9 @@
                 android:layout_height="@dimen/core_button_height"
                 android:layout_marginLeft="@dimen/core_dialog_padding"
                 android:layout_weight="1"
-                android:textColor="@color/core_white_color_FFFFFF"
+                android:textColor="@color/core_white_FFFFFF"
                 android:textSize="@dimen/core_dialog_button_size"
-                app:abb_normalColor="@color/core_green_color_1BBC9B"
+                app:abb_normalColor="@color/core_green_1BBC9B"
                 app:abb_radius="@dimen/core_dialog_button_radius"/>
 
         </LinearLayout>

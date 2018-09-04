@@ -2,12 +2,29 @@
 <resources>
 
     <!--背景颜色-->
-    <color name="core_green_color_1BBC9B">#1BBC9B</color>
-    <color name="core_white_color_F0F2F2">#F0F2F2</color>
-    <color name="core_red_color_FD6067">#FD6067</color>
-    <color name="core_white_color_FFFFFF">#FFFFFF</color>
+
+    <color name="core_white_F0F2F2">#F0F2F2</color>
+    <color name="core_white_FFFFFF">#FFFFFF</color>
+    <color name="core_red_FD6067">#FD6067</color>
+    <color name="core_blue_33C8FF">#33C8FF</color>
+    <color name="core_red_D9534F">#D9534F</color>
+    <color name="core_red_90FD6067">#90FD6067</color>
+    <color name="core_gray_D3EEEA">#D3EEEA</color>
+    <color name="core_gray_EAEAEA">#EAEAEA</color>
+    <color name="core_green_1BBC9B">#1BBC9B</color>
+    <color name="core_green_25AF9D">#25AF9D</color>
+    <color name="core_green_088A7E">#088A7E</color>
+    <color name="core_orange_F6B52B">#F6B52B</color>
 
     <!--字体颜色-->
-    <color name="core_text_color_626262">#626262</color>
+    <color name="core_text_626262">#626262</color>
+    <color name="core_text_white">#FFFFFF</color>
+    <color name="core_text_black">#333333</color>
+    <color name="core_text_normal">#666666</color>
+    <color name="core_text_gray">#A0AAA8</color>
+    <color name="core_text_hint">#A8BFBC</color>
+    <color name="core_text_green">#038977</color>
+    <color name="core_text_orange">#D0910B</color>
+    <color name="core_text_red">#D9534F</color>
 
 </resources>

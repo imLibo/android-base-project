@@ -2,4 +2,11 @@
     <string name="app_name">CoreApplication</string>
     <string name="core_loading_content">加载中...</string>
     <string name="one_more_click_exit_str">再按一次返回键退出程序!</string>
+
+    <string name="login_hint_account">请输入用户名</string>
+    <string name="login_hint_pwd">请输入密码</string>
+    <string name="login_button_text">登\t\t录</string>
+    <string name="reset_button_text">重\t\t置</string>
+    <string name="login_label_version_format">当前版本号:%1$s(%2$d)</string>
+
 </resources>

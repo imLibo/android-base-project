@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="请稍候..."
-            android:textColor="@color/core_text_color_626262"
+            android:textColor="@color/core_text_626262"
             android:textSize="@dimen/core_loading_text_size"/>
     </LinearLayout>
 </layout>

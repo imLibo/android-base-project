@@ -1,4 +1,4 @@
-package com.cnksi.android.base;
+package com.cnksi.android.dialog;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -91,11 +91,6 @@ public class LoadingDialog extends AppCompatDialogFragment {
         this.isCancelable = cancelable;
     }
 
-    /**
-     * 设置加载文字
-     *
-     * @param loadingContent
-     */
     private void setLoadingContent(CharSequence loadingContent) {
         this.mLodingContent = loadingContent;
         if (mBinding != null) {
@@ -129,75 +124,34 @@ public class LoadingDialog extends AppCompatDialogFragment {
         ft.commitAllowingStateLoss();
     }
 
-    /**
-     * 显示Dialog
-     *
-     * @param activity
-     * @return
-     */
     public static LoadingDialog show(FragmentActivity activity) {
-        return show(activity.getString(R.string.core_loading_content), activity, false);
+        return show(activity, activity.getString(R.string.core_loading_content), false);
     }
 
-    /**
-     * 显示Dialog
-     *
-     * @param activity
-     * @return
-     */
     public static LoadingDialog show(FragmentActivity activity, boolean cancelable) {
-        return show(activity.getString(R.string.core_loading_content), activity, cancelable);
+        return show(activity, activity.getString(R.string.core_loading_content), cancelable);
+    }
+
+    public static LoadingDialog show(FragmentActivity activity, CharSequence loadingContent, boolean cancelable) {
+        return show(activity, loadingContent, LinearLayout.VERTICAL, cancelable);
+    }
+
+    public static LoadingDialog show(FragmentActivity activity, CharSequence loadingContent) {
+        return show(activity, loadingContent, LinearLayout.VERTICAL, false);
     }
 
     /**
-     * 显示Dialog
-     *
-     * @param activity
-     * @return
+     * 显示横向Dialog
      */
-    public static LoadingDialog show(CharSequence loadingContent, FragmentActivity activity, boolean cancelable) {
-        return show(loadingContent, activity, LinearLayout.VERTICAL, cancelable);
+    public static LoadingDialog showHorizontal(FragmentActivity activity, CharSequence loadingContent) {
+        return show(activity, loadingContent, LinearLayout.HORIZONTAL, false);
     }
 
-    /**
-     * 显示Dialog
-     *
-     * @param activity
-     * @return
-     */
-    public static LoadingDialog show(CharSequence loadingContent, FragmentActivity activity) {
-        return show(loadingContent, activity, LinearLayout.VERTICAL, false);
+    public static LoadingDialog showHorizontal(FragmentActivity activity, CharSequence loadingContent, boolean cancelable) {
+        return show(activity, loadingContent, LinearLayout.HORIZONTAL, cancelable);
     }
 
-    /**
-     * 显示Dialog
-     *
-     * @param loadingContent
-     * @param activity
-     * @return
-     */
-    public static LoadingDialog showHorizontal(CharSequence loadingContent, FragmentActivity activity) {
-        return show(loadingContent, activity, LinearLayout.HORIZONTAL, false);
-    }
-
-    /**
-     * 显示Dialog
-     *
-     * @param loadingContent
-     * @param activity
-     * @return
-     */
-    public static LoadingDialog showHorizontal(CharSequence loadingContent, FragmentActivity activity, boolean cancelable) {
-        return show(loadingContent, activity, LinearLayout.HORIZONTAL, cancelable);
-    }
-
-    /**
-     * 显示Dialog
-     *
-     * @param activity
-     * @return
-     */
-    private static LoadingDialog show(CharSequence loadingContent, FragmentActivity activity, int orientation, boolean cancelable) {
+    private static LoadingDialog show(FragmentActivity activity, CharSequence loadingContent, int orientation, boolean cancelable) {
         mDialog = DIALOG_MAP.get(activity);
         if (mDialog == null) {
             DIALOG_MAP.put(activity, mDialog = new LoadingDialog());

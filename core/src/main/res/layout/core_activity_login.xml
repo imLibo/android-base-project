@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/rl_root_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:background="@drawable/core_login_bg"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:background="@color/core_white_FFFFFF"/>
+        </LinearLayout>
+
+        <!-- 系统Logo -->
+        <ImageView
+            android:id="@+id/iv_app_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_50"
+            android:src="@mipmap/core_state_grid_logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- 系统名称 -->
+        <TextView
+            android:id="@+id/tv_appname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/core_cv_container"
+            android:clickable="true"
+            android:textColor="@color/core_text_white"
+            android:textSize="@dimen/sp_28"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/core_cv_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_app_logo"
+            tools:text="风险管控移动作业平台"/>
+        <!-- 用户名 -->
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/core_cv_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_32"
+            android:layout_marginRight="@dimen/dp_32"
+            app:cardBackgroundColor="@color/core_white_FFFFFF"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_1_5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.65">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/dp_0_1"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dp_30"
+                android:paddingLeft="@dimen/dp_12"
+                android:paddingRight="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_30">
+
+                <EditText
+                    android:id="@+id/et_account"
+                    style="@style/CoreEditTextStyle.Login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:drawableLeft="@mipmap/core_icon_account"
+                    android:hint="@string/login_hint_account"
+                    android:imeOptions="actionNext"
+                    android:maxLength="50"
+                    android:nextFocusDown="@+id/et_pwd"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:textColorHint="@color/core_text_hint"/>
+
+                <!-- 密码 -->
+                <EditText
+                    android:id="@+id/et_password"
+                    style="@style/CoreEditTextStyle.Login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/core_icon_pwd"
+                    android:hint="@string/login_hint_pwd"
+                    android:inputType="textPassword"
+                    android:maxLength="50"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:textColorHint="@color/core_text_hint"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_40"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_32"
+            android:paddingRight="@dimen/dp_32"
+            app:layout_constraintTop_toBottomOf="@id/core_cv_container">
+
+            <com.cnksi.android.view.AutoBackgroundButton
+                android:id="@+id/btn_left"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_35"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_14"
+                app:abb_normalColor="@color/core_red_D9534F"
+                tools:text="重置"/>
+
+            <com.cnksi.android.view.AutoBackgroundButton
+                android:id="@+id/btn_login"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_14"
+                app:abb_normalColor="@color/core_green_25AF9D"
+                tools:text="登录"/>
+        </LinearLayout>
+
+        <!-- 版权 -->
+        <TextView
+            android:id="@+id/tv_version_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:clickable="true"
+            android:drawableLeft="@mipmap/core_icon_info"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="center_horizontal|bottom"
+            android:textColor="@color/core_text_gray"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="当前版本号:1.0.0(2)"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>

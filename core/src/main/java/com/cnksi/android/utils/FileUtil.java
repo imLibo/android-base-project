@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import com.cnksi.android.log.KLog;
 
-import org.xutils.common.util.IOUtils;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -547,7 +546,7 @@ public class FileUtil {
             } catch (IOException e) {
                 KLog.e(e);
             } finally {
-                IOUtils.closeQuietly(inputStream);
+                IOUtil.closeQuietly(inputStream);
             }
         }
         return isSuccess;
@@ -576,7 +575,7 @@ public class FileUtil {
         } catch (IOException e) {
             KLog.e(e);
         } finally {
-            IOUtils.closeQuietly(outputStream);
+            IOUtil.closeQuietly(outputStream);
         }
     }
 }
