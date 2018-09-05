@@ -32,13 +32,13 @@ public abstract class BaseLoginActivity extends BaseCoreActivity {
 
     @CallSuper
     protected void initView() {
-        mBinding.tvAppname.setText(getAppName());
-        mBinding.btnLogin.setText(getLoginButtonText());
-        mBinding.btnLeft.setText(getLeftButtonText());
-        mBinding.tvVersionInfo.setText(getVersionText());
-        mBinding.btnLogin.setOnClickListener(this::onLoginButtonClick);
-        mBinding.btnLeft.setOnClickListener(this::onLeftButtonClick);
-        ViewUtil.setFastClickView(mBinding.tvVersionInfo, this::onVersionFastClick);
+        mBinding.coreTvAppname.setText(getAppName());
+        mBinding.coreBtnLogin.setText(getLoginButtonText());
+        mBinding.coreBtnLeft.setText(getLeftButtonText());
+        mBinding.coreTvVersionInfo.setText(getVersionText());
+        mBinding.coreBtnLogin.setOnClickListener(this::onLoginButtonClick);
+        mBinding.coreBtnLeft.setOnClickListener(this::onLeftButtonClick);
+        ViewUtil.setFastClickView(mBinding.coreTvVersionInfo, this::onVersionFastClick);
     }
 
     protected abstract void initData();
@@ -58,17 +58,17 @@ public abstract class BaseLoginActivity extends BaseCoreActivity {
     protected abstract void onLoginButtonClick(View v);
 
     protected void onLeftButtonClick(View v) {
-        mBinding.etAccount.setText("");
-        mBinding.etPassword.setText("");
+        mBinding.coreEtAccount.setText("");
+        mBinding.coreEtPassword.setText("");
     }
 
     protected abstract void onVersionFastClick(View v);
 
     protected String getAccount() {
-        return mBinding.etAccount.getText().toString().trim();
+        return mBinding.coreEtAccount.getText().toString().trim();
     }
 
     protected String getPassword() {
-        return mBinding.etPassword.getText().toString().trim();
+        return mBinding.coreEtPassword.getText().toString().trim();
     }
 }

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.cnksi.android.R;
 import com.cnksi.android.permission.PermissionSetting;
+import com.cnksi.android.safe.XSSLayoutFactory;
 import com.yanzhenjie.permission.AndPermission;
 
 import java.lang.ref.WeakReference;
@@ -65,6 +66,15 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
     }
 
     /**
+     * 是否添加字符串过滤
+     *
+     * @return
+     */
+    protected boolean isAddInputFilter() {
+        return true;
+    }
+
+    /**
      * 返回需要授权的权限
      *
      * @return
@@ -110,8 +120,18 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
         System.exit(0);
     }
 
+    /**
+     * 获取字符串过滤规则
+     */
+    protected XSSLayoutFactory.FilterRegex getFilterRegex() {
+        return null;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (isAddInputFilter()) {
+            XSSLayoutFactory.installViewFactory(getDelegate(), getLayoutInflater(), getFilterRegex());
+        }
         super.onCreate(savedInstanceState);
         mActivity = this;
         mHandler = initHandler() ? new CoreHandler(mActivity) : null;

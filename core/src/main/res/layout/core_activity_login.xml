@@ -29,7 +29,7 @@
 
         <!-- 系统Logo -->
         <ImageView
-            android:id="@+id/iv_app_logo"
+            android:id="@+id/core_iv_app_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_20"
@@ -40,7 +40,7 @@
 
         <!-- 系统名称 -->
         <TextView
-            android:id="@+id/tv_appname"
+            android:id="@+id/core_tv_appname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/core_cv_container"
@@ -51,7 +51,7 @@
             app:layout_constraintBottom_toTopOf="@id/core_cv_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_app_logo"
+            app:layout_constraintTop_toBottomOf="@id/core_iv_app_logo"
             tools:text="风险管控移动作业平台"/>
         <!-- 用户名 -->
 
@@ -79,7 +79,7 @@
                 android:paddingTop="@dimen/dp_30">
 
                 <EditText
-                    android:id="@+id/et_account"
+                    android:id="@+id/core_et_account"
                     style="@style/CoreEditTextStyle.Login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
 
                 <!-- 密码 -->
                 <EditText
-                    android:id="@+id/et_password"
+                    android:id="@+id/core_et_password"
                     style="@style/CoreEditTextStyle.Login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
             app:layout_constraintTop_toBottomOf="@id/core_cv_container">
 
             <com.cnksi.android.view.AutoBackgroundButton
-                android:id="@+id/btn_left"
+                android:id="@+id/core_btn_left"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_35"
                 android:layout_weight="1"
@@ -129,7 +129,7 @@
                 tools:text="重置"/>
 
             <com.cnksi.android.view.AutoBackgroundButton
-                android:id="@+id/btn_login"
+                android:id="@+id/core_btn_login"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_35"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -142,7 +142,7 @@
 
         <!-- 版权 -->
         <TextView
-            android:id="@+id/tv_version_info"
+            android:id="@+id/core_tv_version_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

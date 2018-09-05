@@ -1,9 +1,12 @@
 package com.cnksi.sample.activity;
 
+import android.util.SparseArray;
 import android.view.View;
 
 import com.cnksi.android.activity.BaseLoginActivity;
+import com.cnksi.android.safe.XSSLayoutFactory;
 import com.cnksi.sample.BuildConfig;
+import com.cnksi.sample.R;
 
 import es.dmoral.toasty.Toasty;
 
@@ -45,5 +48,19 @@ public class LoginActivity extends BaseLoginActivity {
     @Override
     protected String[] getPermission() {
         return new String[0];
+    }
+
+    @Override
+    protected XSSLayoutFactory.FilterRegex getFilterRegex() {
+        return () -> {
+            //通用字符串匹配
+            // String regex = "^[a-z0-9A-Z\u4e00-\u9fa5，、。：“”_/.:！？（） \\- . ]+$";
+            SparseArray<String> map = new SparseArray<>();
+            //限定账号输入框只能输入 字母数字
+            map.put(R.id.core_et_account, "^[a-z0-9A-Z]+$");
+            //限定密码输入框只能输入 字母数字及给定的符号
+            map.put(R.id.core_et_password, "^[a-z0-9A-Z，、。：“”_/.:！？（） \\- . ]+$");
+            return map;
+        };
     }
 }

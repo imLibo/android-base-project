@@ -1,6 +1,7 @@
 package com.cnksi.android.app;
 
 import android.app.Application;
+import android.support.annotation.CallSuper;
 
 import com.cnksi.android.BuildConfig;
 import com.cnksi.android.log.KLog;
@@ -23,6 +24,7 @@ public class App extends Application {
         initUtil();
     }
 
+    @CallSuper
     protected void initUtil() {
         PreferencesUtil.init(this.getApplicationContext());
         KLog.init(BuildConfig.DEBUG);
