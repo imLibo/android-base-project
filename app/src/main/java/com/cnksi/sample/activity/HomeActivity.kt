@@ -69,6 +69,9 @@ class HomeActivity : BaseActivity() {
             } else if (code == 3) {
                 val dialog = StepProgressViewDialog()
                 dialog.show(supportFragmentManager)
+            } else if (code == 4) {
+                val intent = Intent(this@HomeActivity, clazz)
+                startActivity(intent)
             } else {
                 val intent = Intent(this@HomeActivity, clazz)
                 startActivity(intent)

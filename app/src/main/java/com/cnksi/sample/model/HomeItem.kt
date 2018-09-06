@@ -1,6 +1,7 @@
 package com.cnksi.sample.model
 
 import com.cnksi.sample.activity.BitmapActivity
+import com.cnksi.sample.activity.LoginActivity
 import com.cnksi.sample.activity.MainActivity
 
 /**
@@ -19,7 +20,8 @@ data class HomeItem(val title: String, val activity: Class<*>, val code: Int) {
                     HomeItem("自定义View", MainActivity::class.java, 0),
                     HomeItem("自定义Dialog", String::class.java, 1),
                     HomeItem("LoadingDialog", String::class.java, 2),
-                    HomeItem("StepProgressView", String::class.java, 3)
+                    HomeItem("StepProgressView", String::class.java, 3),
+                    HomeItem("LoginActivity", LoginActivity::class.java, 4)
             )
         }
     }
