@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">CoreApplication</string>
     <string name="core_loading_content">加载中...</string>
     <string name="one_more_click_exit_str">再按一次返回键退出程序!</string>
 
@@ -9,4 +8,7 @@
     <string name="reset_button_text">重\t\t置</string>
     <string name="login_label_version_format">当前版本号:%1$s(%2$d)</string>
 
+    <string name="simpleCopyText">拷贝崩溃文本</string>
+    <string name="simpleShareText">分享崩溃文本</string>
+    <string name="simpleShareImage">分享崩溃图片</string>
 </resources>

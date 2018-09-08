@@ -21,7 +21,9 @@ data class HomeItem(val title: String, val activity: Class<*>, val code: Int) {
                     HomeItem("自定义Dialog", String::class.java, 1),
                     HomeItem("LoadingDialog", String::class.java, 2),
                     HomeItem("StepProgressView", String::class.java, 3),
-                    HomeItem("LoginActivity", LoginActivity::class.java, 4)
+                    HomeItem("LoginActivity", LoginActivity::class.java, 4),
+                    HomeItem("主线程异常", LoginActivity::class.java, 5),
+                    HomeItem("子线程异常", LoginActivity::class.java, 6)
             )
         }
     }

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.cnksi.android.R;
+import com.cnksi.android.executor.ActivityManager;
 import com.cnksi.android.permission.PermissionSetting;
 import com.cnksi.android.safe.XSSLayoutFactory;
 import com.yanzhenjie.permission.AndPermission;
@@ -133,7 +134,7 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
             XSSLayoutFactory.installViewFactory(getDelegate(), getLayoutInflater(), getFilterRegex());
         }
         super.onCreate(savedInstanceState);
-        mActivity = this;
+        ActivityManager.instance().pushActivity(mActivity = this);
         mHandler = initHandler() ? new CoreHandler(mActivity) : null;
         requestPermissions();
     }
@@ -146,6 +147,7 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
     @Override
     protected void onDestroy() {
         removeHandlerMessages();
+        ActivityManager.instance().popActivity(mActivity);
         super.onDestroy();
     }
 

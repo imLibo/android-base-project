@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--背景颜色-->
+    <color name="colorPrimary">#1BBC9B</color>
+    <color name="colorPrimaryDark">#1BBC9B</color>
+    <color name="colorAccent">#FF4081</color>
 
+    <!--背景颜色-->
     <color name="core_white_F0F2F2">#F0F2F2</color>
     <color name="core_white_FFFFFF">#FFFFFF</color>
     <color name="core_red_FD6067">#FD6067</color>
+    <color name="core_red_FEB4B8">#FEB4B8</color>
     <color name="core_blue_33C8FF">#33C8FF</color>
     <color name="core_red_D9534F">#D9534F</color>
     <color name="core_red_90FD6067">#90FD6067</color>

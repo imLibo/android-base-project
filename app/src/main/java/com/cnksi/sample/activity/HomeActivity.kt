@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.cnksi.android.dialog.LoadingDialog
 import com.cnksi.android.encrypt.Test
+import com.cnksi.android.executor.ExecutorTask
 import com.cnksi.android.log.KLog
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityHomeBinding
@@ -72,6 +73,14 @@ class HomeActivity : BaseActivity() {
             } else if (code == 4) {
                 val intent = Intent(this@HomeActivity, clazz)
                 startActivity(intent)
+            } else if (code == 5) {
+                val text = "afadf"
+                println(text[20])
+            } else if (code == 6) {
+                ExecutorTask.execute {
+                    val text = "afadf"
+                    println(text[20])
+                }
             } else {
                 val intent = Intent(this@HomeActivity, clazz)
                 startActivity(intent)

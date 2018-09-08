@@ -1,5 +1,7 @@
 package com.cnksi.android.executor;
 
+import com.cnksi.android.crash.SpiderMan;
+
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -104,6 +106,7 @@ public class ExecutorTask {
             if (t.getPriority() != Thread.NORM_PRIORITY) {
                 t.setPriority(Thread.NORM_PRIORITY);
             }
+            t.setUncaughtExceptionHandler(SpiderMan.getInstance());
             return t;
         }
     }
