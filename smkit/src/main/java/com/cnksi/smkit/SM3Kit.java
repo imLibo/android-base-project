@@ -1,4 +1,4 @@
-package com.cnksi.android.sm;
+package com.cnksi.smkit;
 
 import org.bouncycastle.util.encoders.Hex;
 

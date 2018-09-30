@@ -25,9 +25,9 @@ import com.cnksi.android.R;
 import com.cnksi.android.activity.BaseCoreActivity;
 import com.cnksi.android.databinding.CoreActivityCrashBinding;
 import com.cnksi.android.executor.ActivityManager;
+import com.cnksi.android.log.KLog;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -105,7 +105,7 @@ public class CoreCrashActivity extends BaseCoreActivity {
 
         mBinding.coreTvCrashTips.setOnClickListener(v -> {
             mBinding.coreScrollView.setVisibility(View.VISIBLE);
-            mBinding.coreIvMore.setVisibility(View.GONE);
+            mBinding.coreIvMore.setVisibility(View.VISIBLE);
             mBinding.coreLlCrashContainer.setVisibility(View.GONE);
         });
 
@@ -175,17 +175,15 @@ public class CoreCrashActivity extends BaseCoreActivity {
             return null;
         }
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-        File imageFile = new File(path, "spiderMan-" + SpiderMan.df.format(model.getTime()) + ".jpg");
+        File imageFile = new File(path, "crash-" + SpiderMan.df.format(model.getTime()) + ".jpg");
         try {
             FileOutputStream out = new FileOutputStream(imageFile);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
             bitmap.recycle();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            KLog.e(e);
         }
         return imageFile;
     }
@@ -205,7 +203,7 @@ public class CoreCrashActivity extends BaseCoreActivity {
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("image/*");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".spidermanfileprovider", file);
+            Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".corefileprovider", file);
             intent.putExtra(Intent.EXTRA_STREAM, contentUri);
         } else {
             intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));

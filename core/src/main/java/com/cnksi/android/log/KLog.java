@@ -175,7 +175,6 @@ public final class KLog {
         } else {
             printLog(E, tag, objects);
         }
-
     }
 
     public static void a() {

@@ -84,6 +84,11 @@ public class SafeUtil {
         return str.matches(regex);
     }
 
+    /**
+     * 设置EditText文本框过滤条件
+     *
+     * @param mEditText
+     */
     public static void setEditTextFilter(EditText mEditText) {
         setEditTextFilter(mEditText, "", "");
     }

@@ -1,8 +1,18 @@
 package com.cnksi.android.crash;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 
+import com.cnksi.android.executor.ExecutorTask;
+import com.cnksi.android.utils.DateUtil;
+import com.cnksi.android.utils.DeviceUtil;
+import com.cnksi.android.utils.FileUtil;
+import com.cnksi.android.utils.IOUtil;
+
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
@@ -52,6 +62,19 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
         CrashModel model = parseCrash(ex);
         if (mBuilder.mOnCrashListener != null) {
             mBuilder.mOnCrashListener.onCrash(t, ex, model);
+        }
+        if (mBuilder.crashLogFolder != null) {
+            ExecutorTask.submit(() -> {
+                if (!FileUtil.isFolderExists(mBuilder.crashLogFolder)) {
+                    FileUtil.makeDirectory(mBuilder.crashLogFolder);
+                }
+                String deviceId = "";
+                if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                    deviceId = DeviceUtil.getDeviceId(mContext) + "-";
+                }
+                String filePath = new File(mBuilder.crashLogFolder, deviceId + "crash-" + DateUtil.getCurrentTime("yyyy-MM-dd-HH-mm-SSS") + ".log").getAbsolutePath();
+                IOUtil.writeStr2File(filePath, getShareText(model));
+            });
         }
         if (mBuilder.mEnable) {
             handleException(model);
@@ -103,14 +126,10 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
     public static String getShareText(CrashModel model) {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("崩溃信息:")
-                .append("\n")
-                .append(model.getExceptionMsg())
-                .append("\n");
+        builder.append("崩溃信息:").append(model.getExceptionMsg()).append("\n");
         builder.append("\n");
 
-        builder.append("类名:")
-                .append(model.getFileName()).append("\n");
+        builder.append("类名:").append(model.getFileName()).append("\n");
         builder.append("\n");
 
         builder.append("方法:").append(model.getMethodName()).append("\n");
@@ -122,7 +141,7 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
         builder.append("类型:").append(model.getExceptionType()).append("\n");
         builder.append("\n");
 
-        builder.append("时间").append(df.format(model.getTime())).append("\n");
+        builder.append("时间:").append(df.format(model.getTime())).append("\n");
         builder.append("\n");
 
         builder.append("设备名称:").append(model.getDevice().getModel()).append("\n");
@@ -134,9 +153,7 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
         builder.append("系统版本:").append(model.getDevice().getVersion()).append("\n");
         builder.append("\n");
 
-        builder.append("全部信息:")
-                .append("\n")
-                .append(model.getFullException()).append("\n");
+        builder.append("全部信息:").append(model.getFullException()).append("\n");
 
         return builder.toString();
     }
@@ -145,6 +162,7 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
 
         private boolean mEnable;
         private boolean mShowCrashMessage;
+        private String crashLogFolder;
         private OnCrashListener mOnCrashListener;
 
         public Builder setEnable(boolean enable) {
@@ -154,6 +172,11 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
 
         public Builder showCrashMessage(boolean show) {
             this.mShowCrashMessage = show;
+            return this;
+        }
+
+        public Builder setCrashLogFolder(String folder) {
+            this.crashLogFolder = folder;
             return this;
         }
 

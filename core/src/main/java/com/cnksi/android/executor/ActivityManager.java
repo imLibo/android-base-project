@@ -6,6 +6,12 @@ import java.util.Stack;
 
 /**
  * activity管理工具类
+ *
+ * @author lyongfly
+ * @version 1.0
+ * @copyRights 四川金信石信息技术有限公司
+ * @date 2018/9/10
+ * @since 1.0
  */
 public class ActivityManager {
     private static Stack<Activity> stack;

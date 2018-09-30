@@ -1,1 +1,1 @@
-include ':app', ':core', ':AmapLoc'
+include ':app', ':core', ':AmapLoc', ':smkit'

@@ -1,6 +1,6 @@
 package com.cnksi.sample;
 
-import com.cnksi.android.log.KLog;
+import android.os.Environment;
 
 /**
  * @author lyongfly
@@ -13,6 +13,10 @@ public class App extends com.cnksi.android.app.App {
     @Override
     public void onCreate() {
         super.onCreate();
-        KLog.init(BuildConfig.DEBUG);
+    }
+
+    @Override
+    protected String getCrashLogFolder() {
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
     }
 }

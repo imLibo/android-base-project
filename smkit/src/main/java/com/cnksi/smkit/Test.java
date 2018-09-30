@@ -1,4 +1,4 @@
-package com.cnksi.android.sm;
+package com.cnksi.smkit;
 
 import java.io.IOException;
 import java.util.Map;

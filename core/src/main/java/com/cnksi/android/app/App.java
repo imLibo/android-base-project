@@ -36,6 +36,8 @@ public class App extends Application {
                 .setEnable(true)
                 //设置是否显示崩溃信息展示页面
                 .showCrashMessage(true)
+                //设置崩溃日志存放路径
+                .setCrashLogFolder(getCrashLogFolder())
                 //是否回调异常信息，友盟等第三方崩溃信息收集平台会用到,
                 .setOnCrashListener(getCrashListener());
     }
@@ -44,6 +46,15 @@ public class App extends Application {
      * 设置崩溃回调
      */
     protected SpiderMan.OnCrashListener getCrashListener() {
+        return null;
+    }
+
+    /**
+     * 设置崩溃日志存放文件夹
+     *
+     * @return
+     */
+    protected String getCrashLogFolder() {
         return null;
     }
 }
