@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/core_dialog_bg"
+                  android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/core_fl_pop_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/core_dialog_padding"/>
+
+        <LinearLayout
+            android:id="@+id/core_btn_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/core_dialog_padding">
+
+            <com.cnksi.android.view.AutoBackgroundButton
+                android:id="@+id/core_btn_pop_left"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/core_button_height"
+                android:layout_weight="1"
+                android:textColor="@color/core_white_FFFFFF"
+                android:textSize="@dimen/core_dialog_button_size"
+                app:abb_normalColor="@color/core_red_FD6067"
+                app:abb_radius="@dimen/core_dialog_button_radius"/>
+
+            <com.cnksi.android.view.AutoBackgroundButton
+                android:id="@+id/core_btn_pop_right"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/core_button_height"
+                android:layout_marginLeft="@dimen/core_dialog_padding"
+                android:layout_weight="1"
+                android:textColor="@color/core_white_FFFFFF"
+                android:textSize="@dimen/core_dialog_button_size"
+                app:abb_normalColor="@color/core_green_1BBC9B"
+                app:abb_radius="@dimen/core_dialog_button_radius"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

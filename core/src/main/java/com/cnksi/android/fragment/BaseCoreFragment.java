@@ -111,7 +111,6 @@ public abstract class BaseCoreFragment<T extends ViewDataBinding> extends Fragme
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
         mBinding = DataBindingUtil.inflate(inflater, getLayoutResId(), container, false);
         View view = mBinding.getRoot();
         initUI();

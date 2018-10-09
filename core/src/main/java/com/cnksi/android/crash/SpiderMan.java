@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 
 import com.cnksi.android.executor.ExecutorTask;
@@ -71,6 +72,8 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
                 String deviceId = "";
                 if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
                     deviceId = DeviceUtil.getDeviceId(mContext) + "-";
+                }else{
+                    deviceId = Settings.System.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
                 }
                 String filePath = new File(mBuilder.crashLogFolder, deviceId + "crash-" + DateUtil.getCurrentTime("yyyy-MM-dd-HH-mm-SSS") + ".log").getAbsolutePath();
                 IOUtil.writeStr2File(filePath, getShareText(model));

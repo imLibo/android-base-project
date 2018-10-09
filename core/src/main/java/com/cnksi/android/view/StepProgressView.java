@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -98,6 +99,14 @@ public class StepProgressView extends HorizontalScrollView {
      */
     private Paint mLinePaint;
     /**
+     * 点
+     */
+    private RectF mDotRectF = new RectF();
+    /**
+     * 当前点
+     */
+    private RectF mCurrentDotRectF = new RectF();
+    /**
      * 文字开始位置
      */
     private float textStartY;
@@ -113,11 +122,7 @@ public class StepProgressView extends HorizontalScrollView {
     }
 
     public StepProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public StepProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.StepProgressView, defStyleAttr, 0);
         minStepWidth = a.getDimensionPixelSize(R.styleable.StepProgressView_spv_minStepWidth, 270);
         textSize = a.getDimensionPixelSize(R.styleable.StepProgressView_spv_textSize, 42);
@@ -144,16 +149,11 @@ public class StepProgressView extends HorizontalScrollView {
         }
 
         public ChildView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-            this(context, attrs, defStyleAttr, 0);
-        }
-
-        public ChildView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
+            super(context, attrs, defStyleAttr);
             init();
         }
 
         private void init() {
-
             mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mTextPaint.setTextSize(textSize);
             textHeight = DisplayUtil.getFontHeight(mTextPaint);
@@ -208,7 +208,8 @@ public class StepProgressView extends HorizontalScrollView {
                 //画当前点
                 if (mDotPaint.getColor() == currentColor) {
                     mDotPaint.setAlpha(150);
-                    canvas.drawOval((startX - currentDotRadius), (startY - currentDotRadius), (startX + currentDotRadius), (startY + currentDotRadius), mDotPaint);
+                    mCurrentDotRectF.set((startX - currentDotRadius), (startY - currentDotRadius), (startX + currentDotRadius), (startY + currentDotRadius));
+                    canvas.drawOval(mCurrentDotRectF, mDotPaint);
                     mDotPaint.setAlpha(255);
                     //画文字
                     canvas.drawText(text, 0, text.length(), textStartX, textStartY, mTextPaint);
@@ -217,7 +218,8 @@ public class StepProgressView extends HorizontalScrollView {
                     canvas.drawText(text, 0, text.length(), textStartX, textStartY, mTextPaint);
                 }
                 //画点
-                canvas.drawOval((startX - stepDotRadius), (startY - stepDotRadius), (startX + stepDotRadius), (startY + stepDotRadius), mDotPaint);
+                mDotRectF.set((startX - stepDotRadius), (startY - stepDotRadius), (startX + stepDotRadius), (startY + stepDotRadius));
+                canvas.drawOval(mDotRectF, mDotPaint);
 
                 startX = endX;
             }

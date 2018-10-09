@@ -4,8 +4,11 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.view.View
+import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.cnksi.android.dialog.KPopupWindow
 import com.cnksi.android.dialog.LoadingDialog
 import com.cnksi.android.encrypt.Test
 import com.cnksi.android.executor.ExecutorTask
@@ -81,6 +84,42 @@ class HomeActivity : BaseActivity() {
                     val text = "afadf"
                     println(text[20])
                 }
+            } else if (code == 7) {
+                //PopupWindow
+                var gravity = KPopupWindow.LayoutGravity(KPopupWindow.LayoutGravity.CENTER_HORI or KPopupWindow.LayoutGravity.TO_BOTTOM)
+                KPopupWindow
+                        .Builder()
+                        .with(mActivity)
+                        .layoutResId(R.layout.pop_content_layout)
+                        .width(500)
+                        .height(LinearLayout.LayoutParams.WRAP_CONTENT)
+                        .showButton(true)
+                        .build()
+                        .setOnClickListener(object : KPopupWindow.OnClickListener {
+                            override fun onLeftClick(view: View) {
+
+                            }
+
+                            override fun onRightClick(view: View) {
+
+                            }
+                        })
+                        .initEvent { contentView ->
+                            //                            contentView.setBackgroundResource(R.drawable.core_edit_bg)
+//                            val button = contentView.findViewById<AutoGradientButton>(R.id.btn_change)
+//                            val stepProgressView = contentView.findViewById<StepProgressView>(R.id.step_view)
+//                            val list = ArrayList<CharSequence>()
+//                            list.add("施工单位")
+//                            list.add("监理单位")
+//                            list.add("业主单位")
+//                            list.add("建设部备案")
+//
+//                            stepProgressView.initData(list, 3)
+//                            button.setOnClickListener({
+//                                stepProgressView.currentStep = 2
+//                            })
+                        }
+                        .showAsAnchor(view, gravity, 100, 0)
             } else {
                 val intent = Intent(this@HomeActivity, clazz)
                 startActivity(intent)

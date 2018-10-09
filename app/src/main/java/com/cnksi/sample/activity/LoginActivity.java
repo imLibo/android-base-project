@@ -2,8 +2,11 @@ package com.cnksi.sample.activity;
 
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.cnksi.android.activity.BaseLoginActivity;
+import com.cnksi.android.dialog.KPopupWindow;
 import com.cnksi.android.safe.XSSLayoutFactory;
 import com.cnksi.sample.BuildConfig;
 import com.cnksi.sample.R;
@@ -43,6 +46,31 @@ public class LoginActivity extends BaseLoginActivity {
     @Override
     protected void onVersionFastClick(View v) {
         Toasty.info(mActivity, "连续点击").show();
+
+        KPopupWindow kPopupWindow = new KPopupWindow
+                .Builder()
+                .with(mActivity)
+                .layoutResId(R.layout.step_progress_view_layout)
+                .width(LinearLayout.LayoutParams.WRAP_CONTENT)
+                .height(LinearLayout.LayoutParams.WRAP_CONTENT)
+                .build()
+                .setOnClickListener(new KPopupWindow.OnClickListener() {
+                    @Override
+                    public void onLeftClick(View view) {
+
+                    }
+
+                    @Override
+                    public void onRightClick(View view) {
+
+                    }
+                });
+        kPopupWindow.initEvent(new KPopupWindow.OnInitEventListener() {
+            @Override
+            public void onInitEvent(View contentView) {
+                Button button = contentView.findViewById(R.id.btn_change);
+            }
+        });
     }
 
     @Override

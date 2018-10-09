@@ -14,6 +14,11 @@
         <item name="android:windowExitAnimation">@anim/core_dialog_dismiss</item>
     </style>
 
+    <style name="CorePopupWindowAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/core_popwindow_show</item>
+        <item name="android:windowExitAnimation">@anim/core_popwindow_dismiss</item>
+    </style>
+
     <style name="CoreLoadingAnim" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/core_loading_show</item>
         <item name="android:windowExitAnimation">@anim/core_loading_dismiss</item>
