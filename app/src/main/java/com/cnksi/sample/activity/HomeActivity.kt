@@ -16,6 +16,7 @@ import com.cnksi.android.log.KLog
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityHomeBinding
 import com.cnksi.sample.dialog.CustomDialog
+import com.cnksi.sample.dialog.LabelValueLayoutDialog
 import com.cnksi.sample.dialog.StepProgressViewDialog
 import com.cnksi.sample.model.HomeItem
 import es.dmoral.toasty.Toasty
@@ -120,6 +121,9 @@ class HomeActivity : BaseActivity() {
 //                            })
                         }
                         .showAsAnchor(view, gravity, 100, 0)
+            } else if (code == 8) {
+                val dialog = LabelValueLayoutDialog()
+                dialog.show(supportFragmentManager)
             } else {
                 val intent = Intent(this@HomeActivity, clazz)
                 startActivity(intent)

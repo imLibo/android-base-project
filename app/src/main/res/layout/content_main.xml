@@ -1,258 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.cnksi.sample.activity.MainActivity"
-        tools:showIn="@layout/activity_main">
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.cnksi.android.view.UnderLineLinearLayout
-            android:id="@+id/line_layout"
+        <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            app:ull_lineColor="@color/bg_red_ff7575"
-            app:ull_lineHeight="3px"
-            app:ull_marginLeft="@dimen/dp_10"
-            app:ull_marginRight="@dimen/dp_10">
+            android:layout_height="match_parent"
+            tools:context="com.cnksi.sample.activity.MainActivity"
+            tools:showIn="@layout/activity_main">
 
-            <com.cnksi.android.view.AutoBackgroundButton
-                android:id="@+id/sample_text"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:clickable="true"
-                android:text="自动变背景"
-                app:abb_normalColor="@color/colorAccent"
-                app:abb_radius="5dp"
-                app:abb_textPressColor="@color/bg_blue_59e9f2"/>
-
-            <com.cnksi.android.view.AutoGradientButton
-                android:id="@+id/gradient_text"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:clickable="true"
-                android:text="渐变背景"
-                app:agb_endColor="@color/bg_blue_59e9f2"
-                app:agb_orientation="horizontal"
-                app:agb_radius="5dp"
-                app:agb_startColor="@color/bg_blue_04a5e7"
-                app:agb_textPressColor="@color/core_red_FD6067"/>
-
-            <com.cnksi.android.view.CenterDrawableTextView
-                android:id="@+id/cdt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/core_dialog_padding"
-                android:clickable="true"
-                android:drawableLeft="@mipmap/ic_camera"
-                android:padding="@dimen/dp_10"
-                app:abb_normalColor="@color/bg_blue_59e9f2"
-                app:abb_radius="5dp"/>
-
-        </com.cnksi.android.view.UnderLineLinearLayout>
-
-        <com.cnksi.android.view.UnderLineLinearLayout
-            android:id="@+id/line_layout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            app:layout_constraintTop_toBottomOf="@id/line_layout"
-            app:ull_lineColor="@color/bg_red_ff7575"
-            app:ull_lineHeight="3px"
-            app:ull_marginLeft="@dimen/dp_10"
-            app:ull_marginRight="@dimen/dp_10">
-
-            <com.cnksi.android.view.CenterDrawableTextView
-                android:id="@+id/cdt2"
-                android:layout_width="200dp"
+            <com.cnksi.android.view.UnderLineLinearLayout
+                android:id="@+id/line_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:drawableLeft="@mipmap/ic_camera"
-                android:drawablePadding="@dimen/dp_10"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="@dimen/dp_10"
-                android:text="拍照"
-                android:textColor="@color/bg_red_ff7575"
-                app:abb_normalColor="@color/bg_blue_59e9f2"
-                app:abb_radius="5dp"
-                app:abb_textPressColor="@color/bg_green_01ce7f"/>
-
-        </com.cnksi.android.view.UnderLineLinearLayout>
-
-        <com.cnksi.android.view.AutoBackgroundButton
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="@dimen/dp_10"
-            android:drawableLeft="@mipmap/ic_login_user"
-            android:drawablePadding="@dimen/dp_10"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:text="带图标的"
-            app:abb_normalColor="@color/bg_blue_59e9f2"
-            app:abb_radius="0dp"
-            app:layout_constraintTop_toBottomOf="@id/line_layout2"/>
-
-        <com.cnksi.android.view.LabelValueLayout
-            android:id="@+id/labelValueContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@color/bg_gray_e1e4e4"
-            android:orientation="vertical"
-            android:padding="10dp"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:lvl_drawableText="拍照"
-            app:lvl_labelText="设备类型"
-            app:lvl_labelTextColor="@color/bg_red_ff7575"
-            app:lvl_labelTextSize="40px"
-            app:lvl_lineColor="@color/bg_red_ff7575"
-            app:lvl_lineHeight="3px"
-            app:lvl_lineMarginBottom="@dimen/dp_10"
-            app:lvl_lineMarginLeft="@dimen/dp_10"
-            app:lvl_lineMarginRight="@dimen/dp_10"
-            app:lvl_lineMarginTop="@dimen/dp_10"
-            app:lvl_lineWidth="3px"
-            app:lvl_rightBackgroundColor="@color/bg_green_01ce7f"
-            app:lvl_rightDrawable="@mipmap/ic_camera"
-            app:lvl_rightDrawableHeight="20dp"
-            app:lvl_rightDrawableWidth="20dp"
-            app:lvl_spacing="30px"
-            app:lvl_valueText="开关柜"
-            app:lvl_valueTextColor="@color/bg_green_01ce7f"
-            app:lvl_valueTextEnabledEdit="true"
-            app:lvl_valueTextSize="50px"/>
-
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/labelValueContainer"/>
-
-        <com.cnksi.android.view.LabelValueLayout
-            android:id="@+id/labelValuehrContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@color/bg_gray_e1e4e4"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:layout_constraintTop_toBottomOf="@id/container"
-            app:lvl_labelTextColor="@color/bg_gray_f0f2f1"
-            app:lvl_labelTextSize="40px"
-            app:lvl_spacing="30px"
-            app:lvl_valueTextColor="@color/text_333333"
-            app:lvl_valueTextSize="60px"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/labelValuehrContainer">
-
-            <com.cnksi.android.view.BorderLineTagView
-                android:id="@+id/borderButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:checked="true"
                 android:orientation="horizontal"
-                android:padding="6dp"
-                android:text="变电站"
-                android:textColor="@color/text_333333"
-                app:blt_checkedColor="@color/bg_red_ff7575"
-                app:blt_isUnCheckedShowBorder="false"
-                app:blt_radius="30dp"
-                app:blt_shape="rectangle"
-                app:blt_strokeWidth="1dp"/>
+                android:padding="15dp"
+                app:ull_lineColor="@color/bg_red_ff7575"
+                app:ull_lineHeight="3px"
+                app:ull_marginLeft="@dimen/dp_10"
+                app:ull_marginRight="@dimen/dp_10">
 
-            <com.cnksi.android.view.BorderLineTagView
-                android:id="@+id/borderButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/core_dialog_padding"
-                android:background="@color/bg_green_01ce7f"
-                android:orientation="horizontal"
-                android:padding="3dp"
-                android:text="变电站2"
-                android:textColor="@color/bg_blue_04a5e7"
-                app:blt_checkedColor="@color/bg_red_ff7575"
-                app:blt_isFillBackground="true"
-                app:blt_radius="5dp"
-                app:blt_shape="rectangle"
-                app:blt_strokeWidth="1dp"/>
+                <com.cnksi.android.view.AutoBackgroundButton
+                    android:id="@+id/sample_text"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:text="自动变背景"
+                    app:abb_normalColor="@color/colorAccent"
+                    app:abb_radius="5dp"
+                    app:abb_textPressColor="@color/bg_blue_59e9f2"/>
 
-            <RadioGroup
-                android:id="@+id/rg_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:orientation="horizontal">
+                <com.cnksi.android.view.AutoGradientButton
+                    android:id="@+id/gradient_text"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"
+                    android:text="渐变背景"
+                    app:agb_endColor="@color/bg_blue_59e9f2"
+                    app:agb_orientation="horizontal"
+                    app:agb_radius="5dp"
+                    app:agb_startColor="@color/bg_blue_04a5e7"
+                    app:agb_textPressColor="@color/core_red_FD6067"/>
 
-                <com.cnksi.android.view.BorderLineTagView
-                    android:id="@+id/borderButton3"
+                <com.cnksi.android.view.CenterDrawableTextView
+                    android:id="@+id/cdt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:layout_marginLeft="@dimen/core_dialog_padding"
+                    android:clickable="true"
+                    android:drawableLeft="@mipmap/ic_camera"
+                    android:padding="@dimen/dp_10"
+                    app:abb_normalColor="@color/bg_blue_59e9f2"
+                    app:abb_radius="5dp"/>
+
+            </com.cnksi.android.view.UnderLineLinearLayout>
+
+            <com.cnksi.android.view.UnderLineLinearLayout
+                android:id="@+id/line_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                app:layout_constraintTop_toBottomOf="@id/line_layout"
+                app:ull_lineColor="@color/bg_red_ff7575"
+                app:ull_lineHeight="3px"
+                app:ull_marginLeft="@dimen/dp_10"
+                app:ull_marginRight="@dimen/dp_10">
+
+                <com.cnksi.android.view.CenterDrawableTextView
+                    android:id="@+id/cdt2"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:drawableLeft="@mipmap/ic_camera"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="拍照"
+                    android:textColor="@color/bg_red_ff7575"
+                    app:abb_normalColor="@color/bg_blue_59e9f2"
+                    app:abb_radius="5dp"
+                    app:abb_textPressColor="@color/bg_green_01ce7f"/>
+
+            </com.cnksi.android.view.UnderLineLinearLayout>
+
+            <com.cnksi.android.view.AutoBackgroundButton
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:drawableLeft="@mipmap/ic_login_user"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:text="带图标的"
+                app:abb_normalColor="@color/bg_blue_59e9f2"
+                app:abb_radius="0dp"
+                app:layout_constraintTop_toBottomOf="@id/line_layout2"/>
+
+            <com.cnksi.android.view.LabelValueLayout
+                android:id="@+id/labelValueContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/bg_gray_e1e4e4"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:lvl_labelText="设备类型"
+                app:lvl_labelTextColor="@color/bg_red_ff7575"
+                app:lvl_labelTextSize="40px"
+                app:lvl_lineColor="@color/bg_red_ff7575"
+                app:lvl_lineHeight="3px"
+                app:lvl_lineMarginBottom="@dimen/dp_10"
+                app:lvl_lineMarginLeft="@dimen/dp_10"
+                app:lvl_lineMarginRight="@dimen/dp_10"
+                app:lvl_lineMarginTop="@dimen/dp_10"
+                app:lvl_lineWidth="3px"
+                app:lvl_rightBackgroundColor="@color/bg_green_01ce7f"
+                app:lvl_rightDrawable="@mipmap/ic_camera"
+                app:lvl_rightDrawableHeight="@dimen/dp_30"
+                app:lvl_rightDrawableWidth="@dimen/dp_40"
+                app:lvl_spacing="30px"
+                app:lvl_valueText="开关柜"
+                app:lvl_valueTextColor="@color/bg_green_01ce7f"
+                app:lvl_valueTextEnabledEdit="true"
+                app:lvl_valueTextSize="50px"/>
+
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/labelValueContainer"/>
+
+            <com.cnksi.android.view.LabelValueLayout
+                android:id="@+id/labelValuehrContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/bg_gray_e1e4e4"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/container"
+                app:lvl_labelTextColor="@color/bg_gray_f0f2f1"
+                app:lvl_labelTextSize="40px"
+                app:lvl_spacing="30px"
+                app:lvl_valueTextColor="@color/text_333333"
+                app:lvl_valueTextSize="60px"/>
+
+            <LinearLayout
+                android:id="@+id/ll_rdg_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/labelValuehrContainer">
+
+                <com.cnksi.android.view.BorderLineTagView
+                    android:id="@+id/borderButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:checked="true"
                     android:orientation="horizontal"
                     android:padding="6dp"
-                    android:text="变电站3"
-                    android:textColor="@color/core_text_626262"
+                    android:text="变电站"
+                    android:textColor="@color/text_333333"
                     app:blt_checkedColor="@color/bg_red_ff7575"
-                    app:blt_isRadioButton="true"
+                    app:blt_isUnCheckedShowBorder="false"
                     app:blt_radius="30dp"
                     app:blt_shape="rectangle"
                     app:blt_strokeWidth="1dp"/>
 
                 <com.cnksi.android.view.BorderLineTagView
-                    android:id="@+id/borderButton4"
+                    android:id="@+id/borderButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/core_dialog_padding"
-                    android:background="@color/core_green_1BBC9B"
+                    android:background="@color/bg_green_01ce7f"
                     android:orientation="horizontal"
                     android:padding="3dp"
-                    android:text="变电站4"
-                    android:textColor="@color/core_text_626262"
+                    android:text="变电站2"
+                    android:textColor="@color/bg_blue_04a5e7"
                     app:blt_checkedColor="@color/bg_red_ff7575"
-                    app:blt_isRadioButton="true"
-                    app:blt_shape="oval"
+                    app:blt_isFillBackground="true"
+                    app:blt_radius="5dp"
+                    app:blt_shape="rectangle"
                     app:blt_strokeWidth="1dp"/>
 
-            </RadioGroup>
+                <RadioGroup
+                    android:id="@+id/rg_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal">
 
-            <com.cnksi.android.view.BorderLineButton
-                android:id="@+id/btn_change"
+                    <com.cnksi.android.view.BorderLineTagView
+                        android:id="@+id/borderButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:checked="true"
+                        android:orientation="horizontal"
+                        android:padding="6dp"
+                        android:text="变电站3"
+                        android:textColor="@color/core_text_626262"
+                        app:blt_checkedColor="@color/bg_red_ff7575"
+                        app:blt_isRadioButton="true"
+                        app:blt_radius="30dp"
+                        app:blt_shape="rectangle"
+                        app:blt_strokeWidth="1dp"/>
+
+                    <com.cnksi.android.view.BorderLineTagView
+                        android:id="@+id/borderButton4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/core_dialog_padding"
+                        android:background="@color/core_green_1BBC9B"
+                        android:orientation="horizontal"
+                        android:padding="3dp"
+                        android:text="变电站4"
+                        android:textColor="@color/core_text_626262"
+                        app:blt_checkedColor="@color/bg_red_ff7575"
+                        app:blt_isRadioButton="true"
+                        app:blt_shape="oval"
+                        app:blt_strokeWidth="1dp"/>
+
+                </RadioGroup>
+
+                <com.cnksi.android.view.BorderLineButton
+                    android:id="@+id/btn_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/core_dialog_padding"
+                    android:background="@color/bg_blue_59e9f2"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="3dp"
+                    android:text="更改"
+                    android:textColor="@color/bg_green_01ce7f"
+                    app:blb_pressedColor="@color/bg_red_ff7575"
+                    app:blb_radius="5dp"
+                    app:blb_shape="rectangle"
+                    app:blb_strokeWidth="1dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_spannable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/core_dialog_padding"
-                android:background="@color/bg_blue_59e9f2"
-                android:paddingBottom="3dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="3dp"
-                android:text="更改"
-                android:textColor="@color/bg_green_01ce7f"
-                app:blb_pressedColor="@color/bg_red_ff7575"
-                app:blb_radius="5dp"
-                app:blb_shape="rectangle"
-                app:blb_strokeWidth="1dp"/>
-        </LinearLayout>
+                android:text="adsf"
+                app:layout_constraintTop_toBottomOf="@id/ll_rdg_container"/>
 
-    </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

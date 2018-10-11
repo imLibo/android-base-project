@@ -3,6 +3,7 @@ package com.cnksi.android.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -69,8 +70,14 @@ public class CenterDrawableTextView extends AutoBackgroundButton {
     }
 
     @Override
+    public void setText(CharSequence text, BufferType type) {
+        super.setText(text, type);
+        init();
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
-        if (drawables[0] != null && textWidth > 0) {
+        if (drawables[0] != null) {
             //drawablePadding值
             int drawablePadding = getCompoundDrawablePadding();
             //icon的宽度
@@ -87,11 +94,16 @@ public class CenterDrawableTextView extends AutoBackgroundButton {
     }
 
     public void setDrawableResource(@DrawableRes int resId) {
-        setCompoundDrawablesWithIntrinsicBounds(mContext.getDrawable(resId), null, null, null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setCompoundDrawablesWithIntrinsicBounds(mContext.getDrawable(resId), null, null, null);
+        } else {
+            setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(resId), null, null, null);
+        }
+        init();
     }
 
     public void setDrawable(Drawable drawable) {
         setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+        init();
     }
-
 }

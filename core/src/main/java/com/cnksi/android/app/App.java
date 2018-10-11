@@ -3,12 +3,9 @@ package com.cnksi.android.app;
 import android.app.Application;
 import android.support.annotation.CallSuper;
 
-import com.cnksi.android.BuildConfig;
 import com.cnksi.android.crash.SpiderMan;
-import com.cnksi.android.log.KLog;
-import com.cnksi.android.utils.PreferencesUtil;
+import com.cnksi.android.utils.Utils;
 
-import es.dmoral.toasty.Toasty;
 
 /**
  * @author lyongfly
@@ -19,6 +16,12 @@ import es.dmoral.toasty.Toasty;
  */
 public class App extends Application {
 
+    private static App mApp;
+
+//    public static App getApp(){
+//        return mApp;
+//    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -27,11 +30,9 @@ public class App extends Application {
 
     @CallSuper
     protected void initUtil() {
-        PreferencesUtil.init(this.getApplicationContext());
-        KLog.init(BuildConfig.DEBUG);
-        Toasty.Config.getInstance().apply();
+        Utils.init(mApp = this);
         SpiderMan.getInstance()
-                .init(this.getApplicationContext())
+                .init(mApp)
                 //设置是否捕获异常，不弹出崩溃框
                 .setEnable(true)
                 //设置是否显示崩溃信息展示页面

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -56,6 +57,9 @@ public class LabelValueLayout extends LinearLayout {
     private int drawableBackgroundColor;
     private int drawableWidth;
     private int drawableHeight;
+    private int drawablePadding;
+    private int drableTextPadding;
+    private int drawableTextColor;
 
     private String labelText;
     private String valueText;
@@ -98,11 +102,14 @@ public class LabelValueLayout extends LinearLayout {
         isEdit = a.getBoolean(R.styleable.LabelValueLayout_lvl_valueTextEnabledEdit, false);
         mDrawable = a.getDrawable(R.styleable.LabelValueLayout_lvl_rightDrawable);
         drawableBackgroundColor = a.getColor(R.styleable.LabelValueLayout_lvl_rightBackgroundColor, 0);
-        drawableText = a.getString(R.styleable.LabelValueLayout_lvl_drawableText);
         labelText = a.getString(R.styleable.LabelValueLayout_lvl_labelText);
         valueText = a.getString(R.styleable.LabelValueLayout_lvl_valueText);
+        drawableText = a.getString(R.styleable.LabelValueLayout_lvl_rightDrawableText);
         drawableWidth = a.getDimensionPixelOffset(R.styleable.LabelValueLayout_lvl_rightDrawableWidth, -1);
         drawableHeight = a.getDimensionPixelOffset(R.styleable.LabelValueLayout_lvl_rightDrawableHeight, -1);
+        drawablePadding = a.getDimensionPixelOffset(R.styleable.LabelValueLayout_lvl_rightDrawablePadding, 0);
+        drableTextPadding = a.getDimensionPixelOffset(R.styleable.LabelValueLayout_lvl_rightDrawableTextPadding, 0);
+        drawableTextColor = a.getColor(R.styleable.LabelValueLayout_lvl_rightDrawableTextColor, 0);
         a.recycle();
         initPaint();
         initView();
@@ -145,14 +152,18 @@ public class LabelValueLayout extends LinearLayout {
 
         if (mDrawable != null || !TextUtils.isEmpty(drawableText)) {
             mDrawableView = new CenterDrawableTextView(mContext);
-            mDrawableView.setNormalColor(drawableBackgroundColor);
-            mDrawableView.setDrawable(mDrawable);
-            LayoutParams params = new LayoutParams(drawableWidth > 0 ? drawableWidth : LayoutParams.WRAP_CONTENT, drawableHeight > 0 ? drawableHeight : LayoutParams.WRAP_CONTENT);
-            mDrawableView.setLayoutParams(params);
-            mContainer.addView(mDrawableView);
             if (!TextUtils.isEmpty(drawableText)) {
                 mDrawableView.setText(drawableText);
             }
+            mDrawableView.setNormalColor(drawableBackgroundColor);
+            mDrawableView.setTextColor(drawableTextColor);
+            mDrawableView.setDrawable(mDrawable);
+            mDrawableView.setCompoundDrawablePadding(drableTextPadding);
+            mDrawableView.setPadding(drawablePadding, drawablePadding, drawablePadding, drawablePadding);
+            LayoutParams params = new LayoutParams(drawableWidth > 0 ? drawableWidth : LayoutParams.WRAP_CONTENT, drawableHeight > 0 ? drawableHeight : LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER;
+            mDrawableView.setLayoutParams(params);
+            mContainer.addView(mDrawableView);
         }
 
         setSpacing(spacing);
@@ -372,7 +383,11 @@ public class LabelValueLayout extends LinearLayout {
 
     public void setDrawableResource(@DrawableRes int resId) {
         if (mDrawableView != null) {
-            mDrawableView.setCompoundDrawablesWithIntrinsicBounds(mContext.getDrawable(resId), null, null, null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mDrawableView.setCompoundDrawablesWithIntrinsicBounds(mContext.getDrawable(resId), null, null, null);
+            } else {
+                mDrawableView.setCompoundDrawablesWithIntrinsicBounds(mContext.getResources().getDrawable(resId), null, null, null);
+            }
         }
     }
 

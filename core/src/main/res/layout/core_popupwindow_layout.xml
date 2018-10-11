@@ -11,8 +11,7 @@
             android:id="@+id/core_fl_pop_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="@dimen/core_dialog_padding"/>
+            android:layout_weight="1"/>
 
         <LinearLayout
             android:id="@+id/core_btn_container"

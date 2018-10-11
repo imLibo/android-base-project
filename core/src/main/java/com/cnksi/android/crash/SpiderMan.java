@@ -67,9 +67,9 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
         if (mBuilder.crashLogFolder != null) {
             ExecutorTask.submit(() -> {
                 if (!FileUtil.isFolderExists(mBuilder.crashLogFolder)) {
-                    FileUtil.makeDirectory(mBuilder.crashLogFolder);
+                    FileUtil.createOrExistsDir(mBuilder.crashLogFolder);
                 }
-                String deviceId = "";
+                String deviceId;
                 if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
                     deviceId = DeviceUtil.getDeviceId(mContext) + "-";
                 }else{

@@ -6,19 +6,15 @@ import android.text.TextUtils;
 
 import com.cnksi.android.log.KLog;
 
-
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 /**
  * 文件操作工具类
@@ -62,16 +58,72 @@ public class FileUtil {
     }
 
     /**
+     * 判断文件是否存在，不存在则判断是否创建成功
+     *
+     * @param filePath 文件路径
+     * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
+     */
+    public static boolean createOrExistsFile(String filePath) {
+        return createOrExistsFile(getFileByPath(filePath));
+    }
+
+    /**
+     * 判断文件是否存在，不存在则判断是否创建成功
+     *
+     * @param file 文件
+     * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
+     */
+    public static boolean createOrExistsFile(File file) {
+        if (file == null) {
+            return false;
+        }
+        // 如果存在，是文件则返回true，是目录则返回false
+        if (file.exists()) {
+            return file.isFile();
+        }
+        if (!createOrExistsDir(file.getParentFile())) {
+            return false;
+        }
+        try {
+            return file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 判断目录是否存在，不存在则判断是否创建成功
+     *
+     * @param dirPath 目录路径
+     * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
+     */
+    public static boolean createOrExistsDir(String dirPath) {
+        return createOrExistsDir(getFileByPath(dirPath));
+    }
+
+    /**
+     * 判断目录是否存在，不存在则判断是否创建成功
+     *
+     * @param file 文件
+     * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
+     */
+    public static boolean createOrExistsDir(File file) {
+        // 如果存在，是目录则返回true，是文件则返回false，不存在则返回是否创建成功
+        return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
+    }
+
+    /**
      * 创建多个文件夹
      *
      * @param pathArray 文件夹绝对路径集合 /sdcard/Android/temp/
      * @return true 创建成功  false 创建失败
      */
-    public static boolean makeDirectory(String... pathArray) {
+    public static boolean createOrExistsDir(String... pathArray) {
         boolean isSuccess = true;
         for (int i = 0, count = pathArray.length; i < count; i++) {
             if (!isFolderExists(pathArray[i])) {
-                if (!(isSuccess = makeDirectory(pathArray[i]))) {
+                if (!(isSuccess = createOrExistsDir(pathArray[i]))) {
                     break;
                 }
             }
@@ -80,24 +132,23 @@ public class FileUtil {
     }
 
     /**
-     * 创建文件夹
+     * 根据文件路径获取文件
      *
-     * @param directory 文件夹
-     * @return true 创建成功  false 创建失败
+     * @param filePath 文件路径
+     * @return 文件
      */
-    public static boolean makeDirectory(@NonNull String directory) {
-        boolean created;
-        try {
-            File dir = new File(directory);
-            if (dir.isFile()) {
-                created = dir.createNewFile();
-            } else {
-                created = dir.mkdirs();
-            }
-        } catch (Exception e) {
-            created = false;
-        }
-        return created;
+    public static File getFileByPath(String filePath) {
+        return StringUtil.isEmpty(filePath) ? null : new File(filePath);
+    }
+
+    /**
+     * 判断文件是否存在
+     *
+     * @param file 文件绝对路径
+     * @return true 存在  false 不存在
+     */
+    public static boolean isFileExists(File file) {
+        return file != null && file.isFile() && file.exists();
     }
 
     /**
@@ -527,55 +578,121 @@ public class FileUtil {
     }
 
     /**
-     * 解压文件
+     * 获取全路径中的最长目录
      *
-     * @param inputStream new ZipInputStream(getAssets().open("icon.zip"))
-     * @param outFileDir  new File(Config.ICON_FOLDER)
-     * @return
+     * @param file 文件
+     * @return filePath最长目录
      */
-    public static boolean unZipToFile(ZipInputStream inputStream, File outFileDir) {
-        boolean isSuccess = false;
-        if (inputStream != null) {
-            try {
-                ZipEntry entry = inputStream.getNextEntry();
-                while (entry != null) {
-                    zipToFile(inputStream, outFileDir, entry);
-                    entry = inputStream.getNextEntry();
-                }
-                isSuccess = true;
-            } catch (IOException e) {
-                KLog.e(e);
-            } finally {
-                IOUtil.closeQuietly(inputStream);
-            }
+    public static String getDirName(File file) {
+        if (file == null) {
+            return null;
         }
-        return isSuccess;
+        return getDirName(file.getPath());
     }
 
-    private static void zipToFile(ZipInputStream inputStream, File dir, ZipEntry entry) {
-        OutputStream outputStream = null;
-        try {
-            if (entry.isDirectory()) {
-                File file = new File(dir, entry.getName());
-                file.mkdirs();
-            } else {
-                File file = new File(dir, entry.getName());
-                if (!file.getParentFile().exists()) {
-                    file.getParentFile().mkdirs();
-                }
-                outputStream = new FileOutputStream(file);
-
-                byte[] data = new byte[4096];
-                int len;
-                while ((len = inputStream.read(data)) != -1) {
-                    outputStream.write(data, 0, len);
-                }
-                outputStream.flush();
-            }
-        } catch (IOException e) {
-            KLog.e(e);
-        } finally {
-            IOUtil.closeQuietly(outputStream);
+    /**
+     * 获取全路径中的最长目录
+     *
+     * @param filePath 文件路径
+     * @return filePath最长目录
+     */
+    public static String getDirName(String filePath) {
+        if (StringUtil.isEmpty(filePath)) {
+            return filePath;
         }
+        int lastSep = filePath.lastIndexOf(File.separator);
+        return lastSep == -1 ? "" : filePath.substring(0, lastSep + 1);
+    }
+
+    /**
+     * 获取全路径中的文件名
+     *
+     * @param file 文件
+     * @return 文件名
+     */
+    public static String getFileName(File file) {
+        if (file == null) {
+            return null;
+        }
+        return getFileName(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的文件名
+     *
+     * @param filePath 文件路径
+     * @return 文件名
+     */
+    public static String getFileName(String filePath) {
+        if (StringUtil.isEmpty(filePath)) {
+            return filePath;
+        }
+        int lastSep = filePath.lastIndexOf(File.separator);
+        return lastSep == -1 ? filePath : filePath.substring(lastSep + 1);
+    }
+
+    /**
+     * 获取全路径中的不带拓展名的文件名
+     *
+     * @param file 文件
+     * @return 不带拓展名的文件名
+     */
+    public static String getFileNameNoExtension(File file) {
+        if (file == null) {
+            return null;
+        }
+        return getFileNameNoExtension(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的不带拓展名的文件名
+     *
+     * @param filePath 文件路径
+     * @return 不带拓展名的文件名
+     */
+    public static String getFileNameNoExtension(String filePath) {
+        if (StringUtil.isEmpty(filePath)) {
+            return filePath;
+        }
+        int lastPoi = filePath.lastIndexOf('.');
+        int lastSep = filePath.lastIndexOf(File.separator);
+        if (lastSep == -1) {
+            return (lastPoi == -1 ? filePath : filePath.substring(0, lastPoi));
+        }
+        if (lastPoi == -1 || lastSep > lastPoi) {
+            return filePath.substring(lastSep + 1);
+        }
+        return filePath.substring(lastSep + 1, lastPoi);
+    }
+
+    /**
+     * 获取全路径中的文件拓展名
+     *
+     * @param file 文件
+     * @return 文件拓展名
+     */
+    public static String getFileExtension(File file) {
+        if (file == null) {
+            return null;
+        }
+        return getFileExtension(file.getPath());
+    }
+
+    /**
+     * 获取全路径中的文件拓展名
+     *
+     * @param filePath 文件路径
+     * @return 文件拓展名
+     */
+    public static String getFileExtension(String filePath) {
+        if (StringUtil.isEmpty(filePath)) {
+            return filePath;
+        }
+        int lastPoi = filePath.lastIndexOf('.');
+        int lastSep = filePath.lastIndexOf(File.separator);
+        if (lastPoi == -1 || lastSep >= lastPoi) {
+            return "";
+        }
+        return filePath.substring(lastPoi + 1);
     }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="com.cnksi.sample.activity.MainActivity"
+            tools:showIn="@layout/activity_main">
+
+            <com.cnksi.android.view.LabelValueLayout
+                android:id="@+id/labelValueContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/bg_gray_e1e4e4"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:lvl_labelText="设备类型"
+                app:lvl_labelTextColor="@color/bg_red_ff7575"
+                app:lvl_labelTextSize="40px"
+                app:lvl_lineColor="@color/bg_red_ff7575"
+                app:lvl_lineHeight="3px"
+                app:lvl_lineMarginBottom="@dimen/dp_10"
+                app:lvl_lineMarginLeft="@dimen/dp_10"
+                app:lvl_lineMarginRight="@dimen/dp_10"
+                app:lvl_lineMarginTop="@dimen/dp_10"
+                app:lvl_lineWidth="3px"
+                app:lvl_rightBackgroundColor="@color/bg_green_01ce7f"
+                app:lvl_rightDrawable="@mipmap/ic_camera"
+                app:lvl_rightDrawableHeight="@dimen/dp_30"
+                app:lvl_rightDrawablePadding="@dimen/dp_5"
+                app:lvl_rightDrawableText="拍照"
+                app:lvl_rightDrawableTextColor="@color/core_white_FFFFFF"
+                app:lvl_rightDrawableTextPadding="@dimen/dp_3"
+                app:lvl_spacing="30px"
+                app:lvl_valueText="开关柜"
+                app:lvl_valueTextColor="@color/bg_green_01ce7f"
+                app:lvl_valueTextEnabledEdit="true"
+                app:lvl_valueTextSize="50px"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>

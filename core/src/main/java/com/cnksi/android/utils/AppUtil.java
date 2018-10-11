@@ -1,9 +1,11 @@
 package com.cnksi.android.utils;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -269,5 +271,191 @@ public final class AppUtil {
             return "";
         }
         return MD5Util.md5(arrayOfSignature[0].toByteArray());
+    }
+
+
+    /**
+     * 安装App(支持6.0)
+     *
+     * @param context  上下文
+     * @param filePath 文件路径
+     */
+    public static void installApp(Context context, String filePath) {
+        installApp(context, FileUtil.getFileByPath(filePath));
+    }
+
+    /**
+     * 安装App（支持6.0）
+     *
+     * @param context 上下文
+     * @param file    文件
+     */
+    public static void installApp(Context context, File file) {
+        if (!FileUtil.isFileExists(file)) {
+            return;
+        }
+        context.startActivity(IntentUtil.getInstallAppIntent(file));
+    }
+
+    /**
+     * 安装App（支持6.0）
+     *
+     * @param activity    activity
+     * @param filePath    文件路径
+     * @param requestCode 请求值
+     */
+    public static void installApp(Activity activity, String filePath, int requestCode) {
+        installApp(activity, FileUtil.getFileByPath(filePath), requestCode);
+    }
+
+    /**
+     * 安装App(支持6.0)
+     *
+     * @param activity    activity
+     * @param file        文件
+     * @param requestCode 请求值
+     */
+    public static void installApp(Activity activity, File file, int requestCode) {
+        if (!FileUtil.isFileExists(file)) {
+            return;
+        }
+        activity.startActivityForResult(IntentUtil.getInstallAppIntent(file), requestCode);
+    }
+
+    /**
+     * 静默安装App
+     * <p>非root需添加权限 {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
+     *
+     * @param filePath 文件路径
+     * @return {@code true}: 安装成功<br>{@code false}: 安装失败
+     */
+    public static boolean installAppSilent(String filePath) {
+        File file = FileUtil.getFileByPath(filePath);
+        if (!FileUtil.isFileExists(file)) {
+            return false;
+        }
+        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install " + filePath;
+        ShellUtil.CommandResult commandResult = ShellUtil.execCmd(command, !isSystemApp(Utils.getContext()), true);
+        return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
+    }
+
+    /**
+     * 卸载App
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     */
+    public static void uninstallApp(Context context, String packageName) {
+        if (StringUtil.isEmpty(packageName)) {
+            return;
+        }
+        context.startActivity(IntentUtil.getUninstallAppIntent(packageName));
+    }
+
+    /**
+     * 卸载App
+     *
+     * @param activity    activity
+     * @param packageName 包名
+     * @param requestCode 请求值
+     */
+    public static void uninstallApp(Activity activity, String packageName, int requestCode) {
+        if (StringUtil.isEmpty(packageName)) {
+            return;
+        }
+        activity.startActivityForResult(IntentUtil.getUninstallAppIntent(packageName), requestCode);
+    }
+
+    /**
+     * 静默卸载App
+     * <p>非root需添加权限 {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @param isKeepData  是否保留数据
+     * @return {@code true}: 卸载成功<br>{@code false}: 卸载成功
+     */
+    public static boolean uninstallAppSilent(Context context, String packageName, boolean isKeepData) {
+        if (StringUtil.isEmpty(packageName)) {
+            return false;
+        }
+        String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall " + (isKeepData ? "-k " : "") + packageName;
+        ShellUtil.CommandResult commandResult = ShellUtil.execCmd(command, !isSystemApp(context), true);
+        return commandResult.successMsg != null && commandResult.successMsg.toLowerCase().contains("success");
+    }
+
+
+    /**
+     * 判断App是否有root权限
+     *
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isAppRoot() {
+        ShellUtil.CommandResult result = ShellUtil.execCmd("echo root", true);
+        if (result.result == 0) {
+            return true;
+        }
+        if (result.errorMsg != null) {
+            KLog.d("isAppRoot", result.errorMsg);
+        }
+        return false;
+    }
+
+    /**
+     * 打开App
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     */
+    public static void launchApp(Context context, String packageName) {
+        if (StringUtil.isEmpty(packageName)) {
+            return;
+        }
+        context.startActivity(IntentUtil.getLaunchAppIntent(context, packageName));
+    }
+
+    /**
+     * 打开App
+     *
+     * @param activity    activity
+     * @param packageName 包名
+     * @param requestCode 请求值
+     */
+    public static void launchApp(Activity activity, String packageName, int requestCode) {
+        if (StringUtil.isEmpty(packageName)) {
+            return;
+        }
+        activity.startActivityForResult(IntentUtil.getLaunchAppIntent(activity, packageName), requestCode);
+    }
+
+    /**
+     * 判断App是否是系统应用
+     *
+     * @param context 上下文
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isSystemApp(Context context) {
+        return isSystemApp(context, context.getPackageName());
+    }
+
+    /**
+     * 判断App是否是系统应用
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isSystemApp(Context context, String packageName) {
+        if (StringUtil.isEmpty(packageName)) {
+            return false;
+        }
+        try {
+            PackageManager pm = context.getPackageManager();
+            ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
+            return ai != null && (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

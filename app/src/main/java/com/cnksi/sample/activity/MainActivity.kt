@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import com.cnksi.android.log.KLog
+import com.cnksi.android.utils.SpannableStringUtil
 import com.cnksi.android.view.AutoGradientButton
 import com.cnksi.android.view.LabelValueLayout
 import com.cnksi.sample.R
@@ -55,9 +56,15 @@ class MainActivity : BaseActivity() {
             mBinding.contentMain?.labelValueContainer?.drawableView?.width = 150
             mBinding.contentMain?.labelValueContainer?.drawableView?.height = 90
             mBinding.contentMain?.lineLayout?.setMarginLeft(100)
-
+            mBinding.contentMain?.tvSpannable?.text =
+                    (SpannableStringUtil.getBuilder("发现方式带电检测")
+                            .setBold()
+                            .setForegroundColor(resources.getColor(R.color.colorAccent))
+                            .setUnderline()
+                            .create())
 //            mBinding.contentMain?.cdt?.text = "用户名"
 //            mBinding.contentMain?.cdt?.setDrawableResource((R.mipmap.ic_login_user))
+
         }
 
         // Example of a call to a native method

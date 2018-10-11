@@ -28,7 +28,7 @@ open class BaseActivity : BaseCoreActivity() {
 
     override fun onGranted(permissions: MutableList<String>?) {
         folders.forEach { folder ->
-            FileUtil.makeDirectory(folder)
+            FileUtil.createOrExistsDir(folder)
         }
     }
 

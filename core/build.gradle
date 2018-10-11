@@ -31,9 +31,9 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.android.support:appcompat-v7:27.1.1'
     api 'com.android.support:cardview-v7:27.1.1'
+    api 'com.android.support:design:27.1.1'
     api 'com.yanzhenjie:permission:2.0.0-rc11'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
-    api 'org.bouncycastle:bcprov-jdk16:1.46'
     api 'com.github.GrenderG:Toasty:1.3.0'
     api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     api 'com.android.support.constraint:constraint-layout:1.1.2'
