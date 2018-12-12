@@ -15,6 +15,9 @@ import java.io.File
  * @since 1.0
  */
 open class BaseActivity : BaseCoreActivity() {
+    override fun initContentView() {
+    }
+
     val sdcard = Environment.getExternalStorageDirectory().absolutePath + File.separator
     val baseFolder = sdcard + "Core/"
     val pictureFolder = baseFolder + "picture/"

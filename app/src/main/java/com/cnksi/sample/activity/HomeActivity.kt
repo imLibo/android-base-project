@@ -10,9 +10,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.cnksi.android.dialog.KPopupWindow
 import com.cnksi.android.dialog.LoadingDialog
-import com.cnksi.android.encrypt.Test
 import com.cnksi.android.executor.ExecutorTask
 import com.cnksi.android.log.KLog
+import com.cnksi.android.utils.TestUtil
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityHomeBinding
 import com.cnksi.sample.dialog.CustomDialog
@@ -43,7 +43,7 @@ class HomeActivity : BaseActivity() {
         mAdapter = HomeAdapter(R.layout.home_item_layout, mList)
         mBinding.rcvContainer.adapter = mAdapter
 
-        Test.main()
+        TestUtil.main()
 
         mAdapter.setOnItemChildClickListener { _, view, position ->
             val clazz = mList[position].activity

@@ -25,9 +25,13 @@ public abstract class BaseLoginActivity extends BaseCoreActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(mActivity, R.layout.core_activity_login);
         initView();
         initData();
+    }
+
+    @Override
+    protected void initContentView() {
+        mBinding = DataBindingUtil.setContentView(mActivity, R.layout.core_activity_login);
     }
 
     @CallSuper

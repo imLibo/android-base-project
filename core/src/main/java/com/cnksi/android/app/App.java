@@ -1,6 +1,7 @@
 package com.cnksi.android.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.support.annotation.CallSuper;
 
 import com.cnksi.android.crash.SpiderMan;
@@ -18,21 +19,21 @@ public class App extends Application {
 
     private static App mApp;
 
-//    public static App getApp(){
-//        return mApp;
-//    }
+    public static App getApp() {
+        return mApp;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        initUtil();
+        initUtil(mApp = this);
     }
 
     @CallSuper
-    protected void initUtil() {
-        Utils.init(mApp = this);
+    protected void initUtil(Context context) {
+        Utils.init(context);
         SpiderMan.getInstance()
-                .init(mApp)
+                .init(context)
                 //设置是否捕获异常，不弹出崩溃框
                 .setEnable(true)
                 //设置是否显示崩溃信息展示页面

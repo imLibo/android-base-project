@@ -66,6 +66,10 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
         return false;
     }
 
+    public boolean requirePemission() {
+        return false;
+    }
+
     /**
      * 是否添加字符串过滤
      *
@@ -81,6 +85,11 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
      * @return
      */
     protected abstract String[] getPermission();
+
+    /**
+     * 初始化ContentView
+     */
+    protected abstract void initContentView();
 
     /**
      * 授权之后的回调
@@ -130,18 +139,17 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        mActivity = this;
         if (isAddInputFilter()) {
             XSSLayoutFactory.installViewFactory(getDelegate(), getLayoutInflater(), getFilterRegex());
         }
         super.onCreate(savedInstanceState);
-        ActivityManager.instance().pushActivity(mActivity = this);
+        initContentView();
+        ActivityManager.instance().pushActivity(mActivity);
         mHandler = initHandler() ? new CoreHandler(mActivity) : null;
-        requestPermissions();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+        if (requirePemission()) {
+            requestPermissions();
+        }
     }
 
     @Override

@@ -20,6 +20,11 @@ public class HandlerActivity extends BaseCoreActivity {
     }
 
     @Override
+    protected void initContentView() {
+        
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }

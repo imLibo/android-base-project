@@ -54,6 +54,11 @@ public class CoreCrashActivity extends BaseCoreActivity {
     }
 
     @Override
+    protected void initContentView() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CoreActivityCrashBinding mBinding = DataBindingUtil.setContentView(this, R.layout.core_activity_crash);

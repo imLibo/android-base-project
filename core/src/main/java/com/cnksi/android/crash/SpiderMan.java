@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 
 import com.cnksi.android.executor.ExecutorTask;
 import com.cnksi.android.utils.DateUtil;
@@ -64,21 +65,22 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
         if (mBuilder.mOnCrashListener != null) {
             mBuilder.mOnCrashListener.onCrash(t, ex, model);
         }
-        if (mBuilder.crashLogFolder != null) {
-            ExecutorTask.submit(() -> {
-                if (!FileUtil.isFolderExists(mBuilder.crashLogFolder)) {
-                    FileUtil.createOrExistsDir(mBuilder.crashLogFolder);
-                }
-                String deviceId;
-                if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-                    deviceId = DeviceUtil.getDeviceId(mContext) + "-";
-                }else{
-                    deviceId = Settings.System.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
-                }
-                String filePath = new File(mBuilder.crashLogFolder, deviceId + "crash-" + DateUtil.getCurrentTime("yyyy-MM-dd-HH-mm-SSS") + ".log").getAbsolutePath();
-                IOUtil.writeStr2File(filePath, getShareText(model));
-            });
+        if (TextUtils.isEmpty(mBuilder.crashLogFolder)) {
+            mBuilder.crashLogFolder = this.mContext.getFilesDir() + File.separator + "error/";
         }
+        ExecutorTask.submit(() -> {
+            if (!FileUtil.isFolderExists(mBuilder.crashLogFolder)) {
+                FileUtil.createOrExistsDir(mBuilder.crashLogFolder);
+            }
+            String deviceId;
+            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                deviceId = DeviceUtil.getDeviceId(mContext) + "-";
+            } else {
+                deviceId = Settings.System.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+            }
+            String filePath = new File(mBuilder.crashLogFolder, deviceId + "crash-" + DateUtil.getCurrentTime("yyyy-MM-dd-HH-mm-SSS") + ".log").getAbsolutePath();
+            IOUtil.writeStr2File(filePath, getShareText(model));
+        });
         if (mBuilder.mEnable) {
             handleException(model);
         } else {

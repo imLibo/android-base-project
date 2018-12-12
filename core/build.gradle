@@ -7,6 +7,9 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 27
+        buildConfigField "String", "MP_APP_ID", "\"ULg25ddbb9352adIAa42axw\""
+        buildConfigField "String", "MP_TOKEN", "\"8bGkWFA68ZlVUTMotBweZ5fwcQOzm\""
+        buildConfigField "String", "MP_ENCODINGAES_KEY", "\"t5ZM1k3CfcLADnvNJIKkgu4iZpbytPzQV87rYdK9BY3dw2UO5RTW39ex\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,11 +35,15 @@ dependencies {
     api 'com.android.support:appcompat-v7:27.1.1'
     api 'com.android.support:cardview-v7:27.1.1'
     api 'com.android.support:design:27.1.1'
-    api 'com.yanzhenjie:permission:2.0.0-rc11'
+    api 'com.yanzhenjie:permission:2.0.0-rc12'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
     api 'com.github.GrenderG:Toasty:1.3.0'
     api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    api 'com.android.support.constraint:constraint-layout:1.1.2'
+    api 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    compileOnly 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    compileOnly 'com.squareup.okhttp3:okhttp:3.10.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
