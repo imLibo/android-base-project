@@ -27,4 +27,7 @@
     <color name="bg_gray_f0f2f1">#FF888888</color>
     <color name="text_333333">#333333</color>
 
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent90_white">#E5ffffff</color>
 </resources>

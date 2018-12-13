@@ -31,7 +31,6 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cnksi.android.app.App;
 import com.cnksi.android.constants.Constants;
 import com.cnksi.android.log.KLog;
 
@@ -1375,7 +1374,7 @@ public class BitmapUtil {
             return scaleBitmap;
         }
         Bitmap ret = Bitmap.createScaledBitmap(scaleBitmap, width, height, true);
-        if (scaleBitmap != null && !scaleBitmap.isRecycled()) {
+        if (!scaleBitmap.isRecycled()) {
             scaleBitmap.recycle();
         }
         if (recycle && !src.isRecycled()) {

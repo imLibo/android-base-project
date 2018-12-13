@@ -31,4 +31,8 @@
     <color name="core_text_orange">#D0910B</color>
     <color name="core_text_red">#D9534F</color>
 
+    <!--glide -->
+    <color name="glide_nine_image_text_background_color">#4D000000</color>
+    <color name="glide_nine_image_text_color">#FFFFFF</color>
+
 </resources>

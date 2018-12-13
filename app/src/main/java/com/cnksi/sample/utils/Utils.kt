@@ -1,7 +1,8 @@
 package com.cnksi.sample.utils
 
 import android.content.Context
-import com.cnksi.android.https.HttpsUtils
+import com.cnksi.android.glide.progress.ProgressManager
+import com.cnksi.android.https.HttpsUtil
 import com.cnksi.android.https.Tls12SocketFactory
 import com.cnksi.android.log.KLog
 import okhttp3.OkHttpClient
@@ -47,11 +48,12 @@ object Utils {
         builder.writeTimeout(HTTP_TIMEOUT.toLong(), TimeUnit.MINUTES)     //全局的写入超时时间
         builder.connectTimeout(HTTP_TIMEOUT.toLong(), TimeUnit.MINUTES)   //全局的连接超时时间
         //初始化Https
-        val sslParams = HttpsUtils.getSSLParams(mContext, BKS_FILE, BKS_PASSWORD)
+        val sslParams = HttpsUtil.getSSLParams(mContext, BKS_FILE, BKS_PASSWORD)
         //实现只兼容 TSL v1.2 协议
         val socketFactory = Tls12SocketFactory(sslParams!!.sSLSocketFactory)
         builder.sslSocketFactory(socketFactory, sslParams.trustManager)
         builder.hostnameVerifier(SafeHostnameVerifier)
+        builder.addInterceptor(ProgressManager.getProgressInterceptor())
         return builder.build()
     }
 }
