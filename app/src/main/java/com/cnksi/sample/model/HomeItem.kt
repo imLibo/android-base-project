@@ -1,6 +1,7 @@
 package com.cnksi.sample.model
 
 import com.cnksi.sample.activity.BitmapActivity
+import com.cnksi.sample.activity.DownloadActivity
 import com.cnksi.sample.activity.LoginActivity
 import com.cnksi.sample.activity.MainActivity
 
@@ -17,6 +18,7 @@ data class HomeItem(val title: String, val activity: Class<*>, val code: Int) {
         fun getList(): List<HomeItem> {
             return arrayListOf(
                     HomeItem("BitmapUtil", BitmapActivity::class.java, 0),
+                    HomeItem("OkHttp下载", DownloadActivity::class.java, 0),
                     HomeItem("自定义View", MainActivity::class.java, 0),
                     HomeItem("自定义Dialog", String::class.java, 1),
                     HomeItem("LoadingDialog", String::class.java, 2),

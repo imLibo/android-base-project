@@ -1,0 +1,321 @@
+package com.cnksi.sample.activity;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
+import com.cnksi.android.view.CircleProgressbar;
+import com.cnksi.download.DownloadCallback;
+import com.cnksi.download.DownloadDispatcher;
+import com.cnksi.download.DownloadTask;
+import com.cnksi.sample.R;
+import com.cnksi.sample.utils.Utils;
+import com.cnksi.upload.UploadCallback;
+import com.cnksi.upload.UploadDispatcher;
+
+import java.io.File;
+
+public class DownloadActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "MainActivity";
+    private static final int REQUEST_PERMISSION_CODE = 0x088;
+    String ip = "http://192.168.137.1:8888/v410";
+//    private String[] url = {
+//            "http://gdown.baidu.com/data/wisegame/f170a8c78bcf9aac/QQ_818.apk",
+//            "http://acj3.pc6.com/pc6_soure/2018-9/com.nuomi_372.apk",
+//            "http://acj3.pc6.com/pc6_soure/2018-12/com.baidu.lbs.waimai_152.apk",
+//            "https://downapp.baidu.com/Baidunetdisk/AndroidPhone/9.1.3.0/1/1021768b/20181130185829/Baidunetdisk_AndroidPhone_9-1-3-0_1021768b" +
+//                    ".apk?responseContentDisposition=attachment%3Bfilename%3D%22Baidunetdisk_AndroidPhone_1021768b.apk%22&responseContentType=application%2Fvnd.android" +
+//                    ".package-archive&request_id=1544935977_4410740200&type=static",
+//            "http://acj3.pc6.com/pc6_soure/2018-12/com.baidu.baidutranslate_92.apk",
+//            "http://gdown.baidu.com/data/wisegame/89eb17d6287ae627/weixin_1300.apk",
+//            "http://gdown.baidu.com/data/wisegame/89fce26b620d8d43/QQkongjian_109.apk"};
+//    private String[] names = {"QQ_818.apk", "weixin_13001.apk", "weixin_13002.apk", "weixin_130021.apk", "weixin_13003.apk", "weixin_13004.apk", "QQkongjian_109.apk"};
+
+    private String[] url = {
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=QQ_818.apk",
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=weixin_13001.apk",
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=weixin_13002.apk",
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=weixin_130021.apk",
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=weixin_13003.apk",
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=weixin_13004.apk",
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=QQkongjian_109.apk",
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=navicat.exe",
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=mysql.msi",
+            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=idea-1.exe"
+    };
+
+    private String[] names = {
+//            "QQ_818.apk",
+//            "weixin_13001.apk",
+//            "weixin_13002.apk",
+//            "weixin_130021.apk",
+//            "weixin_13003.apk",
+//            "weixin_13004.apk",
+//            "QQkongjian_109.apk",
+//            "navicat.exe",
+//            "mysql.msi",
+            "idea-1.exe"
+    };
+
+    private CircleProgressbar mQQpb;
+    private CircleProgressbar mWeChatPb;
+    private CircleProgressbar mQzonePb;
+
+    private static final String STATUS_DOWNLOADING = "downloading";
+    private static final String STATUS_STOP = "stop";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_download);
+        mQQpb = findViewById(R.id.qq_pb);
+        mQQpb.setTag(STATUS_DOWNLOADING);
+        mWeChatPb = findViewById(R.id.wechat_pb);
+        mWeChatPb.setTag(STATUS_DOWNLOADING);
+        mQzonePb = findViewById(R.id.qzone_pb);
+        mQzonePb.setTag(STATUS_DOWNLOADING);
+        mQQpb.setOnClickListener(this);
+        mWeChatPb.setOnClickListener(this);
+        mQzonePb.setOnClickListener(this);
+        findViewById(R.id.btn_cancel_upload).setOnClickListener(this);
+        findViewById(R.id.btn_upload).setOnClickListener(this);
+        findViewById(R.id.btn_all).setOnClickListener(this);
+        findViewById(R.id.btn_delete).setOnClickListener(this);
+        int isPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (isPermission == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSION_CODE && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                Toast.makeText(DownloadActivity.this, "需要存储权限", Toast.LENGTH_SHORT).show();
+                //没有授权的话，直接finish掉Activity
+                finish();
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.qq_pb:
+                if (mQQpb.getTag().equals(STATUS_DOWNLOADING)) {
+                    mQQpb.setTag(STATUS_STOP);
+                    DownloadDispatcher.getInstance().startDownload(names[0], url[0], new DownloadCallback() {
+
+                        @Override
+                        public void onFailure(Exception e) {
+                            Log.i(TAG, "onFailure: 多线程下载失败 " + e.getMessage());
+                        }
+
+                        @Override
+                        public void onStart(String fileName, int status) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            Log.i(TAG, "onSuccess:多线程下载成功 " + file.getAbsolutePath());
+                        }
+
+                        @Override
+                        public void onProgress(final long totalProgress, final long currentLength) {
+                            Log.d("progress", "totalProgress-> " + totalProgress + " contentLength->" + currentLength
+                                    + "  progress->" + Utils.INSTANCE.keepTwoBit((float) totalProgress / currentLength));
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mQQpb.setCurrentProgress(Utils.INSTANCE.keepTwoBit((float) totalProgress / currentLength));
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onPause(File file) {
+                            Log.i(TAG, "onPause:暂停下载 ");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(DownloadActivity.this, names[0] + "暂停下载", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                } else if (mQQpb.getTag().equals(STATUS_STOP)) {
+                    mQQpb.setTag(STATUS_DOWNLOADING);
+                    DownloadDispatcher.getInstance().stopDownload(url[0]);
+                    mQQpb.setText("继续");
+                }
+                break;
+            case R.id.wechat_pb:
+                if (mWeChatPb.getTag().equals(STATUS_DOWNLOADING)) {
+                    mWeChatPb.setTag(STATUS_STOP);
+                    DownloadDispatcher.getInstance().startDownload(names[1], url[1], new DownloadCallback() {
+                        @Override
+                        public void onFailure(Exception e) {
+                            Log.i("DownLoadActivity", "onFailure: 多线程下载失败");
+                        }
+
+                        @Override
+                        public void onStart(String fileName, int status) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            Log.i("DownLoadActivity", "onSuccess:多线程下载成功 " + file.getAbsolutePath());
+                        }
+
+                        @Override
+                        public void onProgress(final long totalProgress, final long currentLength) {
+                            Log.d("progress", "progress-> " + Utils.INSTANCE.keepTwoBit((float) totalProgress / currentLength) + " contentLength->" + currentLength);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mWeChatPb.setCurrentProgress(Utils.INSTANCE.keepTwoBit((float) totalProgress / currentLength));
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onPause(File file) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(DownloadActivity.this, names[1] + "暂停下载", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                } else if (mWeChatPb.getTag().equals(STATUS_STOP)) {
+                    mWeChatPb.setTag(STATUS_DOWNLOADING);
+                    DownloadDispatcher.getInstance().stopDownload(url[1]);
+                    mWeChatPb.setText("继续");
+                }
+                break;
+            case R.id.qzone_pb:
+                DownloadDispatcher.getInstance().startDownload(names[2], url[2], new DownloadCallback() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.i(TAG, "onFailure: 多线程下载失败 " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onStart(String fileName, int status) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        Log.i(TAG, "onSuccess:多线程下载成功 " + file.getAbsolutePath());
+                    }
+
+                    @Override
+                    public void onProgress(final long totalProgress, final long currentLength) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mQzonePb.setCurrentProgress(Utils.INSTANCE.keepTwoBit((float) totalProgress / currentLength));
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onPause(File file) {
+
+                    }
+                });
+                break;
+            case R.id.btn_all:
+                String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "apk";
+                for (int i = 0; i < url.length; i++) {
+                    DownloadDispatcher.getInstance().setMaxTaskSize(2).startDownload(folder, names[i], url[i], new DownloadCallback() {
+                        @Override
+                        public void onStart(String fileName, int status) {
+                            Log.i(TAG, "onStart-> " + fileName);
+                            if (DownloadTask.DownloadStatus.STATUS_DOWNLOADING == status) {
+
+                            }
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            Log.i(TAG, "onSuccess->" + file.getName());
+                        }
+
+                        @Override
+                        public void onFailure(Exception e) {
+                            Log.e(TAG, "onFailure->" + e.getMessage());
+                        }
+
+                        @Override
+                        public void onProgress(long progress, long currentLength) {
+//                            Log.i(TAG,fileName +":" + Utils.keepTwoBit((float) progress / currentLength));
+                        }
+
+                        @Override
+                        public void onPause(File file) {
+                            Log.e(TAG, "onPause-> " + file.getName());
+                        }
+                    });
+                }
+                break;
+            case R.id.btn_delete:
+                DownloadDispatcher.getInstance().stopAll();
+                break;
+            case R.id.btn_upload:
+                folder = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "apk";
+                for (String name : names) {
+                    File file = new File(folder, name);
+                    if (!file.exists()) {
+                        continue;
+                    }
+                    String url = "http://192.168.137.1:8888/v410/file/upload?clientid=0000&appid=ls_ess&filename=" + name + "&folder=apk&lst=" + file.lastModified();
+                    UploadDispatcher.getInstance().setMaxTaskSize(2).startUpload(folder, name, url, new UploadCallback() {
+                        @Override
+                        public void onStart(String fileName, int status) {
+                            Log.d(TAG, "onStart-> " + fileName + " " + status);
+                        }
+
+                        @Override
+                        public void onProgress(long progress, long currentLength) {
+                            Log.d("progress", "totalProgress-> " + progress + " contentLength->" + currentLength
+                                    + "  progress->" + Utils.INSTANCE.keepTwoBit((float) progress / currentLength));
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            Log.d(TAG, "onSuccess-> " + file.getName());
+                        }
+
+                        @Override
+                        public void onFailure(Exception e) {
+                            Log.d(TAG, "onFailure-> " + e.getMessage());
+                        }
+
+                        @Override
+                        public void onPause(File file) {
+                            Log.d(TAG, "onPause-> " + file.getName());
+                        }
+                    });
+                }
+                break;
+            case R.id.btn_cancel_upload:
+                UploadDispatcher.getInstance().stopAll();
+                break;
+            default:
+        }
+    }
+}

@@ -1,1 +1,1 @@
-include ':app', ':core', ':AmapLoc', ':smkit', ':xutils'
+include ':app', ':core', ':AmapLoc', ':smkit', ':xutils', ':downloadlib'

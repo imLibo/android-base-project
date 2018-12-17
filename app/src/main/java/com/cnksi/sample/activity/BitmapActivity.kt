@@ -15,6 +15,7 @@ import com.cnksi.android.utils.FileUtil
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityBitmapBinding
 import com.qq.weixin.mp.aes.Utils
+import es.dmoral.toasty.Toasty
 import java.util.*
 
 /**
@@ -90,7 +91,13 @@ class BitmapActivity : BaseActivity() {
                 .setRoundCornerRadius(5)
                 .setData(getImageData(), GridLayoutHelper.getDefaultLayoutHelper(mActivity, getImageData()))
 
-        mBinding.draggableViewF.bringToFront()
+        mBinding.nineview.setOnItemClickListener {
+            Toasty.info(mActivity, "position->$it").show()
+        }
+        mBinding.nineview.setOnLongClickListener {
+            Toasty.info(mActivity, "position->$it").show()
+            false
+        }
     }
 
     /**

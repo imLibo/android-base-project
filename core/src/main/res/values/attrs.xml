@@ -146,4 +146,11 @@
         <attr name="cpv_outerSize" format="dimension"/>
         <attr name="cpv_reachCapRound" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="CircleProgressbar">
+        <attr name="cp_innerCircleColor" format="color"/>
+        <attr name="cp_outCircleColor" format="color"/>
+        <attr name="cp_innerCircleWidth" format="dimension"/>
+        <attr name="cp_outCircleWidth" format="dimension"/>
+    </declare-styleable>
 </resources>

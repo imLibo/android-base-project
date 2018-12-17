@@ -6,6 +6,7 @@ import com.cnksi.android.https.HttpsUtil
 import com.cnksi.android.https.Tls12SocketFactory
 import com.cnksi.android.log.KLog
 import okhttp3.OkHttpClient
+import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.HttpsURLConnection
@@ -55,5 +56,15 @@ object Utils {
         builder.hostnameVerifier(SafeHostnameVerifier)
         builder.addInterceptor(ProgressManager.getProgressInterceptor())
         return builder.build()
+    }
+
+    /**
+     * 保留两位小数
+     * @param value
+     * @return
+     */
+    fun keepTwoBit(value: Float): Float {
+        val df = DecimalFormat("0.00")
+        return java.lang.Float.parseFloat(df.format(value.toDouble()))
     }
 }

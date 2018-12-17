@@ -49,6 +49,9 @@
         <activity
             android:name=".activity.BitmapActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.DownloadActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

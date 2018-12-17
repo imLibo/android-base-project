@@ -124,7 +124,7 @@
                 android:layout_height="@dimen/dp_35"
                 android:layout_weight="1"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_16"
                 app:abb_normalColor="@color/core_red_D9534F"
                 tools:text="重置"/>
 
@@ -135,7 +135,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_weight="1"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/sp_14"
+                android:textSize="@dimen/sp_16"
                 app:abb_normalColor="@color/core_green_25AF9D"
                 tools:text="登录"/>
         </LinearLayout>

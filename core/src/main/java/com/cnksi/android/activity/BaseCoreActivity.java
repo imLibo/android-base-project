@@ -66,6 +66,11 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
         return false;
     }
 
+    /**
+     * 是否需要请求权限
+     *
+     * @return
+     */
     public boolean requirePemission() {
         return false;
     }

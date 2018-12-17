@@ -85,6 +85,7 @@
         <com.cnksi.android.view.DraggableFrameLayout
             android:id="@+id/draggableViewF"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="match_parent">
 
             <ImageView
@@ -95,7 +96,6 @@
                 android:layout_margin="10dp"
                 android:src="@mipmap/ic_multi_imageview"/>
         </com.cnksi.android.view.DraggableFrameLayout>
-
 
     </android.support.constraint.ConstraintLayout>
 </layout>
