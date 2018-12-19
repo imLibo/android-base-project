@@ -33,7 +33,6 @@ public class ProgressManager {
         };
     }
 
-
     private static final ProgressResponseBody.InternalProgressListener LISTENER = (url, bytesRead, totalBytes) -> {
         OnProgressListener onProgressListener = getProgressListener(url);
         if (onProgressListener != null) {

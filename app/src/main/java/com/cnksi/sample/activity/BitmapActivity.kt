@@ -14,7 +14,7 @@ import com.cnksi.android.utils.BitmapUtil
 import com.cnksi.android.utils.FileUtil
 import com.cnksi.sample.R
 import com.cnksi.sample.databinding.ActivityBitmapBinding
-import com.qq.weixin.mp.aes.Utils
+import com.cnksi.sample.utils.Utils.getFileUrl
 import es.dmoral.toasty.Toasty
 import java.util.*
 
@@ -100,19 +100,7 @@ class BitmapActivity : BaseActivity() {
         }
     }
 
-    /**
-     * 得到文件在线浏览地址
-     *
-     * @param folder   文件夹
-     * @param fileName 文件名
-     * @return 完整的加密后的地址
-     */
-    fun getFileUrl(appid: String, folder: String, fileName: String): String {
-        val paramStr = "appid=$appid&folder=$folder&filename=$fileName&clientid=0000"
-        val url = "http://10.177.98.252/v410/file/download?" + Utils.getEncryptMsg(paramStr)
-        //替换掉所有的换行符
-        return url.replace("\n".toRegex(), "")
-    }
+
 
 
     fun getImageData(): List<ImageData> {

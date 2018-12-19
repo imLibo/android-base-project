@@ -48,7 +48,8 @@ public class DownloadActivity extends AppCompatActivity implements View.OnClickL
 //            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=QQkongjian_109.apk",
 //            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=navicat.exe",
 //            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=mysql.msi",
-            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=idea-1.exe"
+//            ip + "/file/download?appid=ls_ess&folder=apk&clientid=000000&filename=idea-1.exe"
+            Utils.INSTANCE.getFileUrl(ip, "apk", "idea-1.exe", "ls_ess")
     };
 
     private String[] names = {

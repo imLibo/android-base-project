@@ -5,6 +5,7 @@ import com.cnksi.android.glide.progress.ProgressManager
 import com.cnksi.android.https.HttpsUtil
 import com.cnksi.android.https.Tls12SocketFactory
 import com.cnksi.android.log.KLog
+import com.qq.weixin.mp.aes.Utils
 import okhttp3.OkHttpClient
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
@@ -66,5 +67,33 @@ object Utils {
     fun keepTwoBit(value: Float): Float {
         val df = DecimalFormat("0.00")
         return java.lang.Float.parseFloat(df.format(value.toDouble()))
+    }
+
+    /**
+     * 得到文件在线浏览地址
+     *
+     * @param folder   文件夹
+     * @param fileName 文件名
+     * @return 完整的加密后的地址
+     */
+    fun getFileUrl(ip: String, appid: String, folder: String, fileName: String): String {
+        val paramStr = "appid=$appid&folder=$folder&filename=$fileName&clientid=0000"
+        val url = ip + "/file/download?" + Utils.getEncryptMsg(paramStr)
+        //替换掉所有的换行符
+        return url.replace("\n".toRegex(), "")
+    }
+
+    /**
+     * 得到文件在线浏览地址
+     *
+     * @param folder   文件夹
+     * @param fileName 文件名
+     * @return 完整的加密后的地址
+     */
+    fun getFileUrl(appid: String, folder: String, fileName: String): String {
+        val paramStr = "appid=$appid&folder=$folder&filename=$fileName&clientid=0000"
+        val url = "http://10.177.98.252/v410/file/download?" + Utils.getEncryptMsg(paramStr)
+        //替换掉所有的换行符
+        return url.replace("\n".toRegex(), "")
     }
 }

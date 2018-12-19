@@ -20,7 +20,7 @@ import okio.Source;
  */
 public class ProgressResponseBody extends ResponseBody {
 
-    private static final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
+    private static final Handler MAIN_THREAD_HANDLER = new Handler(Looper.getMainLooper());
 
     private String url;
     private ProgressResponseBody.InternalProgressListener internalProgressListener;
@@ -64,7 +64,7 @@ public class ProgressResponseBody extends ResponseBody {
 
                 if (internalProgressListener != null && lastTotalBytesRead != totalBytesRead) {
                     lastTotalBytesRead = totalBytesRead;
-                    mainThreadHandler.post(() -> internalProgressListener.onProgress(url, totalBytesRead, contentLength()));
+                    MAIN_THREAD_HANDLER.post(() -> internalProgressListener.onProgress(url, totalBytesRead, contentLength()));
                 }
                 return bytesRead;
             }
