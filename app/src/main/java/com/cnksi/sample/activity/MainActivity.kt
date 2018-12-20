@@ -43,18 +43,20 @@ class MainActivity : BaseActivity() {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
+            mBinding.contentMain?.labelValueContainer?.apply {
+               lineHeight = 0
+               lineWidth = 0
+               spacing = 10
+               valueTextColor = resources.getColor(R.color.bg_blue_04a5e7)
+               labelTextColor = resources.getColor(R.color.bg_green_01ce7f)
+               labelTextSize = 80
+               valueTextSize = 30
+               setDrawableResource(R.mipmap.ic_login_user)
+               drawableText = "密码"
+               drawableView?.width = 150
+               drawableView?.height = 90
+            }
 
-            mBinding.contentMain?.labelValueContainer?.lineHeight = 0
-            mBinding.contentMain?.labelValueContainer?.lineWidth = 0
-            mBinding.contentMain?.labelValueContainer?.spacing = 10
-            mBinding.contentMain?.labelValueContainer?.valueTextColor = resources.getColor(R.color.bg_blue_04a5e7)
-            mBinding.contentMain?.labelValueContainer?.labelTextColor = resources.getColor(R.color.bg_green_01ce7f)
-            mBinding.contentMain?.labelValueContainer?.labelTextSize = 80
-            mBinding.contentMain?.labelValueContainer?.valueTextSize = 30
-            mBinding.contentMain?.labelValueContainer?.setDrawableResource(R.mipmap.ic_login_user)
-            mBinding.contentMain?.labelValueContainer?.drawableText = "密码"
-            mBinding.contentMain?.labelValueContainer?.drawableView?.width = 150
-            mBinding.contentMain?.labelValueContainer?.drawableView?.height = 90
             mBinding.contentMain?.lineLayout?.setMarginLeft(100)
             mBinding.contentMain?.tvSpannable?.text =
                     (SpannableStringUtil.getBuilder("发现方式带电检测")
