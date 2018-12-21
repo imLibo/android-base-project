@@ -55,6 +55,6 @@ dependencies {
     implementation project(':downloadlib')
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.cnksi:ksynclib:4.1.0-1106-SNAPSHOT'
 }

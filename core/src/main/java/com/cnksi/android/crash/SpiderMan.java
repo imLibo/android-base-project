@@ -69,17 +69,7 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
             mBuilder.crashLogFolder = this.mContext.getFilesDir() + File.separator + "error/";
         }
         ExecutorTask.submit(() -> {
-            if (!FileUtil.isFolderExists(mBuilder.crashLogFolder)) {
-                FileUtil.createOrExistsDir(mBuilder.crashLogFolder);
-            }
-            String deviceId;
-            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-                deviceId = DeviceUtil.getDeviceId(mContext) + "-";
-            } else {
-                deviceId = Settings.System.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
-            }
-            String filePath = new File(mBuilder.crashLogFolder, deviceId + "crash-" + DateUtil.getCurrentTime("yyyy-MM-dd-HH-mm-SSS") + ".log").getAbsolutePath();
-            IOUtil.writeStr2File(filePath, getShareText(model));
+
         });
         if (mBuilder.mEnable) {
             handleException(model);
@@ -100,11 +90,26 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
+    public static void writeError(Throwable ex) {
+        String logFolder = getInstance().mBuilder.crashLogFolder;
+        if (!FileUtil.isFolderExists(logFolder)) {
+            FileUtil.createOrExistsDir(logFolder);
+        }
+        String deviceId;
+        if (ActivityCompat.checkSelfPermission(getInstance().mContext, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            deviceId = DeviceUtil.getDeviceId(getInstance().mContext) + "-";
+        } else {
+            deviceId = Settings.System.getString(getInstance().mContext.getContentResolver(), Settings.Secure.ANDROID_ID)+ "-";
+        }
+        String filePath = new File(logFolder, deviceId + "crash-" + DateUtil.getCurrentTime("yyyy-MM-dd-HH-mm-SSS") + ".log").getAbsolutePath();
+        IOUtil.writeStr2File(filePath, getShareText(parseCrash(ex)));
+    }
+
     public interface OnCrashListener {
         void onCrash(Thread t, Throwable ex, CrashModel model);
     }
 
-    private CrashModel parseCrash(Throwable ex) {
+    private static CrashModel parseCrash(Throwable ex) {
         CrashModel model = new CrashModel();
         model.setEx(ex);
         model.setTime(System.currentTimeMillis());
