@@ -8,8 +8,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * 下载线程
@@ -69,14 +72,19 @@ class DownloadRunnable implements Runnable {
         mStatus = DownloadTask.DownloadStatus.STATUS_DOWNLOADING;
         InputStream inputStream = null;
         RandomAccessFile randomAccessFile = null;
+        FileChannel channelOut = null;
         try {
             Response response = OkHttpManager.getInstance().syncResponse(url, start, end);
-            inputStream = response.body().byteStream();
+            ResponseBody responseBody = response.body();
+            inputStream = responseBody.byteStream();
+            long contentLength = responseBody.contentLength();
             //保存文件的路径
             File file = new File(folder, name);
             randomAccessFile = new RandomAccessFile(file, "rwd");
-            //seek从哪里开始
-            randomAccessFile.seek(start);
+            //Chanel NIO中的用法，由于RandomAccessFile没有使用缓存策略，直接使用会使得下载速度变慢，亲测缓存下载3.3秒的文件，用普通的RandomAccessFile需要20多秒。
+            channelOut = randomAccessFile.getChannel();
+            // 内存映射，直接使用RandomAccessFile，是用其seek方法指定下载的起始位置，使用缓存下载，在这里指定下载位置。
+            MappedByteBuffer mappedBuffer = channelOut.map(FileChannel.MapMode.READ_WRITE, start, contentLength);
             int length;
             byte[] bytes = new byte[10 * 1024];
             boolean isSuccess = true;
@@ -86,8 +94,7 @@ class DownloadRunnable implements Runnable {
                     downloadCallback.onPause(file);
                     break;
                 }
-                //写入
-                randomAccessFile.write(bytes, 0, length);
+                mappedBuffer.put(bytes, 0, length);
                 //保存下进度，做断点
                 start += length;
                 //实时去更新下进度条，将每次写入的length传出去
@@ -103,6 +110,7 @@ class DownloadRunnable implements Runnable {
             //保存到文件记录断点
             recordProgress(start, end);
             close(inputStream);
+            close(channelOut);
             close(randomAccessFile);
         }
     }

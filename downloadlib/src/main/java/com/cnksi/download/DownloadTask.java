@@ -106,10 +106,8 @@ public class DownloadTask {
             //开始下载的位置
             long start = i * threadSize;
             //结束下载的位置
-            long end = start + threadSize - 1;
-            if (i == mThreadSize - 1) {
-                end = mContentLength - 1;
-            }
+            long end = i == mThreadSize - 1 ? mContentLength : (start + threadSize);
+            //开始下载
             initDownloadRunnable(i, start, end);
         }
     }
@@ -139,8 +137,8 @@ public class DownloadTask {
 
             @Override
             public void onSuccess(File file) {
-                mSuccessNumber.addAndGet(1);
-                if (mSuccessNumber.intValue() == mThreadSize) {
+                mSuccessNumber.incrementAndGet();
+                if (mSuccessNumber.get() == mThreadSize) {
                     mCallback.onSuccess(file);
                     //下载成功回收任务，继续下载后面等待的任务
                     DownloadDispatcher.getInstance().recyclerTask(DownloadTask.this);
