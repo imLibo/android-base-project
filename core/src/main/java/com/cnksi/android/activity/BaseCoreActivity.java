@@ -3,6 +3,7 @@ package com.cnksi.android.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import com.yanzhenjie.permission.AndPermission;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * BaseActivity
@@ -54,6 +57,7 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
      *
      * @param msg
      */
+    @CallSuper
     public void handleMessage(Message msg) {
     }
 
@@ -62,18 +66,10 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
      *
      * @return
      */
-    public boolean initHandler() {
-        return false;
+    protected boolean initHandler() {
+        return true;
     }
 
-    /**
-     * 是否需要请求权限
-     *
-     * @return
-     */
-    public boolean requirePemission() {
-        return false;
-    }
 
     /**
      * 是否添加字符串过滤
@@ -89,7 +85,9 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
      *
      * @return
      */
-    protected abstract String[] getPermission();
+    protected String[] getPermission() {
+        return new String[]{};
+    }
 
     /**
      * 初始化ContentView
@@ -120,10 +118,13 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
      * 请求权限
      */
     protected void requestPermissions() {
-        if (!AndPermission.hasPermissions(mActivity, getPermission())) {
-            new PermissionSetting(mActivity).requestPermission(getPermission());
-        } else {
-            onGranted(Arrays.asList(getPermission()));
+        String[] permission = getPermission();
+        if (permission.length > 0) {
+            if (!AndPermission.hasPermissions(mActivity, permission)) {
+                new PermissionSetting(this).requestPermission(getPermission());
+            } else {
+                onGranted(Arrays.asList(getPermission()));
+            }
         }
     }
 
@@ -152,9 +153,7 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
         initContentView();
         ActivityManager.instance().pushActivity(mActivity);
         mHandler = initHandler() ? new CoreHandler(mActivity) : null;
-        if (requirePemission()) {
-            requestPermissions();
-        }
+        requestPermissions();
     }
 
     @Override
@@ -188,7 +187,7 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
     protected void exitSystem(boolean isExitSystem) {
         if (System.currentTimeMillis() - currentBackPressedTime > 2000) {
             currentBackPressedTime = System.currentTimeMillis();
-            Toast.makeText(mActivity, R.string.one_more_click_exit_str, Toast.LENGTH_SHORT).show();
+            Toasty.info(mActivity, getString(R.string.one_more_click_exit_str), Toast.LENGTH_SHORT).show();
         } else {
             if (isExitSystem) {
                 compeletlyExitSystem();

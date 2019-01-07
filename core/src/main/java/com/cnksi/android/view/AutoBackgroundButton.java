@@ -79,6 +79,7 @@ public class AutoBackgroundButton extends AppCompatTextView {
         if (getGravity() == (Gravity.TOP | Gravity.START)) {
             setGravity(Gravity.CENTER);
         }
+        setPadding(0, 0, 0, 0);
         this.setBackground(stateListDrawable);
         if (textPressColor != 0) {
             ColorStateList textColor = getTextColors();

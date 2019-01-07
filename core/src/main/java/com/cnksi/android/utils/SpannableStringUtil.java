@@ -10,6 +10,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Layout.Alignment;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AlignmentSpan;
@@ -31,6 +32,10 @@ import android.text.style.TypefaceSpan;
 import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static android.graphics.BlurMaskFilter.Blur;
 
 /**
@@ -45,6 +50,59 @@ public class SpannableStringUtil {
 
     private SpannableStringUtil() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    public static CharSequence changeTextColor(CharSequence content, @ColorInt int color) {
+        if (content.length() > 0) {
+            return changePartTextColor(content, color, 0, content.length());
+        } else {
+            return "";
+        }
+    }
+
+
+    /**
+     * 改变部分字体的颜色
+     *
+     * @param content     需要改变的内容
+     * @param color       颜色值
+     * @param startOffset 开始位置
+     * @param endOffset   结束位置
+     * @return
+     */
+    public static SpannableStringBuilder changePartTextColor(CharSequence content, @ColorInt int color, int startOffset, int endOffset) {
+        SpannableStringBuilder style = new SpannableStringBuilder(content);
+        style.setSpan(new ForegroundColorSpan(color), startOffset, endOffset, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return style;
+    }
+
+    /**
+     * %s为替换符 values为补全的值。
+     *
+     * @param formatStr %s为替换符
+     * @param color
+     * @param values
+     * @return
+     */
+    public static CharSequence formatPartTextColor(String formatStr, @ColorInt int color, String... values) {
+        String[] s = formatStr.split("%s");
+        List<String> str = new ArrayList<>(Arrays.asList(s));
+        if (formatStr.endsWith("%s")) {
+            str.add("");
+        }
+        if (str.size() == 1) {
+            return formatStr;
+        }
+        if (str.size() - 1 != values.length) {
+            throw new IllegalArgumentException("formatStr需要的参数个数与对应的values不匹配");
+        }
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
+        for (int i = 0, count = str.size(); i < count; i++) {
+            spannableStringBuilder.append(str.get(i));
+            if (i < count - 1)
+                spannableStringBuilder.append(changeTextColor(values[i], color));
+        }
+        return spannableStringBuilder;
     }
 
     /**

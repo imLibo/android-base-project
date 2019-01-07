@@ -26,7 +26,7 @@ import com.cnksi.android.R;
  */
 public class UnderLineLinearLayout extends LinearLayout {
 
-    private boolean drawUnderLine;
+    private boolean drawUnderLine = true;
     private int marginLeft;
     private int marginRight;
     private int lineColor = Color.parseColor("#e1e4e4");
@@ -105,14 +105,19 @@ public class UnderLineLinearLayout extends LinearLayout {
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        if (!lineRect.isEmpty()) {
+        super.dispatchDraw(canvas);
+        if (!lineRect.isEmpty() && drawUnderLine) {
             canvas.drawRect(lineRect, linePaint);
         }
-        super.dispatchDraw(canvas);
     }
 
     public void setMarginLeft(int marginLeft) {
         this.marginLeft = marginLeft;
+        invalidateRect();
+    }
+
+    public void setDrawUnderLine(boolean drawUnderLine) {
+        this.drawUnderLine = drawUnderLine;
         invalidateRect();
     }
 

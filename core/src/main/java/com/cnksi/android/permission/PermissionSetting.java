@@ -24,7 +24,7 @@ import java.util.List;
  * @date 2018/6/26
  * @since 1.0
  */
-public final class PermissionSetting {
+public final class PermissionSetting<T extends Activity & PermissionSetting.PermissionCallback> {
 
     public interface PermissionCallback {
 
@@ -33,16 +33,11 @@ public final class PermissionSetting {
         void onDenied(List<String> permissions);
     }
 
-    private final Activity mActivity;
-    private PermissionCallback mCallback;
+    private final T mActivity;
 
-    public PermissionSetting(Activity activity) {
+
+    public PermissionSetting(T activity) {
         this.mActivity = activity;
-        if (activity instanceof PermissionCallback) {
-            mCallback = (PermissionCallback) mActivity;
-        } else {
-            throw new RuntimeException("Activity 请实现 PermissionCallback 接口");
-        }
     }
 
     /**
@@ -56,7 +51,7 @@ public final class PermissionSetting {
                 .onGranted(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> permissions) {
-                        mCallback.onGranted(permissions);
+                        mActivity.onGranted(permissions);
                     }
                 })
                 .onDenied(new Action<List<String>>() {
@@ -65,7 +60,7 @@ public final class PermissionSetting {
                         if (AndPermission.hasAlwaysDeniedPermission(mActivity, permissions)) {
                             showSetting(permissions);
                         } else {
-                            mCallback.onDenied(permissions);
+                            mActivity.onDenied(permissions);
                         }
                     }
                 })
@@ -93,7 +88,7 @@ public final class PermissionSetting {
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mCallback.onDenied(permissions);
+                        mActivity.onDenied(permissions);
                     }
                 })
                 .show();
@@ -112,7 +107,7 @@ public final class PermissionSetting {
                     @Override
                     public void onAction() {
                         if (AndPermission.hasPermissions(mActivity, permissions.toArray(new String[]{}))) {
-                            mCallback.onGranted(permissions);
+                            mActivity.onGranted(permissions);
                         } else {
                             ArrayList<String> deniedPermissions = new ArrayList<>();
                             for (String permission : permissions) {
@@ -120,7 +115,7 @@ public final class PermissionSetting {
                                     deniedPermissions.add(permission);
                                 }
                             }
-                            mCallback.onDenied(deniedPermissions);
+                            mActivity.onDenied(deniedPermissions);
                         }
                     }
                 })
