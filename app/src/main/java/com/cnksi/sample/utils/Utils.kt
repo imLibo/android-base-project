@@ -76,7 +76,7 @@ object Utils {
      * @param fileName 文件名
      * @return 完整的加密后的地址
      */
-    fun getFileUrl(ip: String, appid: String, folder: String, fileName: String): String {
+    fun getFileUrl(ip: String, folder: String, fileName: String, appid: String): String {
         val paramStr = "appid=$appid&folder=$folder&filename=$fileName&clientid=0000"
         val url = ip + "/file/download?" + Utils.getEncryptMsg(paramStr)
         //替换掉所有的换行符
