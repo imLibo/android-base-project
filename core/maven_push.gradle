@@ -30,12 +30,15 @@ uploadArchives {
             pom.artifactId = ARTIFACT_ID
             pom.groupId = GROUP_ID
 
-            repository(url: localMavenRepo) {
-//                authentication(userName: NAME, password: PASSWORD) // maven授权信息
+//            repository(url: localMavenRepo) {
+//            }
+            repository(url: getRepositoryUrl()) {
+               authentication(userName: NAME, password: PASSWORD) // maven授权信息
             }
         }
     }
 }
+
 
 // type显示指定任务类型或任务, 这里指定要执行Javadoc这个task,这个task在gradle中已经定义
 task androidJavadocs(type: Javadoc) {
