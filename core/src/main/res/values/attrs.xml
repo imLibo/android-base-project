@@ -88,7 +88,8 @@
     </declare-styleable>
 
     <declare-styleable name="BorderLineTagView">
-        <attr name="blt_checkedColor" format="color"/>
+        <attr name="blt_checkedTextColor" format="color"/>
+        <attr name="blt_checkedBackgroundColor" format="color"/>
         <attr name="blt_radius" format="dimension"/>
         <attr name="blt_shape">
             <enum name="rectangle" value="0"/>
@@ -98,6 +99,7 @@
         <attr name="blt_isRadioButton" format="boolean"/>
         <attr name="blt_isFillBackground" format="boolean"/>
         <attr name="blt_isUnCheckedShowBorder" format="boolean"/>
+        <attr name="blt_allowNoCheck" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="BorderLineButton">

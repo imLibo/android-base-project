@@ -69,7 +69,7 @@ public class SpiderMan implements Thread.UncaughtExceptionHandler {
             mBuilder.crashLogFolder = this.mContext.getFilesDir() + File.separator + "error/";
         }
         ExecutorTask.submit(() -> {
-
+            writeError(ex);
         });
         if (mBuilder.mEnable) {
             handleException(model);

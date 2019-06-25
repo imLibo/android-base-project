@@ -111,7 +111,7 @@ class MainActivity : BaseActivity() {
             mBinding.contentMain?.borderButton?.shape = 1
             mBinding.contentMain?.borderButton2?.shape = 0
             mBinding.contentMain?.borderButton2?.radius = 20
-            mBinding.contentMain?.borderButton2?.checkedColor = resources.getColor(R.color.colorAccent)
+            mBinding.contentMain?.borderButton2?.checkedTextColor = resources.getColor(R.color.colorAccent)
         }
 
         mBinding.contentMain?.sampleText?.setOnClickListener { _ ->

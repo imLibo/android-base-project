@@ -22,6 +22,7 @@ public final class BaseObserver<T> extends AtomicReference<Disposable>
         implements Observer<T>, Disposable, LambdaConsumerIntrospection {
 
     private static final long serialVersionUID = -7251123623727029452L;
+    public static boolean isDebug = false;
     Consumer<? super T> onNext;
     Consumer<? super Throwable> onError;
     Action onComplete;
@@ -41,11 +42,11 @@ public final class BaseObserver<T> extends AtomicReference<Disposable>
     }
 
     public BaseObserver(Consumer<? super T> onNext, CompositeDisposable compositeDisposable) {
-        this(onNext,  SpiderMan::writeError, Functions.EMPTY_ACTION, Functions.emptyConsumer(), compositeDisposable);
+        this(onNext, SpiderMan::writeError, Functions.EMPTY_ACTION, Functions.emptyConsumer(), compositeDisposable);
     }
 
     public BaseObserver(Consumer<? super T> onNext) {
-        this(onNext,  SpiderMan::writeError, Functions.EMPTY_ACTION, Functions.emptyConsumer(), null);
+        this(onNext, SpiderMan::writeError, Functions.EMPTY_ACTION, Functions.emptyConsumer(), null);
     }
 
     public BaseObserver(Consumer<? super T> onNext, Consumer<? super Throwable> onError, CompositeDisposable compositeDisposable) {
@@ -84,6 +85,10 @@ public final class BaseObserver<T> extends AtomicReference<Disposable>
 
     @Override
     public void onError(Throwable t) {
+        if (isDebug) {
+            t.printStackTrace();
+        }
+
         if (!isDisposed()) {
             lazySet(DisposableHelper.DISPOSED);
             try {

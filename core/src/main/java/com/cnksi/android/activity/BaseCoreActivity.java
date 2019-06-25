@@ -121,7 +121,7 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
         String[] permission = getPermission();
         if (permission.length > 0) {
             if (!AndPermission.hasPermissions(mActivity, permission)) {
-                new PermissionSetting(this).requestPermission(getPermission());
+                new PermissionSetting(this).requestPermission(permission);
             } else {
                 onGranted(Arrays.asList(getPermission()));
             }
@@ -150,9 +150,10 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Perm
             XSSLayoutFactory.installViewFactory(getDelegate(), getLayoutInflater(), getFilterRegex());
         }
         super.onCreate(savedInstanceState);
+        mHandler = initHandler() ? new CoreHandler(mActivity) : null;
         initContentView();
         ActivityManager.instance().pushActivity(mActivity);
-        mHandler = initHandler() ? new CoreHandler(mActivity) : null;
+
         requestPermissions();
     }
 

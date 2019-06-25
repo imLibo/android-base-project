@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Layout.Alignment;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AlignmentSpan;
@@ -35,6 +36,8 @@ import android.text.style.UnderlineSpan;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.graphics.BlurMaskFilter.Blur;
 
@@ -599,5 +602,25 @@ public class SpannableStringUtil {
             }
             flag = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
         }
+    }
+
+    /**
+     * 一个关键字关键字变色
+     *
+     * @param color
+     * @param text
+     * @param keyWord
+     * @return
+     */
+    public static SpannableString matcherSearchTitle(int color, String text, String keyWord) {
+        SpannableString s = new SpannableString(text);
+        Pattern p = Pattern.compile(keyWord);
+        Matcher m = p.matcher(s);
+        while (m.find()) {
+            int start = m.start();
+            int end = m.end();
+            s.setSpan(new ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return s;
     }
 }

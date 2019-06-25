@@ -714,7 +714,7 @@ public class ListUtils {
      * @return
      */
     public static <T> List<Node<T>> toTreeList(List<T> src, Func<T, String> idSelector, Func<T, String> pidSelector) {
-        Map<String, Node<T>> map = new HashMap<>(src.size());
+        Map<String, Node<T>> map = new LinkedHashMap<>(src.size());
         for (T model : src) {
             map.put(idSelector.action(model), new Node<>(model));
         }

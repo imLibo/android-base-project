@@ -35,14 +35,14 @@ public class PreferencesUtil {
     private static boolean isEncrypt = !BuildConfig.DEBUG;
 
     public static void init(Context context) {
-        init(context, defaultName, true);
+        init(context.getApplicationContext(), defaultName, true);
     }
 
     public static void init(Context context, boolean encrypt) {
-        init(context, defaultName, encrypt);
+        init(context.getApplicationContext(), defaultName, encrypt);
     }
 
-    public static void init(Context context, String name, boolean encrypt) {
+    private static void init(Context context, String name, boolean encrypt) {
         isEncrypt = encrypt;
         mContext = context.getApplicationContext();
         mMap.put(name, mContext.getSharedPreferences(name, Context.MODE_PRIVATE));
@@ -108,7 +108,7 @@ public class PreferencesUtil {
                 }
                 return tempValueSet;
             } else {
-                String value = mMap.get(name).getString(isEncrypt ? MD5Util.md5(key) : key, String.valueOf(defValue));
+                String value = getPreference(name).getString(isEncrypt ? MD5Util.md5(key) : key, String.valueOf(defValue));
                 if (value.equals(String.valueOf(defValue))) {
                     return value;
                 } else {
@@ -222,7 +222,7 @@ public class PreferencesUtil {
     /**********************************remove start******************************************/
 
     public static void remove(String name, String key) {
-        mMap.get(name).edit().remove(isEncrypt ? MD5Util.md5(key) : key).apply();
+        getPreference(name).edit().remove(isEncrypt ? MD5Util.md5(key) : key).apply();
     }
 
     public static void remove(String key) {
@@ -230,7 +230,7 @@ public class PreferencesUtil {
     }
 
     public static void clear(String name) {
-        mMap.get(name).edit().clear().apply();
+        getPreference(name).edit().clear().apply();
     }
 
     public static void clear() {

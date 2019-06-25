@@ -221,4 +221,9 @@ public class CoreCrashActivity extends BaseCoreActivity {
     private void showToast(String text) {
         Toasty.info(getApplicationContext(), text).show();
     }
+
+    @Override
+    public void onBackPressed() {
+        killCurrentProcess();
+    }
 }

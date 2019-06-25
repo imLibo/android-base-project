@@ -69,7 +69,7 @@ class HomeActivity : BaseActivity() {
 //                    LoadingDialog.showHorizontal("正在同步数据2，请稍候...", HomeActivity@ this)
 //                }, 4000)
                 view.postDelayed({
-                    LoadingDialog.dismissDialog(this@HomeActivity)
+                    LoadingDialog.dismissDialog()
                 }, 8000)
             } else if (code == 3) {
                 val dialog = StepProgressViewDialog()

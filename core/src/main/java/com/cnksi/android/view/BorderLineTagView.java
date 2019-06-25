@@ -10,6 +10,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.widget.RadioGroup;
 
 import com.cnksi.android.R;
 
@@ -24,12 +25,14 @@ import com.cnksi.android.R;
  */
 public class BorderLineTagView extends AppCompatRadioButton {
 
-    private int checkedColor;
+    private int checkedTextColor;
+    private int checkedBackgroundColor;
     private int radius;
     private int shape;
     private int strokeWidth;
     private boolean isRadioButton;
     private boolean isUnCheckedShowBorder;
+    private boolean allowNoCheck = false;
     /**
      * 选中后是否填充背景
      */
@@ -53,11 +56,13 @@ public class BorderLineTagView extends AppCompatRadioButton {
 
     private void init(AttributeSet attrs, int defStyleAttr) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.BorderLineTagView, defStyleAttr, 0);
-        checkedColor = a.getColor(R.styleable.BorderLineTagView_blt_checkedColor, 0);
+        checkedTextColor = a.getColor(R.styleable.BorderLineTagView_blt_checkedTextColor, 0);
+        checkedBackgroundColor = a.getColor(R.styleable.BorderLineTagView_blt_checkedBackgroundColor, 0);
         radius = a.getDimensionPixelSize(R.styleable.BorderLineTagView_blt_radius, 90);
         strokeWidth = a.getDimensionPixelOffset(R.styleable.BorderLineTagView_blt_strokeWidth, 3);
         shape = convertShape(a.getInt(R.styleable.BorderLineTagView_blt_shape, 0));
         isRadioButton = a.getBoolean(R.styleable.BorderLineTagView_blt_isRadioButton, false);
+        allowNoCheck = a.getBoolean(R.styleable.BorderLineTagView_blt_allowNoCheck, false);
         isFillBackground = a.getBoolean(R.styleable.BorderLineTagView_blt_isFillBackground, false);
         isUnCheckedShowBorder = a.getBoolean(R.styleable.BorderLineTagView_blt_isUnCheckedShowBorder, true);
         a.recycle();
@@ -76,11 +81,11 @@ public class BorderLineTagView extends AppCompatRadioButton {
 
         StateListDrawable stateListDrawable = new StateListDrawable();
         stateListDrawable.addState(new int[]{android.R.attr.state_checked},
-                isFillBackground ? getFillBackgroundDrawable(txtColor) : getDrawable(checkedColor, strokeWidth));
-        stateListDrawable.addState(new int[]{}, getDrawable(txtColor, isUnCheckedShowBorder ? strokeWidth : 0));
+                isFillBackground ? getFillBackgroundDrawable(checkedBackgroundColor) : getDrawable(checkedBackgroundColor, strokeWidth));
+        stateListDrawable.addState(new int[]{}, getDrawable(getBackgroundColor(), isUnCheckedShowBorder ? strokeWidth : 0));
         this.setBackground(stateListDrawable);
 
-        setTextColor(new ColorStateList(new int[][]{{android.R.attr.state_checked}, {}}, new int[]{checkedColor, txtColor}));
+        setTextColor(new ColorStateList(new int[][]{{android.R.attr.state_checked}, {}}, new int[]{checkedTextColor, txtColor}));
     }
 
     private GradientDrawable getDrawable(int color, int strokeWidth) {
@@ -88,7 +93,6 @@ public class BorderLineTagView extends AppCompatRadioButton {
         drawable.setCornerRadius(radius);
         drawable.setShape(shape);
         drawable.setStroke(strokeWidth, color);
-        drawable.setColor(getBackgroundColor());
         return drawable;
     }
 
@@ -129,12 +133,12 @@ public class BorderLineTagView extends AppCompatRadioButton {
         }
     }
 
-    public int getCheckedColor() {
-        return checkedColor;
+    public int getCheckedTextColor() {
+        return checkedTextColor;
     }
 
-    public void setCheckedColor(int checkedColor) {
-        this.checkedColor = checkedColor;
+    public void setCheckedTextColor(int checkedTextColor) {
+        this.checkedTextColor = checkedTextColor;
         updateBackground();
         invalidate();
     }
@@ -181,10 +185,9 @@ public class BorderLineTagView extends AppCompatRadioButton {
 
     @Override
     public void toggle() {
-        if (isRadioButton) {
-            super.toggle();
-        } else {
-            setChecked(!isChecked());
+        setChecked(!isChecked());
+        if (allowNoCheck && !isChecked() && getParent() != null) {
+            ((RadioGroup) getParent()).clearCheck();
         }
     }
 
